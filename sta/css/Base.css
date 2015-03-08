@@ -1,0 +1,121 @@
+/**
+ * 全局样式控制文件
+ */
+ /*  网站中使用的彩色
+    蓝色：#15ADFF
+    浅蓝色：#7CDAEF
+    黄色：#FCB712
+    浅灰色：#E7E8E9, #EDEDED
+    深灰色：#CBCBCB
+*/
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-size: 100%;
+    font-family: Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", STXihei, STHeiti, Heiti, SimSun, sans-serif;
+    color: #555;
+}
+html, body {
+    /*float: left;*/
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    color: #1570A6;
+    text-decoration: none;
+}
+a:hover {
+    color: #083047;
+    text-decoration: underline;
+}
+
+/*
+ * 浮动位置class
+ */
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
+/**
+ * 颜色class
+ */
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+
+.RIGHT {
+    color: green;
+}
+.ERROR {
+    color: red;
+}
+.LOADING {
+    padding-left: 20px;
+    color: green;
+    background: url(../Media/Images/loading16.gif) 0px 0px no-repeat;
+}
+
+.textBox {
+    width: 200px;
+    padding: 5px 8px;
+    border: 1px solid #CBCBCB;
+}
+.inputTip {
+    margin-left: 10px;
+}
+
+.button {
+    padding: 5px 15px;
+    margin: 1px 0px;
+    color: white;
+    /*background-color: #15ADEF;*/
+    background-color: #2672EC;
+    border: 0px;
+}
+.button:hover {
+    cursor: pointer;
+    /*background-color: #7CDAEF;*/
+    background-color: #5A94F1;
+}
+
+/*
+ * 专门输入的框列表和submit 集合的ul
+ */
+.ulForm {
+    float: left;
+    width: 300px;
+}
+.ulForm li {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.ulColumn {
+    float: left;
+    width: 100%;
+}
+.ulColumn li {
+    float: left;
+    margin-right: 15px;
+}
+.ulColumn li label {
+    float: left;
+    padding: 5px 0px;
+}
+.ulColumn .textBox {
+    width: 150px;
+}
