@@ -47,17 +47,14 @@ class PageBase {
     const VERIFY_USER_KEY = 'verify_user';
     public function accessVerify() {
         require_once CODE_BASE . '/util/http/CookieUtil.class.php';
-
-        // CookieUtil::write(self::VERIFY_USER_KEY, 'admin.test_1428422400', 30 * 24 * 3600);
-        // var_dump('here');exit;
-
         $allow = array(
             'admin.test',
         );
         $cookieUserStr = CookieUtil::read(self::VERIFY_USER_KEY);
         preg_match('/^(.*)_([\d]{8,})$/', $cookieUserStr, $dataArr);     //cookie 数据本身加到期时间戳，防止抓取伪造, 格式为admintest_1428422400
         if (empty($dataArr) || $dataArr[2] < time() || !in_array($dataArr[1], $allow)) {
-            header('location:/verify');     //跳转到认证页面
+            $originUri = $_SERVER['REQUEST_URI'];
+            header('location:/verify?loc=' . urlencode($originUri));     //跳转到认证页面, 附带原先连接
         }
     }
 

@@ -19,6 +19,8 @@ class CookieUtil {
     }
 
     public static function read($key) {
+        if (!isset($_COOKIE[$key]))
+            return false;
         $encryptStr = $_COOKIE[$key];
         return AesEcb::decrypt($encryptStr);
     }

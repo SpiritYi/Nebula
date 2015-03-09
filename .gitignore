@@ -1,0 +1,4 @@
+#db 配置文件不提交svn
+DBConfig.class.php
+
+*.DS_Store
