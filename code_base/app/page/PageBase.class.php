@@ -43,49 +43,23 @@ class PageBase {
         return $ret;
     }
 
-    /**
-     * 载入某个指定的文件，比如网站头部、脚步
-     * @param $fileName string 文件相对路径，相对：Page/App/Template
-     */
-    // public static function load($fileName) {
-    //     if (empty($fileName)) {
-    //         trigger_error('载入静态模板文件失败。' . $fileName, E_USER_ERROR);
-    //     }
-    //     $filePath = $this->_templateDirPath . '/' . $fileName;
-    //     if (!file_exists($filePath)) {
-    //         trigger_error('未找到指定模板文件' . $fileName, E_USER_ERROR);
-    //     }
-    //     require_once $filePath;
-    // }
+    //页面访问权限控制
+    const VERIFY_USER_KEY = 'verify_user';
+    public function accessVerify() {
+        require_once CODE_BASE . '/util/http/CookieUtil.class.php';
 
-    /**
-     * 加载页面需要的静态文件
-     * @param $folder string 大目录名称，例：StaticFile
-     * @param $fileName string 静态文件相对路径，相对：StaticFile
-     */
-    // public function helper($folder, $fileName) {
-    //     if (empty($folder)) {
-    //         trigger_error('未指定加载目录');
-    //     }
-    //     $folderPath = STATIC_FILE;
-    //     switch ($folder) {
-    //         case 'StaticFile':
-    //             $folderPath = STATIC_FILE;
-    //             break;
+        // CookieUtil::write(self::VERIFY_USER_KEY, 'admin.test_1428422400', 30 * 24 * 3600);
+        // var_dump('here');exit;
 
-    //         case 'Page':
-    //             $folderPath = PAGE;
-    //             break;
-
-    //         default:
-    //             break;
-    //     }
-    //     $filePath = $folderPath . '/' . $fileName;
-    //     if (!file_exists($filePath)) {
-    //         trigger_error('未找到指定加载文件. ' . $filePath);
-    //     }
-    //     require_once $filePath;
-    // }
+        $allow = array(
+            'admin.test',
+        );
+        $cookieUserStr = CookieUtil::read(self::VERIFY_USER_KEY);
+        preg_match('/^(.*)_([\d]{8,})$/', $cookieUserStr, $dataArr);     //cookie 数据本身加到期时间戳，防止抓取伪造, 格式为admintest_1428422400
+        if (empty($dataArr) || $dataArr[2] < time() || !in_array($dataArr[1], $allow)) {
+            header('location:/verify');     //跳转到认证页面
+        }
+    }
 
     /**
      * <head> 标签中条目输出，如果是文件自动加载，字符串直接输出
