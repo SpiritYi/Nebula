@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <?php echo $this->staticFileLink('CSS', '/Base.css'); ?>
-        <?php echo $this->staticFileLink('CSS', '/Master.css'); ?>
+        <?php echo $this->staticFileLink('CSS', '/css/Base.css'); ?>
+        <?php echo $this->staticFileLink('CSS', '/css/Master.css'); ?>
         <?php echo $this->staticFileLink('JS', '/sea.js'); ?>
         <?php $this->loadHead(); ?>
         <title>Nebula Website</title>

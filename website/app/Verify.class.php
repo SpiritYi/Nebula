@@ -10,7 +10,7 @@ class VerifyPage extends EmptyPage {
 
     public function loadHead() {
         $this->headExport('<title>Nebula Verification</title>');
-        $this->headExport('Verify.css');
+        $this->headExport('/css/Verify.css');
     }
 
     public function action() {

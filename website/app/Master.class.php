@@ -9,7 +9,7 @@ abstract class Master extends PageBase {
 
     public function __construct() {
         //页面请求均需验证
-        header('location:/verify');
+        $this->accessVerify();
 
         PageBase::render('master.php');
     }

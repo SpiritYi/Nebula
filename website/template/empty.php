@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <?php $this->headExport('/Base.css'); ?>
+        <?php $this->headExport('/css/Base.css'); ?>
         <?php $this->loadHead(); ?>
         <title>Nebula</title>
     </head>
