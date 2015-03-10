@@ -1,0 +1,18 @@
+/* 首页defult 页面css */
+
+.navbar {
+    margin-bottom: 0px;
+}
+.banner {
+    height: 500px;
+    background: url(/image/verify_bk.jpg) no-repeat center center;
+}
+.banner-mask {
+    background-color: rgba(100%, 100%, 100%, 0.2);
+}
+.banner * {
+    color: white;
+}
+.banner h2 {
+    font-weight: normal;
+}
