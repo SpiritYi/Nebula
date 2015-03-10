@@ -9,13 +9,11 @@
 require_once WEBSITE . '/app/Master.class.php';
 
 class DefaultPage extends Master {
-    public function loadHead() {}
-
-    public function loadContent() {
-        echo 'this is a default page';
+    public function loadHead() {
+        $this->headExport('css/default.css');
     }
 
     public function action() {
-
+        $this->render('default.php');
     }
 }
