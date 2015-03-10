@@ -57,13 +57,22 @@ class WebRouter {
             return array();
         //根据uri 找文件路径
         $pathStr = WEBSITE . '/app';
-        foreach ($uriArr as $uriItem) {
+        //保留url数据有效文件系统节点
+        foreach ($uriArr as $k => $v) {
+            if (empty($v))
+                unset($uriArr[$k]);
+        }
+        $uriArr = array_values($uriArr);
+        foreach ($uriArr as $index => $uriItem) {
             if (empty($uriItem))
                 continue;
             $dirStr = $pathStr . '/' . $uriItem;
             if (is_dir($dirStr)) {      //当前路径存在，则继续往下找
                 $pathStr = $dirStr;
             } else if (($codeFile = self::_findClassFile($pathStr, $uriItem)) !== false) {   //下一级文件夹查找失败，查找请求的落地页面文件
+                if ($index != (count($uriArr) - 1)) {   //找到文件但不是最后节点，404
+                    return array();
+                }
                 $router = array(
                     'path' => $pathStr,
                     'code_file' => $codeFile,
