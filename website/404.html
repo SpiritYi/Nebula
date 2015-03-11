@@ -2,49 +2,39 @@
 <html>
     <head>
         <title>Nebula_404</title>
+        <meta charset='utf-8' />
         <style type="text/css">
             * {
-                padding: 0px;
                 margin: 0px;
-                color: #333;
-                font-size: 12px;
-                font-family: Microsoft YaHei, Helvetica, "幼圆", "黑体", Arial;
-                background-color: #FAFAFA;
+                padding: 0px;
+                font-size: 100%;
+                font-family: Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", STXihei, STHeiti, Heiti, SimSun, sans-serif;
+                color: #555;
             }
-            #banner {
-                float: left;
+            html, body {
                 width: 100%;
-                margin: 20px 0px;
+                background-color: #FFF;
             }
-            #banner div, #footer div {
-                margin: 0px auto;
-                width: 1000px;
-            }
-            #banner div a {
-                float: left;
-                width: 100%;
+            .banner div {
+                margin: 40px 0px 25px 0px;
                 text-align: center;
-                color: #15ADEF;
-                font-size: 300%;
+                font-size: 250%;
+                color: #A020F0;
             }
-            #footer div a {
-                float: left;
-                width: 100%;
+            .footer .copyright {
                 text-align: center;
-                color: #E5E5E5;
+                color: #EDEDED;
             }
         </style>
     </head>
     <body>
-        <div id="banner">
+        <div class="banner">
             <div>
-                <a>404 You Can Not Find Me</a>
+                404 You Can Not Find Me
             </div>
         </div>
-        <div id="footer">
-            <div>
-                <a>Spirit Yi</a>
-            </div>
+        <div class="footer">
+            <div class="copyright" data-ceo="SpiritYi">© <?php echo date('Y'); ?> Nebula. All Rights Reserved.</div>
         </div>
     </body>
 </html>
