@@ -12,3 +12,9 @@
         实现财富人生
     </p>
 </div>
+
+<script type="text/javascript">
+    seajs.use('script/pageinit.js', function(pageinit) {
+        pageinit.initNavBar($('#navbar_default'));
+    });
+</script>

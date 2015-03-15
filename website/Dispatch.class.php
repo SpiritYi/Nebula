@@ -40,6 +40,7 @@ class Dispatch {
 
         //启动需要访问的文件
         require_once CODE_BASE . '/app/page/EmptyPage.class.php';
+        require_once WEBSITE . '/app/Master.class.php';     //主页面模板
         require_once $router['path'] . '/' . $router['code_file'] . '.class.php';
         $className = $router['code_file'] . 'Page';
         new $className();
