@@ -2,3 +2,6 @@
 DBConfig.class.php
 
 *.DS_Store
+
+test.php
+Test.class.php
