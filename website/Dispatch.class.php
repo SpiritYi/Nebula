@@ -11,12 +11,9 @@ require_once dirname(__FILE__) . '/../config/DirConfig.inc.php';
 require_once CONFIG . '/DBConfig.class.php';
 require_once CODE_BASE . '/util/logger/Logger.class.php';
 
-// require_once CODE_BASE . '/Tools/Http/ClientParam.class.php';
-// require_once CODE_BASE . '/Tools/Http/SessionNamespace.class.php';
 
-// require_once PAGE . '/App/Master.class.php';
-// require_once PAGE . '/App/User/UserMaster.class.php';
-// require_once PAGE . '/App/Bus/BusMaster.class.php';
+require_once CODE_BASE . '/util/http/HttpUtil.class.php';
+
 
 class Dispatch {
 

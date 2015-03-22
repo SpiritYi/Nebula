@@ -26,7 +26,7 @@ class ClientRouter {
             'method' => strtoupper($_SERVER['REQUEST_METHOD']),
             'location' => $locPath,
             // 'group_root' => $locPathArr[1],
-            'resource' => $section[count($section) - 1],
+            'resource' => $section[0],
             'resource_uri' => '/' . strtolower($uriArr[1]) . '/',
         );
         return $result;

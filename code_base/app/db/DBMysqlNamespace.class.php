@@ -25,6 +25,8 @@ class DBMysqlNamespace {
         if (mysqli_connect_errno($handle)) {
             Logger::logError('Connect database error.' . var_export($server, true) . $database, 'db.connect');
         }
+        //只支持utf8
+        $handle->set_charset("utf8");
         return $handle;
     }
 
@@ -105,7 +107,7 @@ class DBMysqlNamespace {
             $result = mysqli_query($handle, $sql);
             if ($result === FALSE) {
                 if (!is_object($handle)) return false;
-                
+
                 //强制指定不能重连
                 if (self::$_HANDLE_PING === DBConstNamespace::NOT_HANDLE_PING) {
                     return false;
@@ -154,7 +156,7 @@ class DBMysqlNamespace {
         }
         return false;
     }
-    
+
     /**
      * @brief 检查handle
      * @param[in] handle $handle, 操作数据库的句柄

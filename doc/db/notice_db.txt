@@ -1,0 +1,25 @@
+#notice 文章公告表
+
+notice
+    id          //自增id
+    type        //数据类型， 0公告，1普通介绍文章
+    title       //文章标题
+    brief       //文章简介
+    template    //文章模板文件路径
+    time        //文章时间
+    status      //0, 正常展示
+
+CREATE TABLE notice (
+    id int AUTO_INCREMENT,
+    type tinyint NOT NULL DEFAULT 0 COMMENT '文章类型，0公告，1普通介绍文章',
+    title VARCHAR(250) NOT NULL DEFAULT '' COMMENT '文章标题',
+    brief VARCHAR(500) NOT NULL DEFAULT '' COMMENT '简介',
+    template VARCHAR(250) NOT NULL DEFAULT '' COMMENT '文章模板文件路径',
+    time int NOT NULL DEFAULT '' COMMENT '所属时间',
+    status tinyint DEFAULT 0 COMMENT '',
+    PRIMARY KEY (id),
+    KEY idx_time (time)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='公告表';
+
+ALTER TABLE notice ADD COLUMN brief VARCHAR(500) NOT NULL DEFAULT '' COMMENT '简介' AFTER title;
+ALTER TABLE notice ADD COLUMN type tinyint NOT NULL DEFAULT 0 COMMENT '文章类型，0公告，1普通介绍文章' AFTER id;

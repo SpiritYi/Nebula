@@ -10,7 +10,7 @@ require_once WEBSITE . '/app/Master.class.php';
 
 class DefaultPage extends Master {
     public function loadHead() {
-        $this->headExport('css/default.css');
+        $this->staExport('css/default.css');
     }
 
     public function action() {

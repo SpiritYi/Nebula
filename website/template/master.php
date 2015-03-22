@@ -1,16 +1,17 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <?php $this->staExport('/css/base.css'); ?>
         <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
         <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
+        <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
         <?php $this->loadHead(); ?>
         <title>Nebula Website</title>
         <style type="text/css">
             .footer {
+                margin-top: 20px;
                 background-color: #F5F5F5;
             }
             .footer .copyright {
@@ -31,14 +32,15 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li id="navbar_default"><a href="/">首页<span class="sr-only">(current)</span></a></li>
-                        <li><a href="/">知识堂</a></li>
+                        <!-- <li><a href="/">知识堂</a></li> -->
+                        <li id="navbar_notice"><a href="/article/noticelist">公告板</a></li>
                         <li id="navbar_earnings"><a href="/company/earnings">投资收益</a></li>
                         <li id="navbar_about"><a href="/company/about">关于公司</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <?php $this->headExport('script/sea.js'); ?>
+        <?php $this->staExport('script/sea.js'); ?>
         <script type="text/javascript">
             seajs.config({
                 'base': '<?php echo DomainConfig::STA_DOMAIN; ?>',
@@ -53,7 +55,7 @@
         <?php $this->action(); ?>
         <footer class="footer">
             <div class="container">
-                <p class="copyright" data-ceo="SpiritYi">© <?php echo date('Y'); ?> Nebula. All Rights Reserved.</p>
+                <p class="copyright" data-ceo="SpiritYi">© <?php echo date('Y'); ?> Nebula Investment Fund. All Rights Reserved.</p>
             </div>
         </footer>
         <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
