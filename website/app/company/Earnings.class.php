@@ -8,7 +8,7 @@
 
 class EarningsPage extends Master {
     public function loadHead() {
-        $this->headExport('<title>投资收益</title>');
+        $this->staExport('<title>投资收益</title>');
     }
 
     public function action() {

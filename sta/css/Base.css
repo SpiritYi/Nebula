@@ -15,26 +15,12 @@
     padding: 0px;
     font-size: 100%;
     font-family: Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", STXihei, STHeiti, Heiti, SimSun, sans-serif;
-    color: #555;
 }
 html, body {
     /*float: left;*/
     width: 100%;
     height: 100%;
     background-color: #FFF;
-}
-
-li {
-    list-style-type: none;
-}
-
-a {
-    color: #1570A6;
-    text-decoration: none;
-}
-a:hover {
-    color: #083047;
-    text-decoration: underline;
 }
 
 /*
@@ -56,6 +42,9 @@ a:hover {
 .red {
     color: red;
 }
+.note {
+    color: #D0D0D0;
+}
 
 .RIGHT {
     color: green;
@@ -69,54 +58,14 @@ a:hover {
     background: url(../Media/Images/loading16.gif) 0px 0px no-repeat;
 }
 
-.textBox {
-    width: 200px;
-    padding: 5px 8px;
-    border: 1px solid #CBCBCB;
+.banner-404 div {
+    margin: 40px 0px 25px 0px;
+    text-align: center;
+    font-size: 250%;
+    color: #A020F0;
 }
-.inputTip {
-    margin-left: 10px;
-}
-
-.button {
-    padding: 5px 15px;
-    margin: 1px 0px;
-    color: white;
-    /*background-color: #15ADEF;*/
-    background-color: #2672EC;
-    border: 0px;
-}
-.button:hover {
-    cursor: pointer;
-    /*background-color: #7CDAEF;*/
-    background-color: #5A94F1;
+.footer-404 .copyright {
+    text-align: center;
+    color: #EDEDED;
 }
 
-/*
- * 专门输入的框列表和submit 集合的ul
- */
-.ulForm {
-    float: left;
-    width: 300px;
-}
-.ulForm li {
-    float: left;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.ulColumn {
-    float: left;
-    width: 100%;
-}
-.ulColumn li {
-    float: left;
-    margin-right: 15px;
-}
-.ulColumn li label {
-    float: left;
-    padding: 5px 0px;
-}
-.ulColumn .textBox {
-    width: 150px;
-}

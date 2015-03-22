@@ -61,7 +61,7 @@ class PageBase {
     /**
      * <head> 标签中条目输出，如果是文件自动加载，字符串直接输出
      */
-    public function headExport($content) {
+    public function staExport($content) {
         preg_match('/^.*\.([\w]{1,10})$/', $content, $match);
         if (empty($match)) {
             echo $content; return;
@@ -74,30 +74,6 @@ class PageBase {
 
             case 'js':
                 echo '<script type="text/javascript" src="'. $fileUrl . '"></script>'; return;
-                break;
-        }
-    }
-
-    /**
-     * 获取静态引入文件
-     * @param $type string enum[CSS, JS]
-     * @param $fileName string 相对StaticFile 文件夹下相应分类文件夹的相对路径，例：相对SstaticFile/CSS 路径
-     * @return string
-     */
-    public function staticFileLink($type, $fileName) {
-        $fileUrl = DomainConfig::STA_DOMAIN . $fileName;
-        switch ($type) {
-            case 'CSS':
-                $linkString = '<link type="text/css" rel="stylesheet" href="' . $fileUrl . '" >';
-                return $linkString;
-                break;
-
-            case 'JS':
-                $linkString = '<script type="text/javascript" src="'. $fileUrl . '"></script>';
-                return $linkString;
-
-            default:
-                # code...
                 break;
         }
     }

@@ -10,6 +10,8 @@ require_once CODE_BASE . '/app/db/BaseMainModel.class.php';
 
 class EarningsRateModel extends BaseMainModel {
     private static $_TABLE = 'earnings_rate';
+    public static $SH_EARN_TYPE = 1;
+    public static $MY_EARN_TYPE = 2;
 
     public static function getEarningsReteList($type) {
         $handle = self::getDBHandle();
