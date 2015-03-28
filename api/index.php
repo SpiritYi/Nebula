@@ -8,12 +8,17 @@
 
 require_once dirname(__FILE__) . '/../config/DirConfig.inc.php';
 require_once CODE_BASE . '/util/logger/Logger.class.php';
+require_once CODE_BASE . '/util/http/HttpUtil.class.php';
 
 require_once API . '/assembly/config/status_errcode/BaseStatusCode.config.php';
 require_once API . '/assembly/ResourceBase.class.php';
 
 class IndexBase {
     public static function dispatch() {
+        //ajax 跨域支持
+        if (isset($_SERVER['HTTP_ORIGIN']) && preg_match('/.*nebula.*/', $_SERVER['HTTP_ORIGIN'])) {
+            header('Access-Control-Allow-Origin:*');
+        };
         //加载通用错误配置信息
         ResourceBase::$ERR_MSG = BaseStatusCode::$BASE_ERR_MSG;
 

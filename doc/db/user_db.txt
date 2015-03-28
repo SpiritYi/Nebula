@@ -1,0 +1,18 @@
+#用户信息表
+
+user_info
+    username        //用户名字
+    nickname        //备注称呼
+    session_expire  //session 有效时间, 默认7天
+    active_time     //最后活跃时间，一天之内不做更新
+
+CREATE TABLE user_info IF NOT EXISTS (
+    id int AUTO_INCREMENT COMMENT '自增用户id',
+    username VARCHAR(24) NOT NULL DEFAULT '' COMMENT '用户名',
+    nickname VARCHAR(12) NOT NULL DEFAULT '' COMMENT '用户备注称呼',
+    session_expire INT NOT NULL DEFAULT 86400 COMMENT 'session有效时间，单位秒，默认7天',
+    active_time INT NOT NULL DEFAULT 0 COMMENT '最后活跃时间，一天内不做更新',
+    PRIMARY KEY id,
+    KEY idx_username (username)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT="用户表";
+

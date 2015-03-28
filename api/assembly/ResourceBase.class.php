@@ -32,22 +32,22 @@ abstract class ResourceBase {
         return $returnArr;
     }
 
-    public static function formatRes($errCode, $httpStatus = '', $errMsg = '', $data = '') {
-        $httpStatus = empty($httpStatus) ? self::$ERR_MSG[$errCode]['0'] : $httpStatus;
-        $errMsg     = empty($errMsg) ? self::$ERR_MSG[$errCode]['1'] : $errMsg;
-        if ($errCode > 0) $errCode = 0;
+    // public static function formatRes($errCode, $httpStatus = '', $errMsg = '', $data = '') {
+    //     $httpStatus = empty($httpStatus) ? self::$ERR_MSG[$errCode]['0'] : $httpStatus;
+    //     $errMsg     = empty($errMsg) ? self::$ERR_MSG[$errCode]['1'] : $errMsg;
+    //     if ($errCode > 0) $errCode = 0;
 
-        $returnArr = array(
-            'http_status' => $httpStatus,
-            'code' => $errCode,
-            'message' => $errMsg,
-            'data' => $data,
-        );
-        if (!in_array($httpStatus, BaseStatusCode::$HTTP_STATUS)) {
-            $returnArr['http_status'] = BaseStatusCode::HTTP_400;
-        }
-        return $returnArr;
-    }
+    //     $returnArr = array(
+    //         'http_status' => $httpStatus,
+    //         'code' => $errCode,
+    //         'message' => $errMsg,
+    //         'data' => $data,
+    //     );
+    //     if (!in_array($httpStatus, BaseStatusCode::$HTTP_STATUS)) {
+    //         $returnArr['http_status'] = BaseStatusCode::HTTP_400;
+    //     }
+    //     return $returnArr;
+    // }
 
     /**
      * 输出需要返回数据
@@ -71,11 +71,6 @@ abstract class ResourceBase {
         //     }
         // }
 
-        //跨域支持
-        if (isset($_SERVER['HTTP_ORIGIN']) && preg_match('/.*nebula.*/', $_SERVER['HTTP_ORIGIN'])) {
-            header('Access-Control-Allow-Origin:*');
-        };
-
         switch ($disType) {
             case 'json':
                 echo json_encode($data);
@@ -87,6 +82,13 @@ abstract class ResourceBase {
                 echo json_encode($data);
                 break;
         }
+    }
+
+    //api 接口输出数据
+    public static function output($httpCode, $data, $errMsg = '', $errCode = 0) {
+        $res = self::formatReturn($httpCode, $data, $errMsg, $errCode);
+        self::display($res);
+        exit;
     }
 
     //分发参数

@@ -37,20 +37,26 @@
                         <li id="navbar_earnings"><a href="/company/earnings">投资收益</a></li>
                         <li id="navbar_about"><a href="/company/about">关于公司</a></li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id="navbar_signout"><a>Sign Out</a></li>
+                    </ul>
                 </div>
             </div>
         </nav>
-        <?php $this->staExport('script/sea.js'); ?>
+        <?php $this->staExport('script/lib/sea.js'); ?>
         <script type="text/javascript">
             seajs.config({
                 'base': '<?php echo DomainConfig::STA_DOMAIN; ?>',
                 'alias': {
-                    'jquery': 'script/jquery-2.1.3.js'
+                    // 'jquery': 'script/jquery-2.1.3.js',
+                    'NB': 'script/base/nb.js'
                 }
             });
         </script>
-        <script src="<?php echo DomainConfig::STA_DOMAIN; ?>/script/jquery-2.1.3.js"></script>
-        <script src="<?php echo DomainConfig::STA_DOMAIN; ?>/script/highcharts.js"></script>
+        <?php $this->staExport('script/lib/jquery-2.1.3.js'); ?>
+        <?php $this->staExport('/script/lib/jquery.cookie-1.4.1.min.js'); ?>
+        <!-- <?php $this->staExport('/script/base/nb.js'); ?> -->
+        <?php $this->staExport('/script/lib/highcharts.js'); ?>
 
         <?php $this->action(); ?>
         <footer class="footer">
@@ -65,5 +71,16 @@
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
         <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+        <script type="text/javascript">
+            seajs.use([], function() {
+                $('#navbar_signout').click(function() {
+                    var verify = $.cookie('verify_user');
+
+                    var flag = $.removeCookie('verify_user', {path: '/'});
+                    console.log(flag);
+                    location.reload();
+                });
+            });
+        </script>
     </body>
 </html>

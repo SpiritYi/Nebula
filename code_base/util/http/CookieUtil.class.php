@@ -18,11 +18,26 @@ class CookieUtil {
         setcookie($key, $encValue, time() + $lifeTime);
     }
 
+    //返回返回一个cookie 信息
+    public static function create($key, $value, $lifeTime = 3600) {
+        return array(
+            'k' => $key,
+            'v' => AesEcb::encrypt($value),
+            't' => time() + $lifeTime,
+            't_h' => date('Y/m/d H:i:s', time() + $lifeTime),
+        );
+    }
+
     public static function read($key) {
         if (!isset($_COOKIE[$key]))
             return false;
         $encryptStr = $_COOKIE[$key];
         return AesEcb::decrypt($encryptStr);
+    }
+
+    //还原cookie 存储的字符串
+    public static function reduc($value) {
+        return AesEcb::decrypt($value);
     }
 
     public static function delete($key) {
