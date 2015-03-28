@@ -19,6 +19,9 @@ class EarningsRes extends ResourceBase {
     }
 
     public function getEarningsListAction() {
+
+        setcookie('test_cookie', 'hello wolrd.', time() + 3600);
+
         require_once API . '/v1/company/model/EarningsRateModel.class.php';
         $myList = EarningsRateModel::getEarningsReteList(EarningsRateModel::$MY_EARN_TYPE);
         $myData = array();

@@ -69,7 +69,8 @@
 </div>
 
 <script type="text/javascript">
-    seajs.use('script/pageinit.js', function(pageinit) {
+    seajs.use(['script/pageinit.js', 'NB'], function(pageinit, NB) {
         pageinit.initNavBar($('#navbar_default'));
+
     });
 </script>

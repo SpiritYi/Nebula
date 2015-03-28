@@ -14,16 +14,17 @@ class VerifyPage extends EmptyPage {
     }
 
     public function action() {
-        require_once CODE_BASE . '/util/http/HttpUtil.class.php';
+        $this->userInfo = $this->accessVerify();
+        if (!empty($this->userInfo)) {
+            require_once CODE_BASE . '/util/http/HttpUtil.class.php';
+            $loc = HttpUtil::getParam('loc');
+            $loc = empty($loc) ? '/' : $loc;
+            header('location:' . $loc);
+        }
+
         $this->render('verify.php');
 
         $role = HttpUtil::getParam('role');
-        if ($role == 'ceo') {   //测试阶段指定参数种cookie
-            require_once CODE_BASE . '/util/http/CookieUtil.class.php';
-            CookieUtil::write(PageBase::VERIFY_USER_KEY, 'admin.test_' . strtotime('+7 day'), 7 * 24 * 3600);
-            $loc = HttpUtil::getParam('loc');
-            header('location:' . $loc);
-        }
-        // CookieUtil::delete(self::VERIFY_USER_KEY);
+
     }
 }

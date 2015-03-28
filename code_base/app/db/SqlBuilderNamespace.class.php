@@ -307,7 +307,7 @@ class SqlBuilderNamespace
                 }
                 else
                 {
-                    $sqlFilterSegment[] = "{$filters[$i][0]} {$filters[$i][1]} '{$filters[$i][2]}' ";
+                    $sqlFilterSegment[] = "{$filters[$i][0]} {$filters[$i][1]} binary '{$filters[$i][2]}' ";
                 }
             }
         }
@@ -341,7 +341,7 @@ class SqlBuilderNamespace
             return self::mysql_escape_mimic($content);
         }
     }//}}}
-    
+
     /**
      * @breif 模拟 mysql escape
      * @param mix $inp
