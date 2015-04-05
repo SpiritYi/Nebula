@@ -1,0 +1,20 @@
+//用户资产详细变动表
+
+property_record
+    id          //自增id
+    user_id     //用户id
+    type        //记录类型，1申购转入，2赎回转出，3盈利增值，4亏损减值
+    amount      //数目
+    describe        //备注说明
+    time        //记录时间
+
+CREATE TABLE IF NOT EXISTS property_record (
+    id int AUTO_INCREMENT COMMENT '自增id',
+    user_id int NOT NULL DEFAULT 0 COMMENT '所属用户id',
+    type tinyint NOT NULL DEFAULT 1 COMMENT '记录类型，1申购转入，2赎回转出，3盈利增值，4亏损减值',
+    amount float NOT NULL DEFAULT 0 COMMENT '变动金额',
+    notes VARCHAR(200) NOT NULL DEFAULT '' COMMENT '备注说明',
+    time int NOT NULL DEFAULT 0 COMMENT '生成时间',
+    PRIMARY KEY (id),
+    KEY idx_userid_time (user_id, time)
+) ENGINE=InnoDB charset=utf8 COMMENT='用户资产详细变动表';
