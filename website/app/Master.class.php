@@ -21,6 +21,11 @@ abstract class Master extends PageBase {
         PageBase::render('master.php');
     }
 
+    //获取当前登录用户
+    public function getSessionUser() {
+        return $this->userInfo;
+    }
+
     abstract public function loadHead();
 
     abstract public function action();

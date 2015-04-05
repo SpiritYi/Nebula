@@ -43,20 +43,16 @@ class PageBase {
         return $ret;
     }
 
+    public function templateFileExists($templateFile) {
+        return file_exists(self::$_TEMPLATE_DIR_PATH . '/' . $templateFile);
+    }
+
     //页面访问权限控制
-    const VERIFY_USER_KEY = 'verify_user';
     public function accessVerify() {
         require_once CODE_BASE . '/util/http/CookieUtil.class.php';
-        $cookieUserStr = CookieUtil::read(self::VERIFY_USER_KEY);
         require_once CODE_BASE . '/app/user/UserNamespace.class.php';
-        $cookieData = UserNamespace::splitVerifyCookie($cookieUserStr);
-        if (!empty($cookieData) && $cookieData['expire'] > time()) {
-            $userinfo = UserNamespace::getUserInfo($cookieData['username']);
-            if (!empty($userinfo)) {
-                return $userinfo;
-            }
-        }
-        return false;
+        $cookieUserStr = CookieUtil::read(UserNamespace::USER_VERIFY_COOKIE_KEY);
+        return UserNamespace::getCookieUser($cookieUserStr);
     }
 
     /**

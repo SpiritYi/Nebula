@@ -16,3 +16,5 @@ CREATE TABLE user_info IF NOT EXISTS (
     KEY idx_username (username)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT="用户表";
 
+ALTER TABLE user_info ADD COLUMN email VARCHAR(50) NOT NULL DEFAULT '' COMMENT '用户联系邮箱' AFTER nickname;
+ALTER TABLE user_info ADD COLUMN phone VARCHAR(20) NOT NULL DEFAULT '' COMMENT '用户联系电话' AFTER email;

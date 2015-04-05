@@ -16,26 +16,28 @@ require_once API . '/assembly/ResourceBase.class.php';
 class IndexBase {
     public static function dispatch() {
         //ajax 跨域支持
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+        // header('Access-Control-Allow-Credentials:true');
         if (isset($_SERVER['HTTP_ORIGIN']) && preg_match('/.*nebula.*/', $_SERVER['HTTP_ORIGIN'])) {
             header('Access-Control-Allow-Origin:*');
         };
-        //加载通用错误配置信息
-        ResourceBase::$ERR_MSG = BaseStatusCode::$BASE_ERR_MSG;
 
         require_once API . '/assembly/ClientRouter.class.php';
         //解析url 获取相应数据
         $uriMatch = ClientRouter::match($_SERVER['REQUEST_URI']);
         if (empty($uriMatch)) {
-            $res = ResourceBase::formatRes(BaseStatusCode::ERR_NOT_FOUND, '', 'uri match failed.');
-            ResourceBase::display($res);exit;
+            ResourceBase::output(404, '', 'uri match failed.');
         }
         //支持的请求方式
         $allowMethod = array('GET', 'POST', 'PUT', 'DELETE');
         if (!in_array($uriMatch['method'], $allowMethod)) {
-            $res = ResourceBase::formatRes(BaseStatusCode::ERR_REQUEST_METHOD);
-            ResourceBase::display($res);exit;
+            if ($uriMatch['method'] == 'OPTIONS') {
+                ResourceBase::output(200, $allowMethod);
+            } else {
+                ResourceBase::output(405, '');
+            }
         }
-
         //根据请求分发加载resource 文件
         $resourceLoc = API . $uriMatch['location'];
         $resourcePathTemp = $resourceLoc . '/resource/%s.class.php';
@@ -52,8 +54,7 @@ class IndexBase {
             $resourceFile = sprintf($resourcePathTemp, $allFiles[$uriMatch['resource']]);
         }
         if (!file_exists($resourceFile)) {
-            $res = ResourceBase::formatRes(BaseStatusCode::ERR_NOT_FOUND, '', 'route error or resource not fount');
-            ResourceBase::display($res);exit;
+            ResourceBase::output(404, '', 'route error or resource not fount');
         }
 
         //加载资源
@@ -71,16 +72,14 @@ class IndexBase {
             $class = $allFiles[$uriMatch['resource']] . 'Res';
         }
         if (!class_exists($class)) {
-            $res = ResourceBase::formatRes(BaseStatusCode::ERR_NOT_FOUND, '', 'uri error or resource class not fount');
-            ResourceBase::display($res);exit;
+            ResourceBase::output(400, '', 'uri error or resource class not fount');
         }
 
         $resourceInstance = new $class();
         $uriMapConfig = $resourceInstance->setUriMatchConfig();
         $matchRes = ClientRouter::mapUri($uriMatch['resource_uri'], $uriMapConfig);
         if (empty($matchRes)) {
-            $res = ResourceBase::formatRes(BaseStatusCode::ERR_NOT_FOUND, '', 'URL error or Action not fount');
-            ResourceBase::display($res);exit;
+            ResourceBase::output(400, '', 'URL error or Action not fount');
         }
         //赋值uri 中数据信息
         $resourceInstance->URI_DATA = $matchRes['uri_data'];
@@ -88,25 +87,16 @@ class IndexBase {
         //兼容赋值到clientPara
         if (!empty($matchRes['uri_data'])) {
             foreach ($matchRes['uri_data'] as $key => $value) {
-                clientPara::$param['get'][$key] = $value;
+                HttpUtil::$param[$key] = $value;
             }
         }
+        HttpUtil::initParams();
 
         //通过路由指定调用方法
         $funcName = $matchRes['method_config'][$uriMatch['method']] . 'Action';
         if (!method_exists($resourceInstance, $funcName)) {
-            $res = ResourceBase::formatRes(BaseStatusCode::ERR_SYSTEM, '', 'resource function not exists.');
-            ResourceBase::display($res);exit;
+            ResourceBase::output(500, '', 'resource function not exists.');
         }
-
-        //加载当前访问类目错误配置
-        // $errClass = ucfirst($uriMatch['group_root']) . 'ErrCode';
-        // $errCodeConfigFile =  API . '/assembly/config/status_errcode/' . $errClass . '.config.php';
-        // if (file_exists($errCodeConfigFile)) {
-        //     require_once $errCodeConfigFile;
-        //     $errCodeInstance = new $errClass();
-        //     ResourceBase::$ERR_MSG += $errCodeInstance->err_msg;
-        // }
 
         //传入参数统一校验处理
         $checkRes = $resourceInstance->validateParam();

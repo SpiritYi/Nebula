@@ -18,7 +18,7 @@ class CookieUtil {
         setcookie($key, $encValue, time() + $lifeTime);
     }
 
-    //返回返回一个cookie 信息
+    //返回一个cookie 信息, ajax 保存cookie 使用
     public static function create($key, $value, $lifeTime = 3600) {
         return array(
             'k' => $key,
@@ -36,7 +36,7 @@ class CookieUtil {
     }
 
     //还原cookie 存储的字符串
-    public static function reduc($value) {
+    public static function reduce($value) {
         return AesEcb::decrypt($value);
     }
 
