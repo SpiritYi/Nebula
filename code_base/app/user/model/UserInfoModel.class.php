@@ -11,10 +11,16 @@ require_once CODE_BASE . '/app/db/BaseMainModel.class.php';
 class UserInfoModel {
     private static $_TABLE = 'user_info';
 
+    public static function selectUserInfoById($id) {
+        return self::_selectUser('id', $id);
+    }
     public static function selectUserInfoByName($username) {
+        return self::_selectUser('username', $username);
+    }
+    public static function _selectUser($field, $data) {
         $handle = BaseMainModel::getDbHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'username', 'nickname', 'session_expire', 'active_time'),
-                array(array('username', '=', $username)));
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'username', 'nickname', 'email', 'phone', 'session_expire', 'active_time'),
+                array(array($field, '=', $data)));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }

@@ -7,7 +7,41 @@ define(function(require, exports) {
     //api 专用请求封装函数
     exports.apiAjax = function(args) {
         // config.abc();
-        console.log(args, config.STA_DOMAIN);
+        if (!args.data)
+            args.data = {};
+        args.data[config.USER_VERIFY_COOKIE_KEY] = $.cookie(config.USER_VERIFY_COOKIE_KEY);
+        if (args.loading)
+            args.loading.show();
+        $.ajax({
+            type: args.type,
+            data: JSON.stringify(args.data),
+            url: args.url,
+            contentType: 'Application/json',
+            dataType: 'json',
+            success: function(data) {
+                if (args.loading)
+                    args.loading.hide();
+                args.success(data);
+            },
+            error: function(data) {
+                if (args.loading)
+                    args.loading.hide();
+                var errorData = {};
+                try{
+                    errorData = $.parseJSON(data.responseText);
+                } catch(e) {
+                    errorData['message'] = data.responseText;
+                }
+                if (args.error)
+                    args.error(errorData);
+            }
+        });
+    }
+
+    exports.navActive = function(selecter) {
+        $().ready(function() {
+            $(selecter).addClass('active');
+        });
     }
 
     //提示框
@@ -23,6 +57,7 @@ define(function(require, exports) {
             .attr('class', 'handle-tip alert alert-dismissible alert-' + type);
     }
 });
+
 
 //注册NB.tip
 !function($) {

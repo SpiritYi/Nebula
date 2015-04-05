@@ -52,10 +52,8 @@ html, body {
 .ERROR {
     color: red;
 }
-.LOADING {
-    padding-left: 20px;
-    color: green;
-    background: url(../Media/Images/loading16.gif) 0px 0px no-repeat;
+.submit-group img {
+    margin-left: 20px;
 }
 
 .banner-404 div {

@@ -23,11 +23,6 @@
 
 <script text="javascript/text">
     seajs.use(['NB'], function(NB) {
-        var str = '{"message":"invalid params.","code":0,"data":"",lk}';
-        try{
-            var json = $.parseJSON(str);
-        } catch (e) {}
-        console.log(json);
         //回车支持
         $('#username').keyup(function(e) {
             if (e.keyCode == 13) {
@@ -46,13 +41,12 @@
             }, 100);
 
             var username = $('#username').val();
-            $.ajax({
+            NB.apiAjax({
                 type: 'POST',
                 data: {'username': username},
                 url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/user/session/',
                 datatype: 'json',
                 success: function(data) {
-                    console.log(data);
                     var cookieTime = new Date(data.data.cookie.t_h);
                     $.cookie(data.data.cookie.k, data.data.cookie.v, {expires: cookieTime, path: '/'});
                     location.reload();
@@ -61,7 +55,6 @@
                     runFlag = false;
                     process.hide();
                     bar.css({'width': 0});
-                    console.log(data);
 
                     var error = '请求出错! ';
                     try {

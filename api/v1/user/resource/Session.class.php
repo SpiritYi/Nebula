@@ -33,7 +33,7 @@ class SessionRes extends ResourceBase {
         $cookie = CookieUtil::create(UserNamespace::USER_VERIFY_COOKIE_KEY, $verifyStr, $userInfo['session_expire']);
         //更新活跃时间
         $update = array('id' => $userInfo['id'], 'active_time' => time());
-        UserNamespace::setUserInfo($update);
+        UserNamespace::setUserInfo($userInfo['id'], $update);
         ResourceBase::output(200, array('cookie' => $cookie), 'OK');
     }
 

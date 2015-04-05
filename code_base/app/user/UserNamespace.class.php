@@ -18,12 +18,36 @@ class UserNamespace {
         return $userInfo[0];
     }
 
-    public static function setUserInfo($data) {
-        return UserInfoModel::updateUserInfo($data['id'], $data);
+    public static function setUserInfo($id, $data) {
+        $userInfo = UserInfoModel::selectUserInfoById($id);
+        if (empty($userInfo))
+            return false;
+        $updateData = array();
+        //只做变动更新
+        foreach ($userInfo[0] as $k => $v) {
+            if (isset($data[$k]) && !empty($data[$k]) && $data[$k] != $userInfo[0][$k]) {
+                $updateData[$k] = $data[$k];
+            }
+        }
+        if (empty($updateData))
+            return true;
+        $updateData['active_time'] = time();
+        return UserInfoModel::updateUserInfo($id, $updateData);
     }
 
+    //根据cookie 明文获取对应用户信息
+    public function getCookieUser($cookieP) {
+        $cookieData = self::_splitVerifyCookie($cookieP);
+        if (!empty($cookieData) && $cookieData['expire'] > time()) {
+            $userinfo = UserNamespace::getUserInfo($cookieData['username']);
+            if (!empty($userinfo)) {
+                return $userinfo;
+            }
+        }
+        return false;
+    }
     //解密后的cookie 明文
-    public static function splitVerifyCookie($cookieValue) {
+    private static function _splitVerifyCookie($cookieValue) {
         preg_match('/^(.*)_([\d]{8,})$/', $cookieValue, $dataArr);     //cookie 数据本身加到期时间戳，防止抓取伪造, 格式为admintest_1428422400
         if (empty($dataArr) || empty($dataArr[1])) {
             return false;

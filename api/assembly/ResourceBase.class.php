@@ -32,22 +32,13 @@ abstract class ResourceBase {
         return $returnArr;
     }
 
-    // public static function formatRes($errCode, $httpStatus = '', $errMsg = '', $data = '') {
-    //     $httpStatus = empty($httpStatus) ? self::$ERR_MSG[$errCode]['0'] : $httpStatus;
-    //     $errMsg     = empty($errMsg) ? self::$ERR_MSG[$errCode]['1'] : $errMsg;
-    //     if ($errCode > 0) $errCode = 0;
-
-    //     $returnArr = array(
-    //         'http_status' => $httpStatus,
-    //         'code' => $errCode,
-    //         'message' => $errMsg,
-    //         'data' => $data,
-    //     );
-    //     if (!in_array($httpStatus, BaseStatusCode::$HTTP_STATUS)) {
-    //         $returnArr['http_status'] = BaseStatusCode::HTTP_400;
-    //     }
-    //     return $returnArr;
-    // }
+    public function getSessionUser() {
+        $verify = HttpUtil::getParam('verify_user');
+        require_once CODE_BASE . '/util/http/CookieUtil.class.php';
+        $cookieP = CookieUtil::reduce($verify);
+        require_once CODE_BASE . '/app/user/UserNamespace.class.php';
+        return UserNamespace::getCookieUser($cookieP);
+    }
 
     /**
      * 输出需要返回数据
@@ -61,15 +52,6 @@ abstract class ResourceBase {
 
         //低版本nginx 兼容，手动添加header 返回
         header('Content-Type:application/json');
-        // if (!in_array($httpStatus, array(200, 201, 204, 206, 301, 302, 303, 304, 307))) {
-        //     header('Access-Control-Allow-Credentials:true');
-        //     header('Access-Control-Allow-Headers:customerId, clientAgent, GjData-Version, versionId, model, agency, contentformat, userId, token, mac, interface, X-Ganji-Agent, X-Ganji-Channel');
-        //     header('Access-Control-Allow-Methods:POST, GET, OPTIONS, DELETE, PUT');
-        //     $httpReferer = 'http://sta.ganji.com';
-        //     if (isset($_SERVER['HTTP_ORIGIN']) && preg_match("/^http:\/\/3g.ganji.com.*/", $_SERVER['HTTP_ORIGIN'])) {
-        //         $httpReferer = 'http://3g.ganji.com';
-        //     }
-        // }
 
         switch ($disType) {
             case 'json':

@@ -23,8 +23,5 @@ class VerifyPage extends EmptyPage {
         }
 
         $this->render('verify.php');
-
-        $role = HttpUtil::getParam('role');
-
     }
 }

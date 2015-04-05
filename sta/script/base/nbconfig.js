@@ -2,4 +2,5 @@
 define(function(require, exports) {
 
     exports.STA_DOMAIN = 'http://sta.nebula.com';
+    exports.USER_VERIFY_COOKIE_KEY = 'verify_user';
 })
