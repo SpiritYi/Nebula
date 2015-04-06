@@ -35,7 +35,13 @@
                         <!-- <li><a href="/">知识堂</a></li> -->
                         <li id="navbar_notice"><a href="/article/noticelist">公告板</a></li>
                         <li id="navbar_earnings"><a href="/company/earnings">投资收益</a></li>
-                        <li id="navbar_about"><a href="/company/about">关于公司</a></li>
+                        <li id="navbar_about" class="dropdown">
+                            <a href="/company/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">关于公司 <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/company/about">公司简介</a></li>
+                                <li><a href="/company/siteupdate">网站更新</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="navbar_user"><a href="/user/property"><?php echo $this->userInfo['nickname']; ?></a></li>
@@ -56,7 +62,6 @@
         </script>
         <?php $this->staExport('/script/lib/jquery-2.1.3.js'); ?>
         <?php $this->staExport('/script/lib/jquery.cookie-1.4.1.min.js'); ?>
-        <!-- <?php $this->staExport('/script/base/nb.js'); ?> -->
         <?php $this->staExport('/script/lib/highcharts.js'); ?>
 
         <?php $this->action(); ?>
@@ -65,8 +70,6 @@
                 <p class="copyright" data-ceo="SpiritYi">© <?php echo date('Y'); ?> Nebula Investment Fund. All Rights Reserved.</p>
             </div>
         </footer>
-        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-        <!-- // <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script> -->
 
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
         <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

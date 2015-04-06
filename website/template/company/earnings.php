@@ -7,8 +7,9 @@
 </div>
 
 <script text="text/javascript">
-    seajs.use(['NB', 'script/pageinit'], function(NB, pageinit) {
-        pageinit.initNavBar($('#navbar_earnings'));
+    seajs.use(['NB', 'script/base/page'], function(NB, page) {
+        page.initNavBar($('#navbar_earnings'));
+
         NB.apiAjax({
             type: 'GET',
             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/company/earnings/',

@@ -26,7 +26,8 @@
 </div>
 
 <script type="text/javascript">
-    seajs.use([], function() {
-        $('#navbar_notice').addClass('active');
+    seajs.use(['script/base/page'], function(page) {
+        // $('#navbar_notice').addClass('active');
+        page.initNavBar($('#navbar_notice'));
     })
 </script>

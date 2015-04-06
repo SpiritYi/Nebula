@@ -1,5 +1,6 @@
-#db 配置文件不提交svn
+#db 配置文件不提交git
 DBConfig.class.php
+nbconfig.js
 
 *.DS_Store
 

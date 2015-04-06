@@ -10,6 +10,7 @@ require_once WEBSITE . '/app/Master.class.php';
 
 class DefaultPage extends Master {
     public function loadHead() {
+        $this->staExport('<title>星云财富基金</title>');
         $this->staExport('css/default.css');
     }
 
