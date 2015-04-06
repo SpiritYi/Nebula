@@ -5,6 +5,8 @@ define(function(require, exports) {
     var $ = require('jquery');
 
     exports.initNavBar = function(navli) {
-        navli.addClass('active');
+        $().ready(function() {
+            navli.addClass('active');
+        });
     }
 });

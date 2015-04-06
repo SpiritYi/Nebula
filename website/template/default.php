@@ -60,17 +60,37 @@
         <h3>我们的信仰</h3>
     </div>
     <div class="col-lg-6">
-        <p>“全力以赴”&nbsp;&nbsp;—— 《量子基金》乔治&bull;索罗斯</p>
-        <p>“永不在一次交易中使用过多资金”，“永远在成交价附近设置止损单”&nbsp;&nbsp;—— W&bull;D&bull;江恩</p>
+        <blockquote>
+            <p>“全力以赴”</p>
+            <footer>《量子基金》乔治&bull;索罗斯</footer>
+        </blockquote>
+        <blockquote>
+            <p>“永不在一次交易中使用过多资金”，“永远在成交价附近设置止损单”</p>
+            <footer>W&bull;D&bull;江恩</footer>
+        </blockquote>
     </div>
     <div class="col-lg-6">
-        <p>“人生就像滚雪球”&nbsp;&nbsp;—— 《伯克希尔&bull;哈撒韦》沃伦&bull;巴菲特</p>
+        <blockquote class="blockquote-reverse">
+            <p>“人生就像滚雪球”</p>
+            <footer>《伯克希尔&bull;哈撒韦》沃伦&bull;巴菲特</footer>
+        </blockquote>
+    </div>
+</div>
+<div class="container">
+    <div class="page-header">
+        <h3>行业实景</h3>
+    </div>
+    <div class="col-lg-6">
+        <p>“良好业绩如巴菲特，连续40年，每年可以获得20%的复合稳定收益”</p>
+        <p>“当你打败指数，你已经能超越大多数的基金经理了”</p>
+    </div>
+    <div class="col-lg-6">
+        <p>“大奖章基金扣除5% 资产管理费和44% 投资收益分成，这两项费用是对冲基金业最高的，相当于平均收费标准的两倍以上，但他为投资者创造的平均年收益率仍然是最高的”</p>
     </div>
 </div>
 
 <script type="text/javascript">
-    seajs.use(['script/pageinit.js', 'NB'], function(pageinit, NB) {
-        pageinit.initNavBar($('#navbar_default'));
-
+    seajs.use(['NB'], function(NB) {
+        NB.navActive('#navbar_default');
     });
 </script>

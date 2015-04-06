@@ -17,10 +17,7 @@
     ?>
 </div>
 <script type="text/javascript">
-    seajs.use(['jquery', 'script/pageinit.js'], function($, pageinit) {
-        $(document).ready(function() {
-            pageinit.initNavBar($('#navbar_about'));
-        })
-
+    seajs.use(['script/base/page.js'], function(page) {
+        page.initNavBar($('#navbar_about'));
     });
 </script>

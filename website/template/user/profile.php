@@ -25,7 +25,7 @@
         </div>
 
         <div class="input-group submit-group">
-            <input type="button" id="modifyProfile" class="btn btn-default" data-uid="<?php echo $this->myInfo['id']; ?>" value="提 交" />
+            <input type="button" id="modifyProfile" class="btn btn-default" data-uid="<?php echo $this->myInfo['id']; ?>" value="修 改" />
             <img src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/loading.gif" style="display:none;" />
         </div>
     </div>
