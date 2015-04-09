@@ -1,5 +1,13 @@
 <div class="container">
     <div class="page-header">
+        <h3>2015/04/09</h3>
+    </div>
+    <p>通知详情页错误导致空白bug 修正</p>
+    <p>调整全局css 字体顺序，使Windows 平台展示更美观</p>
+    <p>发布3业绩公告</p>
+</div>
+<div class="container">
+    <div class="page-header">
         <h3>2015/04/06</h3>
     </div>
     <p>首页文案添加</p>

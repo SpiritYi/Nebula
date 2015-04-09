@@ -17,7 +17,7 @@ class ArticlePage extends Master {
     public function action() {
         $id = HttpUtil::getParam('id');
         $this->articleInfo = ArticleModel::getArticleInfo($id);
-        if (empty($this->articleInfo)) {
+        if (empty($this->articleInfo) || !PageBase::templateFileExists($this->articleInfo[0]['template'])) {
             $this->render('/error/content_error_404.php');
             return;
         }
