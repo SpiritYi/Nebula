@@ -14,7 +14,7 @@
     margin: 0px;
     padding: 0px;
     font-size: 100%;
-    font-family: Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", STXihei, STHeiti, Heiti, SimSun, sans-serif;
+    font-family: Helvetica, Tahoma, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", Arial, STXihei, STHeiti, Heiti, SimSun, sans-serif;
 }
 html, body {
     /*float: left;*/
