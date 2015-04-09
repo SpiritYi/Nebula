@@ -53,13 +53,14 @@ class EarningsRes extends ResourceBase {
         require_once API . '/v1/company/model/EarningsRateModel.class.php';
         $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::$MY_EARN_TYPE);
         $total = 10000;     //模拟起始投资10000 收益累计
-        $line = array();
+        $line = array($total);
         $dateList = array();
         foreach ($myRateList as $item) {
             $dateList[] = date('Y/m', $item['date_m']);
             $total = $total + $total * (float)$item['rate'] * 0.01;
             $line[] = (float)sprintf('%d', $total);
         }
+        array_unshift($dateList, $dateList[0]);
         $resData = array(
             'date_list' => $dateList,
             'charts_list' => array(
