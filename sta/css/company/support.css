@@ -1,0 +1,16 @@
+/* 建议页css */
+
+.paper {
+    width: 712px;
+    height: 986px;
+    padding: 126px 38px 0px 38px;
+    background: url(/image/company/paper_bk.jpg) no-repeat;
+    margin: 0px auto;
+}
+.paper textarea {
+    height: 674px;
+    margin-bottom: 16px;
+    line-height: 32px;
+    border-style: none;
+    background: transparent;
+}

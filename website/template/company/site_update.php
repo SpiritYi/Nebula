@@ -1,5 +1,12 @@
 <div class="container">
     <div class="page-header">
+        <h3>2015/04/18</h3>
+    </div>
+    <p>添加 <a href="/company/support">服务信箱</a> 页。可以在页面上反馈各种意见建议，以及其他任何想提交给管理层的信息</p>
+    <p>调整主导航栏下拉菜单样式</p>
+</div>
+<div class="container">
+    <div class="page-header">
         <h3>2015/04/09</h3>
     </div>
     <p>通知详情页错误导致空白bug 修正</p>

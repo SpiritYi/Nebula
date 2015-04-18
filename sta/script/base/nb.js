@@ -17,7 +17,7 @@ define(function(require, exports) {
             data: JSON.stringify(args.data),
             url: args.url,
             contentType: 'Application/json',
-            dataType: 'json',
+            dataType: args.dataType || 'json',
             success: function(data) {
                 if (args.loading)
                     args.loading.hide();
@@ -47,13 +47,15 @@ define(function(require, exports) {
     //提示框
     //type 为bootstrap alert- css 后缀， success, info, warning, danger
     exports.alert = function (text, type) {
+        type = type || 'info';
         $('.handle-tip').html(text).autoShowAndHide(type);
     }
     //需要手动关闭的提示框
     exports.alertClose = function(text, type) {
+        type = type || 'info';
         $('.handle-tip').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + text);
         var left = parseFloat($('.handle-tip').width()) / 2;
-        $('.handle-tip').css({'margin-left': '-' + left + 'px', 'display': 'block'})
+        $('.handle-tip').css({'margin-left': '-' + left + 'px', 'display': 'block', 'opacity': 0.85})
             .attr('class', 'handle-tip alert alert-dismissible alert-' + type);
     }
 });
@@ -63,7 +65,7 @@ define(function(require, exports) {
 !function($) {
     //初始化框
     if ($('.handle-tip').length == 0)
-        $('body').append('<div class="handle-tip" style="position:absolute; top: 80%; left:50%; z-index: 999999"></div>');
+        $('body').append('<div class="handle-tip" style="position:fixed; top: 80%; left:50%; z-index: 999999, opacity: 0.85"></div>');
 
     $.fn.extend({
         autoShowAndHide: function (type) {
