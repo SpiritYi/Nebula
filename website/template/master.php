@@ -4,6 +4,7 @@
         <?php $this->staExport('/css/Base.css'); ?>
         <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <?php $this->staExport('/css/master.css'); ?>
 
         <!-- 可选的Bootstrap主题文件（一般不用引入） -->
         <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
@@ -37,9 +38,10 @@
                         <li id="navbar_earnings"><a href="/company/earnings">投资收益</a></li>
                         <li id="navbar_about" class="dropdown">
                             <a href="/company/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">关于公司 <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu nav-dropdown" role="menu">
                                 <li><a href="/company/about">公司简介</a></li>
                                 <li><a href="/company/siteupdate">网站更新</a></li>
+                                <li><a href="/company/support">服务信箱</a></li>
                             </ul>
                         </li>
                     </ul>

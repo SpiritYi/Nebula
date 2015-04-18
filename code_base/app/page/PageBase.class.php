@@ -5,7 +5,7 @@
  * @version 2015/03/07
  */
 
-//初始化模板文件夹路劲
+//初始化模板文件夹路径
 PageBase::init();
 
 class PageBase {
@@ -13,8 +13,8 @@ class PageBase {
     //模板所在文件夹：WWWROOT/Page/Template
     private static $_TEMPLATE_DIR_PATH;
 
-    public static function init() {
-        self::$_TEMPLATE_DIR_PATH = WEBSITE . '/template';
+    public static function init($tempDir = '') {
+        self::$_TEMPLATE_DIR_PATH = empty($tempDir) ? WEBSITE . '/template' : $tempDir;
     }
 
     /**
