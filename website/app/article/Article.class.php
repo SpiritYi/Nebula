@@ -22,5 +22,9 @@ class ArticlePage extends Master {
             return;
         }
         $this->render($this->articleInfo[0]['template']);
+
+        //输出模板文件路径
+        $tempalteHtml = '<!-- ' . $this->articleInfo[0]['template'] . ' -->';
+        $this->staExport($tempalteHtml);
     }
 }

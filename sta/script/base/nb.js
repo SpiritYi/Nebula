@@ -40,7 +40,7 @@ define(function(require, exports) {
 
     exports.navActive = function(selecter) {
         $().ready(function() {
-            $(selecter).addClass('active');
+            selecter.addClass('active');
         });
     }
 
@@ -65,7 +65,7 @@ define(function(require, exports) {
 !function($) {
     //初始化框
     if ($('.handle-tip').length == 0)
-        $('body').append('<div class="handle-tip" style="position:fixed; top: 80%; left:50%; z-index: 999999, opacity: 0.85"></div>');
+        $('body').append('<div class="handle-tip" style="position:fixed; top: 80%; left:50%; z-index: 999999; opacity: 0.85"></div>');
 
     $.fn.extend({
         autoShowAndHide: function (type) {

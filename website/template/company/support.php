@@ -12,7 +12,7 @@
 </div>
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
-        NB.navActive('#navbar_about');
+        NB.navActive($('#navbar_about'));
 
         $('#sug_content').focus();
         $('#sug_content').val("致星云财富管理层\n");

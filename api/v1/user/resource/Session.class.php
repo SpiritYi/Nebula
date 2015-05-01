@@ -27,6 +27,13 @@ class SessionRes extends ResourceBase {
         if (empty($userInfo)) {
             ResourceBase::output(404, '', '认证用户不存在');
         }
+        $adminType = HttpUtil::getParam('admin_type');
+        if (!empty($adminType)) {   //管理员登陆校验
+            require_once CODE_BASE . '/app/user/AdminUserNamespace.class.php';
+            if ($userInfo['admin_type'] != AdminUserNamespace::TYPE_ADMIN) {
+                $this->output(403, '', '认证用户权限不足');
+            }
+        }
         //创建cookie
         $verifyStr = sprintf('%s_%d', $username, time() + $userInfo['session_expire']);
         require_once CODE_BASE . '/util/http/CookieUtil.class.php';

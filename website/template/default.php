@@ -88,6 +88,6 @@
 
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
-        NB.navActive('#navbar_default');
+        NB.navActive($('#navbar_default'));
     });
 </script>

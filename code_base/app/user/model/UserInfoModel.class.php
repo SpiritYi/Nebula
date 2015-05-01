@@ -17,9 +17,10 @@ class UserInfoModel {
     public static function selectUserInfoByName($username) {
         return self::_selectUser('username', $username);
     }
+    //根据单条件获取用户数据
     public static function _selectUser($field, $data) {
         $handle = BaseMainModel::getDbHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'username', 'nickname', 'email', 'phone', 'session_expire', 'active_time'),
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'username', 'nickname', 'email', 'phone', 'session_expire', 'active_time', 'admin_type'),
                 array(array($field, '=', $data)));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;

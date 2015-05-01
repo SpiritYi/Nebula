@@ -19,6 +19,7 @@ class ProfileRes extends ResourceBase {
         $user = $this->getSessionUser();
         if (empty($user))
             $this->output(403, '', '请重新登录');
+
         $modify = array(
             'nickname' => HttpUtil::getParam('nickname'),
             'email' => HttpUtil::getParam('email'),

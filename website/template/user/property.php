@@ -36,6 +36,6 @@
 
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
-        NB.navActive('#nav_u_property');
+        NB.navActive($('#nav_u_property'));
     });
 </script>

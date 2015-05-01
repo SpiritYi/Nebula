@@ -12,6 +12,8 @@ abstract class ResourceBase {
     protected $_param = array();                //存放所有请求参数
     public $URI_DATA = array();             //uri 中的参数，应该被废弃
 
+    public static $SESSION_USER = false;    //单例获取当前用户
+
     /**
      * 以固定格式返回数据，200之外的统一返回
      * @param $httpStatus int    http status code
@@ -32,12 +34,22 @@ abstract class ResourceBase {
         return $returnArr;
     }
 
+    //获取当前操作用户
     public function getSessionUser() {
-        $verify = HttpUtil::getParam('verify_user');
-        require_once CODE_BASE . '/util/http/CookieUtil.class.php';
-        $cookieP = CookieUtil::reduce($verify);
-        require_once CODE_BASE . '/app/user/UserNamespace.class.php';
-        return UserNamespace::getCookieUser($cookieP);
+        if (empty(self::$SESSION_USER)) {
+            $verify = HttpUtil::getParam('verify_user');
+            require_once CODE_BASE . '/util/http/CookieUtil.class.php';
+            $cookieP = CookieUtil::reduce($verify);
+            require_once CODE_BASE . '/app/user/UserNamespace.class.php';
+            self::$SESSION_USER =  UserNamespace::getCookieUser($cookieP);
+        }
+        return self::$SESSION_USER;
+    }
+    //检验是否管理员操作
+    public function adminSessionCheck() {
+        $admin = $this->getSessionUser();
+        require_once CODE_BASE . '/app/user/AdminUserNamespace.class.php';
+        return !empty($admin) && $admin['admin_type'] == AdminUserNamespace::TYPE_ADMIN;
     }
 
     /**

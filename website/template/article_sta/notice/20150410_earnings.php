@@ -18,6 +18,6 @@
 
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
-        NB.navActive('#navbar_notice');
+        NB.navActive($('#navbar_notice'));
     })
 </script>
