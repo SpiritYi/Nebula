@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <meta charset="utf-8" />
         <?php $this->staExport('/css/Base.css'); ?>
         <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">

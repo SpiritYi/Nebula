@@ -13,7 +13,7 @@
 </div>
 
 <script type="text/javascript">
-    seajs.use([], function() {
-        $('#navbar_notice').addClass('active');
+    seajs.use(['NB'], function(NB) {
+        NB.navActive($('#navbar_notice'));
     })
 </script>

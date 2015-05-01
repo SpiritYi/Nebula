@@ -33,9 +33,8 @@
 
 <script type="text/javascript">
     seajs.use(['NB', 'script/base/nbconfig.js'], function(NB, config) {
-        NB.navActive('#nav_u_profile');
+        NB.navActive($('#nav_u_profile'));
 
-        // $('.submit-group img')
         $('#modifyProfile').click(function() {
             $('.submit-group img').show();
             var uid = $(this).data('uid');

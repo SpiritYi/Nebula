@@ -25,7 +25,7 @@ class ContractPage extends UserMaster {
         $navActive = '
             <script type="text/javascript">
                 seajs.use(["NB"], function(NB) {
-                    NB.navActive("#nav_u_contract")
+                    NB.navActive($("#nav_u_contract"));
                 });
             </script>
         ';

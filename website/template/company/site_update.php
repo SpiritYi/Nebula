@@ -30,7 +30,8 @@
 </div>
 
 <script type="text/javascript">
-    seajs.use(['script/base/page.js'], function(page) {
-        page.initNavBar($('#navbar_about'));
+    seajs.use(['NB'], function(NB) {
+        NB.navActive($('#navbar_about'));
+
     })
 </script>

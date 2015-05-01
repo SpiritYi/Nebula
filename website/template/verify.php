@@ -28,7 +28,7 @@
             if (e.keyCode == 13) {
                 $('#login_btn').click();
             }
-        })
+        });
         $('#login_btn').click(function() {
             var barWidth = 0, runFlag = true, process = $('#login_process'), bar = $('#login_bar');
             process.show();

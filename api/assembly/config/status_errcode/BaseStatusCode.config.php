@@ -1,9 +1,9 @@
 <?php
 /**
  * 所有接口http状态码以及通用错误提示code码定义
- * @author jiajianming <jiajianming@ganji.com>
- * @version 2014/12/23
- * @copyright ganji.com
+ * @author Yihong Chen <jinglingyueyue@gmail.com>
+ * @version 2015/05/01
+ * @copyright nebula-fund.com
 */
 
 class BaseStatusCode {
@@ -24,38 +24,5 @@ class BaseStatusCode {
         self::HTTP_304,
         self::HTTP_400, self::HTTP_404, self::HTTP_405,
         self::HTTP_500,
-    );
-
-    //通用api错误码定义
-    const ERR_SUCCESS         = 0;//无错误
-    const ERR_SUCCESS_201     = 1;//无错误
-    const ERR_SUCCESS_202     = 2;//无错误
-    const ERR_SUCCESS_204     = 3;//无错误
-
-    const ERR_URI_NOT_FOUND   = -1; //资源不存在
-    const ERR_NOT_FOUND       = -1;
-    const ERR_PARAM           = -2; //一般参数校验错误
-    const ERR_CHECK_LOGIN     = -3; //需要登录或者用户校验失败
-    const ERR_NEED_CAPTCHA    = -4; //需要验证码
-    const ERR_CAPTCHA         = -5; //验证码错误
-
-    const ERR_SYSTEM          = -999; //系统错误
-    const ERR_REQUEST_METHOD  = -998; //请求方式不支持
-
-    //错误码对应的http_status与错误提示信息
-    public static $BASE_ERR_MSG = array(
-        self::ERR_SUCCESS       => array(self::HTTP_200, '成功'),
-        self::ERR_SUCCESS_201   => array(self::HTTP_201, '成功'),
-        self::ERR_SUCCESS_202   => array(self::HTTP_202, '成功'),
-        self::ERR_SUCCESS_204   => array(self::HTTP_204, '成功'),
-
-        self::ERR_URI_NOT_FOUND => array(self::HTTP_404, '资源不存在'),
-        self::ERR_PARAM         => array(self::HTTP_400, '参数错误'),
-        self::ERR_CHECK_LOGIN   => array(self::HTTP_400, '需要登录或者用户校验失败'),
-        self::ERR_NEED_CAPTCHA  => array(self::HTTP_400, '需要验证码'),
-        self::ERR_CAPTCHA       => array(self::HTTP_400, '验证码错误'),
-
-        self::ERR_SYSTEM        => array(self::HTTP_500, '系统错误'),
-        self::ERR_REQUEST_METHOD => array(self::HTTP_405, 'request method not support.'),
     );
 }
