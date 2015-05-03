@@ -20,14 +20,14 @@ class EarningsRes extends ResourceBase {
 
     public function getEarningsListAction() {
         require_once API . '/v1/company/model/EarningsRateModel.class.php';
-        $myList = EarningsRateModel::getEarningsReteList(EarningsRateModel::$MY_EARN_TYPE);
+        $myList = EarningsRateModel::getEarningsReteList(EarningsRateModel::MY_EARN_TYPE);
         $myData = array();
         $dateList = array();
         foreach ($myList as $key => $item) {
             $dateList[] = date('Y/m', $item['date_m']);
             $myData[] = (float)$item['rate'];
         }
-        $szList = EarningsRateModel::getEarningsReteList(EarningsRateModel::$SH_EARN_TYPE);
+        $szList = EarningsRateModel::getEarningsReteList(EarningsRateModel::SH_EARN_TYPE);
         $szData = array();
         foreach ($szList as $item) {
             $szData[] = (float)$item['rate'];
@@ -36,11 +36,11 @@ class EarningsRes extends ResourceBase {
             'date_list' => $dateList,
             'charts_list' => array(
                 array(
-                    'name' => '星云',
+                    'name' => EarningsRateModel::$TYPE_NAME[EarningsRateModel::MY_EARN_TYPE],
                     'data' => $myData,
                 ),
                 array(
-                    'name' => '上证指数',
+                    'name' => EarningsRateModel::$TYPE_NAME[EarningsRateModel::SH_EARN_TYPE],
                     'data' => $szData,
                 ),
             ),
@@ -51,7 +51,7 @@ class EarningsRes extends ResourceBase {
 
     public function getEarningsLineAction() {
         require_once API . '/v1/company/model/EarningsRateModel.class.php';
-        $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::$MY_EARN_TYPE);
+        $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::MY_EARN_TYPE);
         $total = 10000;     //模拟起始投资10000 收益累计
         $line = array($total);
         $dateList = array();

@@ -11,9 +11,7 @@ require_once dirname(__FILE__) . '/../config/DirConfig.inc.php';
 require_once CONFIG . '/DBConfig.class.php';
 require_once CODE_BASE . '/util/logger/Logger.class.php';
 
-
 require_once CODE_BASE . '/util/http/HttpUtil.class.php';
-
 
 class Dispatch {
 
