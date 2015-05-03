@@ -8,7 +8,7 @@
 
 <script text="text/javascript">
     seajs.use(['NB', 'script/base/page'], function(NB, page) {
-        page.initNavBar($('#navbar_earnings'));
+        NB.navActive($('#navbar_earnings'));
 
         NB.apiAjax({
             type: 'GET',

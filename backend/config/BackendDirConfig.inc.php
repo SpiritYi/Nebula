@@ -10,3 +10,4 @@ require_once dirname(__FILE__) . '/../../config/DirConfig.inc.php';
 
 define('BACKEND_WEB', BACKEND . '/web');
 define('BACKEND_CONFIG', BACKEND . '/config');
+define('BACKEND_MODEL', BACKEND . '/model');

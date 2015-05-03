@@ -7,7 +7,7 @@
  */
 
 require_once WEBSITE . '/app/Master.class.php';
-require_once WEBSITE . '/model/ArticleModel.class.php';
+require_once CODE_BASE . '/model/company/ArticleModel.class.php';
 
 class ArticlePage extends Master {
     public function loadHead() {

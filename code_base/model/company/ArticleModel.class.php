@@ -10,12 +10,28 @@ require_once CODE_BASE . '/app/db/BaseMainModel.class.php';
 
 class ArticleModel {
     private static $_TABLE = 'notice';
-    public static $NOTICE_TYPE = 0;
 
-    public static function getNoticeList() {
+    const TYPE_NOTICE = 0;      //公告
+    const TYPE_ARTICLE = 1;     //普通文章
+
+    public static $TYPE_NAME = array(
+        self::TYPE_NOTICE => '公告',
+        self::TYPE_ARTICLE => '普通文章',
+    );
+
+    /**
+     * 获取公告列表
+     * @param $status int | string      //指定状态，’all' 获取所有状态
+     */
+    public static function getNoticeList($status = 0) {
+        $filter = array(
+            array('type', '=', self::TYPE_NOTICE)
+        );
+        if ($status !== 'all') {
+            $filter[] = array('status', '=', $status);
+        }
         $handle = BaseMainModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('*'),
-                array(array('status', '=', 0), array('type', '=', self::$NOTICE_TYPE)), array(), array('p_time' => 'DESC'));
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('*'), $filter, array(), array('p_time' => 'DESC'));
         $result = DBMysqlNamespace::query($handle, $sqlString);
         return $result;
     }

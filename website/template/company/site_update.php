@@ -1,5 +1,18 @@
 <div class="container">
     <div class="page-header">
+        <h3>2015/05/03</h3>
+    </div>
+    <p>管理后台上线营收数据可视化操作</p>
+    <p>管理后台上线发布公告可视化操作</p>
+</div>
+<div class="container">
+    <div class="page-header">
+        <h3>2015/05/01</h3>
+    </div>
+    <p>上线管理员管理后台，实现用户资产可视化管理</p>
+</div>
+<div class="container">
+    <div class="page-header">
         <h3>2015/04/18</h3>
     </div>
     <p>添加 <a href="/company/support">服务信箱</a> 页。可以在页面上反馈各种意见建议，以及其他任何想提交给管理层的信息</p>
@@ -32,6 +45,5 @@
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
         NB.navActive($('#navbar_about'));
-
-    })
+    });
 </script>
