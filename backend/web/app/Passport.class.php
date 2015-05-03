@@ -3,7 +3,7 @@
  * 管理后台通过认证页面
  * @author Yihong Chen <jinglingyueyue@gmail.com>
  * @version 2015/05/01
- * @copyright immomo.com
+ * @copyright nebula-fund.com
  */
 
 require_once BACKEND_WEB . '/app/BackendEmpty.class.php';
