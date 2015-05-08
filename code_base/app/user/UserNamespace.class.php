@@ -36,7 +36,7 @@ class UserNamespace {
     }
 
     //根据cookie 明文获取对应用户信息
-    public function getCookieUser($cookieP) {
+    public static function getCookieUser($cookieP) {
         $cookieData = self::_splitVerifyCookie($cookieP);
         if (!empty($cookieData) && $cookieData['expire'] > time()) {
             $userinfo = UserNamespace::getUserInfo($cookieData['username']);

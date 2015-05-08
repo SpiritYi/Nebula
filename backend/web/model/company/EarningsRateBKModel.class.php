@@ -11,7 +11,7 @@ require_once CODE_BASE . '/app/db/BaseMainModel.class.php';
 class EarningsRateBKModel {
     private static $_TABLE = 'earnings_rate';
 
-    public function addRateRecord($data) {
+    public static function addRateRecord($data) {
         $handle = BaseMainModel::getDBHandle();
         $sqlString = SqlBuilderNamespace::buildInsertSql(self::$_TABLE, $data);
         $res = DBMysqlNamespace::execute($handle, $sqlString);
