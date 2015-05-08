@@ -11,7 +11,7 @@ require_once CODE_BASE . '/model/company/ArticleModel.class.php';
 
 class ArticlePage extends Master {
     public function loadHead() {
-
+        $this->staExport('<title>星云财富基金</title>');
     }
 
     public function action() {

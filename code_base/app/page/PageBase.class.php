@@ -43,7 +43,7 @@ class PageBase {
         return $ret;
     }
 
-    public function templateFileExists($templateFile) {
+    public static function templateFileExists($templateFile) {
         return file_exists(self::$_TEMPLATE_DIR_PATH . '/' . $templateFile);
     }
 
