@@ -52,6 +52,7 @@ class EarningsRes extends ResourceBase {
     public function getEarningsLineAction() {
         require_once API . '/v1/company/model/EarningsRateModel.class.php';
         $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::MY_EARN_TYPE);
+        // $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::SH_EARN_TYPE);
         $total = 10000;     //模拟起始投资10000 收益累计
         $line = array($total);
         $dateList = array();
