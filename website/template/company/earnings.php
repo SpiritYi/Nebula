@@ -1,9 +1,11 @@
+<div class="row">
 <div class="container">
     <div id="earnings_charts">
     </div>
-    <div id="earnings_line" style="margin-top: 20px;">
+    <div id="earnings_line" style="margin-top: 30px;">
     </div>
     <p class="note">说明：每月结算时间为当月10日开盘，到次月9日收盘，如遇假期，以最近有效数据为准。</p>
+</div>
 </div>
 
 <script text="text/javascript">
@@ -65,7 +67,6 @@
             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/company/earnings/line/',
             dataType: 'json',
             success: function(data) {
-                console.log(data);
                 $('#earnings_line').highcharts({
                     chart: {
                         type: 'line'

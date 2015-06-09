@@ -30,6 +30,11 @@ class PropertyBKRes extends ResourceBase {
         if (empty($uid) || empty($type) || empty($notes) || $time <= 0) {
             $this->output(400, '', '请把数据填写完整');
         }
+        require_once CODE_BASE . '/model/user/PropertyRecordModel.class.php';
+        //金额数据校验
+        if (in_array($type, [PropertyRecordModel::TYPE_TAKEOUT, PropertyRecordModel::TYPE_LOSS]) && $amount > 0) {
+            $this->output(400, '', '当前type 下，金额应 < 0');
+        }
 
         $data = array(
             'user_id' => $uid,
