@@ -52,16 +52,13 @@
                     location.reload();
                 },
                 error: function(data) {
+                    console.log(data);
+
                     runFlag = false;
                     process.hide();
                     bar.css({'width': 0});
 
-                    var error = '请求出错! ';
-                    try {
-                        res = $.parseJSON(data.responseText);
-                        error = error + res.message;
-                    } catch (e) {}
-                    NB.alert(error, 'danger');
+                    NB.alert(data.message, 'danger');
                 }
             });
         });
