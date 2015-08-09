@@ -1,11 +1,11 @@
-<div class="row">
 <div class="container">
-    <div id="earnings_charts" style="margin-top:15px;margin-bottom:50px;">
-    </div>
-    <div id="earnings_line" style="margin-bottom:15px;">
+    <div class="row">
+        <div id="earnings_charts" style="margin-top:15px;margin-bottom:50px;">
+        </div>
+        <div id="earnings_line" style="margin-bottom:15px;">
+        </div>
     </div>
     <p class="note">说明：每月结算时间周期为当月10日开盘，到次月9日收盘，如遇假期，以最近有效数据为准。</p>
-</div>
 </div>
 
 <script text="text/javascript">
