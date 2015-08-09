@@ -1,10 +1,10 @@
 <div class="row">
 <div class="container">
-    <div id="earnings_charts">
+    <div id="earnings_charts" style="margin-top:15px;margin-bottom:50px;">
     </div>
-    <div id="earnings_line" style="margin-top: 30px;">
+    <div id="earnings_line" style="margin-bottom:15px;">
     </div>
-    <p class="note">说明：每月结算时间为当月10日开盘，到次月9日收盘，如遇假期，以最近有效数据为准。</p>
+    <p class="note">说明：每月结算时间周期为当月10日开盘，到次月9日收盘，如遇假期，以最近有效数据为准。</p>
 </div>
 </div>
 
@@ -33,7 +33,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: '营收百分比'
+                            text: '营收百分比 (%)'
                         }
                     },
                     colors: ['#A020F0', '#000'],
@@ -46,9 +46,9 @@
                                 enabled: true,
                                 formatter: function() {
                                     if (this.y < 0) {
-                                        return '<span style="color:#00FF00">' + this.y + '%</span>';
+                                        return '<span style="color:#00FF00">' + this.y + '</span>';
                                     } else {
-                                        return '<span style="color:red;">' + this.y + '%</span>';
+                                        return '<span style="color:red;">' + this.y + '</span>';
                                     }
                                 }
                             },
@@ -82,7 +82,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: '所持份额(份)'
+                            text: '所持份额 (份)'
                         }
                     },
                     tooltip: {
@@ -94,7 +94,6 @@
                             dataLabels: {
                                 enabled: true
                             },
-                            // enableMouseTracking: false
                         }
                     },
                     series: data.data.charts_list
