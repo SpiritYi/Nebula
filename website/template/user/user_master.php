@@ -15,6 +15,6 @@
 
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
-        NB.navActive('#navbar_user');
+        NB.navActive($('#navbar_user'));
     });
 </script>
