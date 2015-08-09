@@ -3,9 +3,9 @@
     <div class="container" style="margin-top: 5px;">
         <div class="col-lg-4 col-lg-offset-4">
             <div class="input-group">
-              <input type="password" id="username" class="form-control" placeholder="Identify ...">
+              <input type="password" id="username" class="form-control" placeholder="认证 ...">
               <span class="input-group-btn">
-                <button class="btn btn-default" id="login_btn" type="button">&emsp;Fire&emsp;</button>
+                <button class="btn btn-default" id="login_btn" type="button">&emsp;起航&emsp;</button>
               </span>
             </div><!-- /input-group -->
         </div>

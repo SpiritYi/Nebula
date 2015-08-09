@@ -1,5 +1,11 @@
 <div class="container">
     <div class="page-header">
+        <h3>2015/08/09</h3>
+    </div>
+    <p>投资收益页面细节优化，英文文案更换</p>
+</div>
+<div class="container">
+    <div class="page-header">
         <h3>2015/05/03</h3>
     </div>
     <p>管理后台上线营收数据可视化操作</p>

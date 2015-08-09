@@ -48,7 +48,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="navbar_user"><a href="/user/property"><?php echo $this->userInfo['nickname']; ?></a></li>
-                        <li id="navbar_signout"><a>Sign Out</a></li>
+                        <li id="navbar_signout"><a>登出</a></li>
                     </ul>
                 </div>
             </div>
