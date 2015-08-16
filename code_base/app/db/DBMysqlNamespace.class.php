@@ -18,8 +18,8 @@ class DBMysqlNamespace {
     //创建数据库链接
     public static function connect($server, $database) {
         require_once CONFIG . '/DBConfig.class.php';
-        if (DBConfig::IS_DEV_ENV) {     //开发测试环境数据库连test后缀库
-            $database = $database . '_test';
+        if (DBConfig::IS_DEV_ENV) {     //开发测试环境数据库连alpha前缀库
+            $database = 'alpha_' . $database;
         }
         $handle = mysqli_connect($server['host'], $server['user'], $server['password'], $database);
         if (mysqli_connect_errno($handle)) {

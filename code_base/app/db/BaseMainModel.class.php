@@ -12,11 +12,11 @@ require_once CODE_BASE . '/app/db/SqlBuilderNamespace.class.php';
 
 class BaseMainModel {
     private static $_DB_HANDLE = false;
-    private static $_DB_NAME = 'Nebula';
+    private static $_DB_NAME = 'nebula';
 
     public static function getDBHandle() {
         if (!self::$_DB_HANDLE) {
-            self::$_DB_HANDLE = DBMysqlNamespace::connect(DBConfig::$MAIN_SERVER, self::$_DB_NAME);
+            self::$_DB_HANDLE = DBMysqlNamespace::connect(DBConfig::$NEBULA_MASTER_SERVER, self::$_DB_NAME);
         }
         return self::$_DB_HANDLE;
     }
