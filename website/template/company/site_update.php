@@ -1,5 +1,14 @@
 <div class="container">
     <div class="page-header">
+        <h3>2015/08/22</h3>
+    </div>
+    <p>正式设计、更换公司LOGO</p>
+    <p>采用更加标准复杂加密算法</p>
+    <p>模拟交易平台立项开始</p>
+    <p>多个页面细节调整</p>
+</div>
+<div class="container">
+    <div class="page-header">
         <h3>2015/08/09</h3>
     </div>
     <p>投资收益页面细节优化，英文文案更换</p>

@@ -10,6 +10,16 @@
         <?php $this->staExport('/css/master.css'); ?>
         <?php $this->loadHead(); ?>
         <title>Nebula Stock</title>
+        <style type="text/css">
+            .footer {
+                margin-top: 20px;
+                background-color: #F5F5F5;
+            }
+            .footer .copyright {
+                margin:20px 0px;
+                color: #E1E1E1;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-static-top">
@@ -51,7 +61,7 @@
 
         <script type="text/javascript">
             $('#navbar_signout').click(function() {
-                var flag = $.removeCookie('verify_user', {path: '/'});
+                var flag = $.removeCookie('<?php echo StockUserNamespace::USER_VERIFY_COOKIE_KEY; ?>', {path: '/'});
                 location.reload();
             });
         </script>

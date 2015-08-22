@@ -14,7 +14,7 @@ class CookieUtil {
      * @param $lifeTime int     //保留时间, 单位s
      */
     public static function write($key, $value, $lifeTime = 3600) {
-        $encValue = AesEncrypt::encrypt($value);
+        $encValue = self::_encryptCookie($value);
         setcookie($key, $encValue, time() + $lifeTime);
     }
 
@@ -22,7 +22,7 @@ class CookieUtil {
     public static function create($key, $value, $lifeTime = 3600) {
         return array(
             'k' => $key,
-            'v' => AesEncrypt::encrypt($value),
+            'v' => self::_encryptCookie($value),
             't' => time() + $lifeTime,
             't_h' => date('Y/m/d H:i:s', time() + $lifeTime),
         );
@@ -32,15 +32,22 @@ class CookieUtil {
         if (!isset($_COOKIE[$key]))
             return false;
         $encryptStr = $_COOKIE[$key];
-        return AesEncrypt::decrypt($encryptStr);
+        return self::_decryptCookie($encryptStr);
     }
 
     //还原cookie 存储的字符串
     public static function reduce($value) {
-        return AesEncrypt::decrypt($value);
+        return self::_decryptCookie($value);
     }
 
     public static function delete($key) {
         setcookie($key, '', time() - 10);
+    }
+
+    private static function _encryptCookie($value) {
+        return base64_encode(AesEncrypt::encrypt($value));
+    }
+    private static function _decryptCookie($str) {
+        return AesEncrypt::decrypt(base64_decode($str));
     }
 }

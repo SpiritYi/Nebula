@@ -18,7 +18,6 @@ class IndexBase {
         //ajax 跨域支持
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
         header('Access-Control-Allow-Headers: Content-Type');
-        // header('Access-Control-Allow-Credentials:true');
         if (isset($_SERVER['HTTP_ORIGIN']) && preg_match('/.*nebula.*/', $_SERVER['HTTP_ORIGIN'])) {
             header('Access-Control-Allow-Origin:*');
         };
