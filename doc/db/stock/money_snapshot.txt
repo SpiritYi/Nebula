@@ -1,0 +1,18 @@
+//每日资产快照
+
+money_snapshot
+    id      int     //自增id
+    uid     int     //用户id
+    money   decimal //总资产
+    time    int     //日期
+
+
+CREATE TABLE IF NOT EXISTS money_snapshot(
+    id INT AUTO_INCREMENT,
+    uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
+    money DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '总资产',
+    time INT NOT NULL DEFAULT 0 COMMENT '日期',
+    PRIMARY KEY (id),
+    KEY idx_uid (uid),
+    KEY idx_time (time)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='每日资产快照';

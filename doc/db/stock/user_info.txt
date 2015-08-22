@@ -1,0 +1,29 @@
+#stock 用户表
+
+user_info
+    uid     int     //自增
+    username    string  //用户名
+    nickname    string  //用户昵称
+    password    string  //密码hash
+    email       string  //邮箱地址
+    qq      string
+    live_time   int     //活跃时间
+    money       float   //总资产
+    create_time int     //账号开通时间
+    begin_money float   //起始资金
+
+CREATE TABLE IF NOT EXISTS user_info (
+    uid INT AUTO_INCREMENT,
+    username VARCHAR(32) NOT NULL DEFAULT '' COMMENT '登录用户名',
+    nickname VARCHAR(16) NOT NULL DEFAULT '' COMMENT '用户昵称',
+    password VARCHAR(64) NOT NULL DEFAULT '' COMMENT '密码hash',
+    email VARCHAR(64) NOT NULL DEFAULT '' COMMENT '邮箱',
+    qq VARCHAR(24) NOT NULL DEFAULT '' COMMENT 'QQ',
+    live_time INT NOT NULL DEFAULT 0 COMMENT '活跃时间',
+    money DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '总资产',
+    create_time INT NOT NULL DEFAULT 0 COMMENT '开通时间',
+    begin_money float NOT NULL DEFAULT 0 COMMENT '起始资金',
+    PRIMARY KEY (uid),
+    KEY idx_username (username),
+    KEY idx_email (email)
+) ENGINE=InnoDB CHARSET=utf8 COMMIT="用户表";
