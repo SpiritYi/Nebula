@@ -1,0 +1,29 @@
+//交易记录
+
+exchange
+    id      int     //自增id
+    uid     int     //uid
+    sid     string  //stock id
+    count   int     //交易数量
+    price   decimal //成交价格
+    direction tinyint //交易方向，1买，-1 卖
+    commission decimal //交易佣金
+    tax     decimal //印花税
+    earn    decimal //盈亏金额，小于0亏损
+    time    int     //成交时间
+
+CREATE TABLE IF NOT EXISTS exchange(
+    id INT AUTO_INCREMENT,
+    uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
+    sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    count INT NOT NULL DEFAULT 0 COMMENT '交易数量',
+    price DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '价格',
+    direction TINYINT NOT NULL DEFAULT 0 COMMENT '交易方向, 1买，-1卖',
+    commission DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '交易佣金',
+    tax DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '印花税',
+    earn DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '盈亏, 小于0亏损',
+    time INT NOT NULL DEFAULT 0 COMMENT '成交时间',
+    PRIMARY KEY (id),
+    KEY idx_uid (uid),
+    KEY idx_sid_time (sid, time)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='交易记录表';

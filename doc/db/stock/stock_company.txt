@@ -1,0 +1,16 @@
+//公司信息
+
+stock_company
+    sid     string      //stock id
+    sname   string      //stock name
+    sspell  string      //名字拼音
+    weight  int         //出现权重
+
+CREATE TABLE IF NOT EXISTS stock_company (
+    sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    sname VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock name',
+    sspell VARCHAR(8) NOT NULL DEFAULT '' COMMENT '简称拼音',
+    weight int NOT NULL DEFAULT 0 COMMENT '出现权重',
+    PRIMARY KEY (sid),
+    KEY idx_sname_sspell (sname, sspell)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='上市公司信息';

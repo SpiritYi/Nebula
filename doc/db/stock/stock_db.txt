@@ -1,0 +1,54 @@
+//stock db 总揽
+
+用户表
+    uid
+    username
+    nickname    //昵称
+    password
+    email
+    qq
+    live_time   //活跃时间
+    money       //总资产
+    create_time //账号开通时间
+    begin_money //初始资金
+
+用户资产每日快照
+    id
+    uid
+    money  //总资产
+    time
+
+持股表格
+    id
+    uid
+    sid
+    count   //持股数
+    cost    //花费总额
+    time    //首次买入日期
+
+交易记录
+    id
+    uid
+    sid
+    count   //交易数量
+    price   //成交价格
+    direction   //交易方向，1买，-1卖
+    commission  //交易佣金
+    tax     //印花税
+    earn    //盈亏金额，小于0 亏损
+    time    //成交时间
+
+股票信息
+    sid
+    sname
+    sspell
+
+委托队列
+    id
+    uid
+    sid
+    count
+    price   //委托价格，-1 现价
+    status  //委托状态，0正常，-1 过期
+    time
+

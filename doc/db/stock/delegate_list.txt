@@ -1,0 +1,22 @@
+//委托队列
+
+delegate_list
+    id      int     //自增id
+    uid     int     //uid
+    sid     string  //stock id
+    count   int     //交易数量
+    price   decimal //委托价格
+    status  tinyint //委托状态，0正常，-1过期
+    time    int     //委托时间
+
+CREATE TABLE IF NOT EXISTS delegate_list (
+    id INT AUTO_INCREMENT,
+    uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
+    sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    count INT NOT NULL DEFAULT 0 COMMENT '交易数量',
+    price DECIMAL(10,4) NOT NULL DEFAULT 0 COMMENT '委托价格',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '委托状态，0正常，-1过期',
+    time int NOT NULL DEFAULT 0 COMMENT '委托时间',
+    PRIMARY KEY (id),
+    KEY idx_uid (uid)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='委托队列';

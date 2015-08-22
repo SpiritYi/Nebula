@@ -55,6 +55,14 @@ class PageBase {
         return UserNamespace::getCookieUser($cookieUserStr);
     }
 
+    //stock 账号认证
+    public function stockAccessVerify() {
+        require_once CODE_BASE . '/util/http/CookieUtil.class.php';
+        require_once CODE_BASE . '/app/user/StockUserNamespace.class.php';
+        $cookieUserStr = CookieUtil::read(StockUserNamespace::USER_VERIFY_COOKIE_KEY);
+        return StockUserNamespace::getCookieUser($cookieUserStr);
+    }
+
     /**
      * <head> 标签中条目输出，如果是文件自动加载，字符串直接输出
      */
