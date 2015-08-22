@@ -11,7 +11,9 @@ define('WWWROOT', dirname(__FILE__) . '/../');
 define('API', WWWROOT . '/api');
 define('CONFIG', WWWROOT . '/config');
 define('CODE_BASE', WWWROOT . '/code_base');
-define('BACKEND', WWWROOT . '/backend');
 define('WEBSITE', WWWROOT . '/website');
+
+define('BACKEND', WWWROOT . '/backend');
+define('STOCK', WWWROOT . '/stock');
 
 date_default_timezone_set('PRC');
