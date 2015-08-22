@@ -9,7 +9,7 @@
 class VerifyPage extends EmptyPage {
 
     public function loadHead() {
-        $this->staExport('<title>Nebula Verification</title>');
+        $this->staExport('<title>星云财富基金</title>');
         $this->staExport('/css/Verify.css');
     }
 

@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link rel="Shortcut Icon" href="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_simple_favicon.png" />
         <?php $this->staExport('/css/Base.css'); ?>
         <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -12,6 +13,10 @@
         <?php $this->loadHead(); ?>
         <title>Nebula Website</title>
         <style type="text/css">
+            .navbar-brand {
+                padding: 4px;
+                margin-right: 15px;
+            }
             .footer {
                 margin-top: 20px;
                 background-color: #F5F5F5;
@@ -27,7 +32,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
-                        <img alt="Nebula" height="24px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_24.png" >
+                        <img alt="Nebula" height="42px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_64.png" >
                     </a>
                 </div>
 
