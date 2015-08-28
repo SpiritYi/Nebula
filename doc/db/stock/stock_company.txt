@@ -6,6 +6,7 @@ stock_company
     symbol  string      //查询id
     sspell  string      //名字拼音
     weight  int         //出现权重
+    time    int         //最后更新时间
 
 CREATE TABLE IF NOT EXISTS stock_company (
     sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
@@ -13,8 +14,10 @@ CREATE TABLE IF NOT EXISTS stock_company (
     symbol VARCHAR(8) NOT NULL DEFAULT '' COMMENT '查询id',
     sspell VARCHAR(8) NOT NULL DEFAULT '' COMMENT '简称拼音',
     weight int NOT NULL DEFAULT 0 COMMENT '出现权重',
+    time int NOT NULL DEFAULT 0 COMMENT '最后更新时间',
     PRIMARY KEY (sid),
     KEY idx_sname_sspell (sname, sspell)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='上市公司信息';
 
 ALTER TABLE stock_company ADD COLUMN symbol VARCHAR(8) NOT NULL DEFAULT '' COMMENT '查询id' AFTER sname;
+ALTER TABLE stock_company ADD COLUMN time int NOT NULL DEFAULT 0 COMMENT '最后更新时间';

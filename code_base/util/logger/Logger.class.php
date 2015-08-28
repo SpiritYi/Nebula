@@ -28,6 +28,6 @@ class Logger {
         );
         require_once CONFIG . '/DBConfig.class.php';
         $logFile = sprintf('%s.log', strtolower($func));
-        file_put_contents(DBConfig::LOG_PATH . $logFile, implode("\t", $saveData) . "\n", FILE_APPEND);
+        file_put_contents(DBConfig::LOG_PATH . '/' . $logFile, implode("\t", $saveData) . "\n", FILE_APPEND);
     }
 }
