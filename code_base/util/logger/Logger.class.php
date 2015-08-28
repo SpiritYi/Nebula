@@ -7,11 +7,11 @@
  */
 
 class Logger {
-    public static function logInfo() {
+    public static function logInfo($msg, $category) {
         self::_saveLog(__FUNCTION__, $msg, $category);
     }
 
-    public static function logWarn() {
+    public static function logWarn($msg, $category) {
         self::_saveLog(__FUNCTION__, $msg, $category);
     }
 

@@ -18,6 +18,27 @@ class HttpUtil {
         return true;
     }
 
+    public static function curlget($url, $header = array()) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_POST, 0);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
+        // curl_setopt($ch, CURLOPT_VERBOSE, 0);
+        // curl_setopt($ch, CURLOPT_AUTOREFERER,true);
+        // curl_setopt($ch, CURLOPT_FAILONERROR, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT,10);
+
+        $result = curl_exec($ch);
+        $info = curl_getinfo($ch);
+        curl_close($ch);
+
+        return $result;
+    }
+
     //获取请求参数，依次读取传递的方式
     public static function getParam($name, $default = null) {
         if (isset($_GET[$name])) {
