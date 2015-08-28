@@ -6,3 +6,5 @@ nbconfig.js
 
 test.php
 Test.class.php
+
+cron/data/*

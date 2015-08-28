@@ -12,6 +12,7 @@ define('API', WWWROOT . '/api');
 define('CONFIG', WWWROOT . '/config');
 define('CODE_BASE', WWWROOT . '/code_base');
 define('WEBSITE', WWWROOT . '/website');
+define('CRON', WWWROOT . '/cron');
 
 define('BACKEND', WWWROOT . '/backend');
 define('STOCK', WWWROOT . '/stock');
