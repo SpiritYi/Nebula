@@ -8,6 +8,7 @@
 
 require_once dirname(__FILE__) . '/CronBase.class.php';
 require_once CODE_BASE . '/util/http/HttpUtil.class.php';
+require_once CODE_BASE . '/util/logger/Logger.class.php';
 require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
 require_once CODE_BASE . '/app/stock/model/StockCompanyModel.class.php';
 
@@ -18,8 +19,12 @@ class GetAllCompanyCron extends CronBase {
     }
 
     public function run() {
+        Logger::logInfo(__CLASS__ . ', start', 'cron_update_company_run');
+
         $this->updateCompanyData();
         // $this->test();
+
+        Logger::logInfo(__CLASS__ . ', end', 'cron_update_company_run');
     }
 
     public function test() {
@@ -77,6 +82,7 @@ class GetAllCompanyCron extends CronBase {
             }
             //存储数据
             foreach ($readyList as $sid => $readyItem) {
+                var_dump(date('Y/m/d H:i:s') . '  ' . $sid);
                 if (isset($localInfoList[$sid])) {  //已有数据做比较更新
                     $localItem = $localInfoList[$sid];
                     $change = array();
@@ -86,12 +92,14 @@ class GetAllCompanyCron extends CronBase {
                         }
                     }
                     if (!empty($change)) {
+                        $change['time'] = time();
                         $res = $this->updateCompanyData($sid, $change);
                         if (!$res) {
                             Logger::logError(json_encode($readyItem), 'cron_company_update_error');
                         }
                     }
                 } else {    //新加数据
+                    $readyItem['time'] = time();
                     $res = $this->_addCompanyInfo($readyItem);
                     if (!$res) {
                         Logger::logError(json_encode($readyItem), 'cron_company_add_error');
