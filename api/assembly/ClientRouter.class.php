@@ -36,6 +36,7 @@ class ClientRouter {
     private static function _analyseLocation($uri, $root) {
         //切分路径部分root 到 ？ 之前
         $preg = '/^' . str_replace('/', '\/', $root) . '([\w\-\/]*)\/' . '/';
+        // preg_match('/^\/([^\?]+)\/(.*)?/', $uri, $uriArr);
         preg_match($preg, $uri, $uriArr);
         $dirItem = explode('/', $uriArr[1]);
         $path = '';

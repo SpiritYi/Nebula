@@ -52,6 +52,18 @@ abstract class ResourceBase {
         return !empty($admin) && $admin['admin_type'] == AdminUserNamespace::TYPE_ADMIN;
     }
 
+    //获取股票用户session
+    public function getStockSessionUser() {
+        if (empty(self::$SESSION_USER)) {
+            $verify = HttpUtil::getParam('verify_user');
+            require_once CODE_BASE . '/util/http/CookieUtil.class.php';
+            $cookieP = CookieUtil::reduce($verify);
+            require_once CODE_BASE . '/app/user/StockUserNamespace.class.php';
+            self::$SESSION_USER =  StockUserNamespace::getCookieUser($cookieP);
+        }
+        return self::$SESSION_USER;
+    }
+
     /**
      * 输出需要返回数据
      * @param $data array

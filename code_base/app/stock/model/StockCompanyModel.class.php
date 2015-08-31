@@ -25,7 +25,19 @@ class StockCompanyModel {
             return array();
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlbuilderNamespace::buildSelectSql(self::$_TABLE, 'sid, sname, symbol, sspell', array(array('sid', 'IN', $sidArr)));
+        $sqlString = SqlbuilderNamespace::buildSelectSql(self::$_TABLE, array('sid, sname, symbol, sspell'), array(array('sid', 'IN', $sidArr)));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
+
+    //ajax 公司联想列表
+    public static function getSuggestionList($field, $value) {
+        if (!in_array($field, ['sid', 'sspell']) || empty($value)) {
+            return array();
+        }
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlbuilderNamespace::buildSelectSql(self::getTable(), array('sid', 'sname'), array(array($field, 'like', sprintf('%%%s%%', $value))),
+                array(0, 10));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }

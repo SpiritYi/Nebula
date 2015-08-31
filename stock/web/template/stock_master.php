@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link rel="Shortcut Icon" href="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_simple_favicon.png" />
         <?php $this->staExport('/css/Base.css'); ?>
         <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -48,6 +49,8 @@
 
         <!-- bootstrap select http://silviomoreto.github.io/bootstrap-select/ -->
         <?php $this->staExport('/script/lib/bootstrap-select.min.js'); ?>
+        <!-- https://github.com/bassjobsen/Bootstrap-3-Typeahead -->
+        <?php $this->staExport('/script/lib/bootstrap3-typeahead.min.js'); ?>
 
         <?php $this->action(); ?>
         <footer class="footer">

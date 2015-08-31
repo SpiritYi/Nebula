@@ -9,7 +9,7 @@
 require_once CODE_BASE . '/app/user/model/StockUserInfoModel.class.php';
 
 class StockUserNamespace {
-    const USER_VERIFY_COOKIE_KEY = 'stock_user_account';
+    const USER_VERIFY_COOKIE_KEY = 'verify_user';   //方便js api ajax 获取cookie跟主站一致
 
     public static function getUserInfoById($uid) {
         $userInfo = StockUserInfoModel::selectUserInfo($uid, 'uid');
