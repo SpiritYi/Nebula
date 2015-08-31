@@ -12,9 +12,17 @@ define(function(require, exports) {
         args.data[config.USER_VERIFY_COOKIE_KEY] = $.cookie(config.USER_VERIFY_COOKIE_KEY);
         if (args.loading)
             args.loading.show();
+
+        //兼容GET参数
+        var reqData = '';
+        if (args.type == 'GET') {
+            reqData = args.data;
+        } else {
+            reqData = JSON.stringify(args.data);
+        }
         $.ajax({
             type: args.type,
-            data: JSON.stringify(args.data),
+            data: reqData,
             url: args.url,
             contentType: 'Application/json',
             dataType: args.dataType || 'json',
