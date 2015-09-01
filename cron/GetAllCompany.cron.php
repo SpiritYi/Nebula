@@ -36,12 +36,14 @@ class GetAllCompanyCron extends CronBase {
     public function updateCompanyData() {
         $localCount = StockCompanyModel::getCompanyCount();
         $companyCount = $this->_getRemoteCompanyCount();
-        if ($companyCount <= 0 && $companyCount <= $localCount[0]['total']) {
-            return true;    //不需要更新
+        if ($companyCount <= 0 || $companyCount <= $localCount[0]['total']) {
+            if (rand(0, 4) < 4) {   //平均5天更新变更名称的
+                return true;    //不需要更新
+            }
         }
         //分页更新公司数据
         $pageCount = 100;
-        $index = 0;
+        $index = 1;
         $delCount = 0;
         $flag = true;
         while ($flag) {
@@ -93,7 +95,7 @@ class GetAllCompanyCron extends CronBase {
                     }
                     if (!empty($change)) {
                         $change['time'] = time();
-                        $res = $this->updateCompanyData($sid, $change);
+                        $res = $this->_updateCompanyInfo($sid, $change);
                         if (!$res) {
                             Logger::logError(json_encode($readyItem), 'cron_company_update_error');
                         }
