@@ -14,7 +14,7 @@ class StockCompanyModel {
     //获取已经记录的公司总数
     public static function getCompanyCount() {
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlbuilderNamespace::buildSelectSql(self::$_TABLE, 'count(1) as total');
+        $sqlString = SqlbuilderNamespace::buildSelectSql(self::$_TABLE, array('count(1) as total'));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }
@@ -25,7 +25,7 @@ class StockCompanyModel {
             return array();
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlbuilderNamespace::buildSelectSql(self::$_TABLE, array('sid, sname, symbol, sspell'), array(array('sid', 'IN', $sidArr)));
+        $sqlString = SqlbuilderNamespace::buildSelectSql(self::$_TABLE, array('sid', 'sname', 'symbol', 'sspell'), array(array('sid', 'IN', $sidArr)));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }
