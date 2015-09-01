@@ -52,7 +52,13 @@ class Crontab {
             Logger::logWarn($info['basename'] . ', still run.', 'crontab_still');
             $psArr = explode("\t", preg_replace('/ +/', "\t", $psStr));
             if (is_numeric($psArr[1])) {
-                shell_exec('kill -9 ' . $psArr[1]);     //先杀掉跑的进程
+                //判断进程开始启动时间
+                $tStr = shell_exec('ps -eo pid,lstart | grep ' . $psArr[1]);
+                preg_match('/^[\d]+(.*)$/', $tStr, $tArr);
+                if (strtotime($tArr[1]) > time() - 10) {   //超过30分钟脚本kill 掉
+                    shell_exec('kill -9 ' . $psArr[1]);     //先杀掉跑的进程
+                    Logger::logError('kill. ' . $psStr, 'crontab_kill');
+                }
             } else {
                 Logger::logError('kill failed. ' . $psStr, 'crontab_kill_error');
                 return false;
