@@ -12,6 +12,10 @@
         <?php $this->loadHead(); ?>
         <title>Nebula Stock</title>
         <style type="text/css">
+            .navbar-brand {
+                padding: 4px;
+                margin-right: 15px;
+            }
             .footer {
                 margin-top: 20px;
                 background-color: #F5F5F5;
@@ -26,11 +30,28 @@
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Hello</a>
+                    <a class="navbar-brand" href="/">
+                        <img alt="Nebula" height="42px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_64.png" >
+                    </a>
                 </div>
-                <div id="nav" class="navbar-collapse collapse">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li id="navbar_holdings"><a href="/stock/holdings">持股</a></li>
+                        <li id="navbar_losslimit"><a href="/exchange/losslimit">设置止损</a></li>
+                        <!--
+                        <li id="navbar_about" class="dropdown">
+                            <a href="/company/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">关于公司 <span class="caret"></span></a>
+                            <ul class="dropdown-menu nav-dropdown" role="menu">
+                                <li><a href="/company/about">公司简介</a></li>
+                                <li><a href="/company/siteupdate">网站更新</a></li>
+                                <li><a href="/company/support">服务信箱</a></li>
+                            </ul>
+                        </li>
+                        -->
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a id="navbar_signout">Sign Out</a></li>
+                        <li id="navbar_user"><a href="/stock/holdings"><?php echo $this->userInfo['nickname']; ?></a></li>
+                        <li id="navbar_signout"><a>登出</a></li>
                     </ul>
                 </div>
             </div>

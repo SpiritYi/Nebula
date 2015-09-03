@@ -36,7 +36,7 @@ class StockCompanyModel {
             return array();
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlbuilderNamespace::buildSelectSql(self::getTable(), array('sid', 'sname'), array(array($field, 'like', sprintf('%%%s%%', $value))),
+        $sqlString = SqlbuilderNamespace::buildSelectSql(self::getTable(), array('sid', 'sname', 'sspell'), array(array($field, 'like', sprintf('%%%s%%', $value))),
                 array(0, 10));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
