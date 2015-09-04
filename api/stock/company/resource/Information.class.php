@@ -12,12 +12,15 @@ class InformationRes extends ResourceBase {
             '/information/' => array(
                 'GET' => 'GetCompanyInfo',  //查询公司信息
             ),
+            '/information/market/:sid/' => array(
+                'GET' => 'GetCompanyPrice', //获取单个公司的市场价格信息
+            ),
         );
     }
 
     public function GetCompanyInfoAction() {
         $user = $this->getStockSessionUser();
-        if (empty($user)) {
+        if (empty($user) && !$this->adminSessionCheck()) {
             $this->output(403, '', '请重新登录');
         }
 
@@ -41,5 +44,17 @@ class InformationRes extends ResourceBase {
                 break;
         }
         $this->output(400, '请求参数错误');
+    }
+
+    public function GetCompanyPriceAction() {
+        $user = $this->getStockSessionUser();
+        if (empty($user) && !$this->adminSessionCheck()) {
+            $this->output(403, '', '请重新登录');
+        }
+
+        $sid = HttpUtil::getParam('sid');
+        require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
+        $marketInfo = StockCompanyNamespace::getCompanyMarketInfo($sid);
+        $this->output(200, $marketInfo);
     }
 }

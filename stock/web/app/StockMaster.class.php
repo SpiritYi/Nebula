@@ -25,4 +25,9 @@ abstract class StockMaster extends PageBase {
     abstract public function loadHead();
 
     abstract public function action();
+
+    //输出价格默认保留小数点两位
+    public function showPrice($price, $fLen = 2) {
+        return sprintf('%.' . $fLen . 'f', $price);
+    }
 }

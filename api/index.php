@@ -15,13 +15,9 @@ require_once API . '/assembly/ResourceBase.class.php';
 
 class IndexBase {
     public static function dispatch() {
-        //ajax 跨域支持
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type');
-        if (isset($_SERVER['HTTP_ORIGIN']) && preg_match('/^.*\.nebula-fund\..*$/', $_SERVER['HTTP_ORIGIN'])) {
-            header('Access-Control-Allow-Origin:*');
+        if (isset($_SERVER['HTTP_ORIGIN']) && preg_match('/^.*\.nebula-fund\.com$/', $_SERVER['HTTP_ORIGIN'])) {
+            header('Access-Control-Allow-Origin:' . $_SERVER['HTTP_ORIGIN']);
         };
-
         require_once API . '/assembly/ClientRouter.class.php';
         //解析url 获取相应数据
         $uriMatch = ClientRouter::match($_SERVER['REQUEST_URI']);
@@ -32,6 +28,11 @@ class IndexBase {
         $allowMethod = array('GET', 'POST', 'PUT', 'DELETE');
         if (!in_array($uriMatch['method'], $allowMethod)) {
             if ($uriMatch['method'] == 'OPTIONS') {
+                //ajax 跨域支持
+                header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+                header('Access-Control-Allow-Headers: Content-Type');
+                header('Access-Control-Max-Age: 86400');
+
                 ResourceBase::output(200, $allowMethod);
             } else {
                 ResourceBase::output(405, '');

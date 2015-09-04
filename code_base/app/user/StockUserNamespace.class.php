@@ -25,6 +25,15 @@ class StockUserNamespace {
         return $userInfo[0];
     }
 
+    //获取用户资产信息
+    public static function getUserProperty($uid) {
+        $userInfo = StockUserInfoModel::selectUserInfo($uid, 'uid');
+        if (empty($userInfo)) {
+            return false;
+        }
+        return $userInfo[0];
+    }
+
     //设置用户数据
     public static function setUserInfo($id, $data) {
         $userInfo = StockUserInfoModel::selectUserInfo($id, 'uid');

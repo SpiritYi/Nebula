@@ -27,8 +27,8 @@ class StockUserInfoModel {
             return array();
         }
         $handler = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'username', 'nickname', 'email', 'qq'), array(
-            array($byField, '=', $v)));
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'username', 'nickname', 'email',
+                'qq', 'money'), array(array($byField, '=', $v)));
         $res = DBMysqlNamespace::query($handler, $sqlString);
         return $res;
     }
@@ -46,8 +46,8 @@ class StockUserInfoModel {
     }
 
     public static function updateUserInfo($userid, $data) {
-        $handle = BaseMainModel::getDbHandle();
-        $sqlString = SqlBuilderNamespace::buildUpdateSql(self::$_TABLE, $data, array(array('id', '=', $userid)));
+        $handle = BaseStockModel::getDbHandle();
+        $sqlString = SqlBuilderNamespace::buildUpdateSql(self::$_TABLE, $data, array(array('uid', '=', $userid)));
         $res = DBMysqlNamespace::execute($handle, $sqlString);
         return $res;
     }

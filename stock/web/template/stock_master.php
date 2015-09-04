@@ -61,7 +61,8 @@
             seajs.config({
                 'base': '<?php echo DomainConfig::STA_DOMAIN; ?>',
                 'alias': {
-                    'NB': 'script/base/nb.js'
+                    'NB': 'script/base/nb.js',
+                    'Stock': 'script/base/stock.js',
                 }
             });
         </script>
