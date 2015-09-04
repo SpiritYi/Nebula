@@ -29,31 +29,33 @@
 </div>
 
 <script type="text/javascript">
-    seajs.use(['NB'], function(NB) {
+    seajs.use(['NB', 'Stock'], function(NB, Stock) {
 
-        var companyObj;
-        $('#stockname').typeahead({
-            source: function(query, process) {
-                console.log(query);
-                NB.apiAjax({
-                    type: 'GET',
-                    data: {"type": "suggestion", "query": query},
-                    url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/stock/company/information/',
-                    success: function(data) {
-                        companyObj = data.data.obj;
-                        process(data.data.show);
-                    },
-                    error: function(data) {
-                        NB.alert(data.message, 'danger');
-                    }
-                });
-            },
-            updater: function(str) {    //选择之后更新id
-                var strArr = str.split(' '), info = companyObj[strArr[0]];
-                $('#stockname').data('sid', info['sid']);
-                return info['sname'];
-            }
-        });
+        Stock.initStockSelect($('#stockname'));
+
+        // var companyObj;
+        // $('#stockname').typeahead({
+        //     source: function(query, process) {
+        //         console.log(query);
+        //         NB.apiAjax({
+        //             type: 'GET',
+        //             data: {"type": "suggestion", "query": query},
+        //             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/stock/company/information/',
+        //             success: function(data) {
+        //                 companyObj = data.data.obj;
+        //                 process(data.data.show);
+        //             },
+        //             error: function(data) {
+        //                 NB.alert(data.message, 'danger');
+        //             }
+        //         });
+        //     },
+        //     updater: function(str) {    //选择之后更新id
+        //         var strArr = str.split(' '), info = companyObj[strArr[0]];
+        //         $('#stockname').data('sid', info['sid']);
+        //         return info['sname'];
+        //     }
+        // });
 
         $('#setlimit').click(function() {
             var sid = $('#stockname').data('sid'), price = $('#price').val();

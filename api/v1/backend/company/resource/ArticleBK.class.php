@@ -17,7 +17,7 @@ class ArticleBKRes extends ResourceBase {
 
     public function publishArticleAction() {
         if (!$this->adminSessionCheck()) {
-            $this->ouput(403, '', '操作权限不足');
+            $this->output(403, '', '操作权限不足');
         }
 
         $type = HttpUtil::getParam('type');

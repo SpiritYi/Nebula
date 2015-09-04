@@ -34,6 +34,7 @@ class UserStockNamespace {
         foreach ($holdList as $item) {
             if (isset($snameArr[$item['sid']])) {
                 $item['sname'] = $snameArr[$item['sid']];
+                $item['per_cost'] = !empty($item['count']) ? $item['cost'] / $item['count'] : '';
             }
             $tableList[] = $item;
         }

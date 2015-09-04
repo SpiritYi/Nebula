@@ -33,7 +33,7 @@ class UserStockModel {
             return array();
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'sid', 'count', 'loss_limit'),
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'sid', 'count', 'cost', 'loss_limit'),
                 array(array('uid', '=', $uid), array('sid', '=', $sid)));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
@@ -45,7 +45,7 @@ class UserStockModel {
             return array();
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'loss_limit'),
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'cost', 'loss_limit'),
                 array(array('uid', '=', $uid)), array(), array('time' => 'ASC'));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;

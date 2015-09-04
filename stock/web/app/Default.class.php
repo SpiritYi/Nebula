@@ -12,11 +12,6 @@ class DefaultPage extends StockMaster {
     }
 
     public function action() {
-        require_once CODE_BASE . '/util/secret/AesEncrypt.class.php';
-        $str = "hello world";
-        $encStr = AesEncrypt::encrypt($str);
-        $decStr = AesEncrypt::decrypt($encStr);
-        var_dump($encStr, $decStr);
         $this->render('/default.php');
     }
 }

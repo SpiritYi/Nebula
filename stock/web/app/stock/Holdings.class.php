@@ -12,6 +12,8 @@ class HoldingsPage extends StockMaster {
     }
 
     public function action() {
+        require_once CODE_BASE . '/app/user/StockUserNamespace.class.php';
+        $this->userProperty = StockUserNamespace::getUserProperty($this->userInfo['uid']);
         require_once CODE_BASE . '/app/stock/UserStockNamespace.class.php';
         $this->stockList = UserStockNamespace::getUserStockList($this->userInfo['uid']);
         $this->render('/stock/holdings.php');
