@@ -1,0 +1,23 @@
+通知消息表
+
+message
+    id              //自增id
+    uid             //uid
+    title           //消息标题
+    content         //消息主体
+    send_time       //发送时间
+    status          //状态，默认0正常， -1已读
+    update_time     //更新时间
+
+CREATE TABLE IF NOT EXISTS message (
+    id int AUTO_INCREMENT,
+    uid int NOT NULL DEFAULT 0 COMMENT 'user id',
+    title VARCHAR(128) NOT NULL DEFAULT '' COMMENT '消息标题',
+    content VARCHAR(512) NOT NULL DEFAULT '' COMMENT '消息主体内容',
+    send_time int NOT NULL DEFAULT 0 COMMENT '发送时间',
+    status tinyint NOT NULL DEFAULT 0 COMMENT '状态，默认0正常，-1已读',
+    update_time int NOT NULL DEFAULT 0 COMMENT '更新时间',
+    PRIMARY KEY id,
+    KEY idx_uid (uid),
+    KEY idx_send_time (send_time)
+) ENGINE=InnoDB charset=utf8 COMMENT='通知消息表';
