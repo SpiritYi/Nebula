@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <link rel="Shortcut Icon" href="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_simple_favicon.png" />
         <?php $this->staExport('/css/Base.css'); ?>
+        <?php $this->staExport('/css/stock/global.css'); ?>
         <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <?php $this->staExport('/css/lib/bootstrap-select.min.css'); ?>
@@ -38,16 +39,12 @@
                     <ul class="nav navbar-nav">
                         <li id="navbar_holdings"><a href="/stock/holdings">持股</a></li>
                         <li id="navbar_losslimit"><a href="/exchange/losslimit">设置止损</a></li>
-                        <!--
-                        <li id="navbar_about" class="dropdown">
-                            <a href="/company/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">关于公司 <span class="caret"></span></a>
+                        <li id="navbar_account" class="dropdown">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">账号 <span class="caret"></span></a>
                             <ul class="dropdown-menu nav-dropdown" role="menu">
-                                <li><a href="/company/about">公司简介</a></li>
-                                <li><a href="/company/siteupdate">网站更新</a></li>
-                                <li><a href="/company/support">服务信箱</a></li>
+                                <li><a href="/account/password">修改密码</a></li>
                             </ul>
                         </li>
-                        -->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="navbar_user"><a href="/stock/holdings"><?php echo $this->userInfo['nickname']; ?></a></li>

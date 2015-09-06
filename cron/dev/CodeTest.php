@@ -10,12 +10,20 @@ require_once dirname(__FILE__) . '/../../config/DirConfig.inc.php';
 
 class CodeTest {
     public function run() {
-        $this->msg();
+        // $this->msg();
+        $this->info();
     }
 
     public function msg() {
         require_once CODE_BASE . '/app/stock/StockMsgNamespace.class.php';
         $res = StockMsgNamespace::sendMsg('1', 'test title', 'test content');
+        var_dump($res);
+    }
+
+    public function info() {
+        require_once CODE_BASE . '/util/http/HttpUtil.class.php';
+        require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
+        $res = StockCompanyNamespace::getCompanyMarketInfo('600111');
         var_dump($res);
     }
 }

@@ -20,15 +20,19 @@ class StockUserInfoModel {
     /**
      * 获取用户信息
      * @param $v string     //查询value
-     * @param $byField string //指定查询字段
+     * @param $byField string   //指定查询字段
+     * @param $allField bool    //是否查询所有字段
      */
-    public static function selectUserInfo($v, $byField = 'username') {
+    public static function selectUserInfo($v, $byField = 'username', $allField = false) {
         if (empty($v) || empty($byField)) {
             return array();
         }
+        $queryField = array('uid', 'username', 'nickname', 'email', 'qq', 'money', 'usable_money');
+        if ($allField) {
+            $queryField = array('*');
+        }
         $handler = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'username', 'nickname', 'email',
-                'qq', 'money'), array(array($byField, '=', $v)));
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, $queryField, array(array($byField, '=', $v)));
         $res = DBMysqlNamespace::query($handler, $sqlString);
         return $res;
     }

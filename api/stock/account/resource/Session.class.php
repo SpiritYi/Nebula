@@ -39,7 +39,7 @@ class SessionRes extends ResourceBase {
         require_once CODE_BASE . '/app/user/StockUserNamespace.class.php';
         $cookie = CookieUtil::create(StockUserNamespace::USER_VERIFY_COOKIE_KEY, $verifyStr, $userInfo['session_expire']);
         //更新活跃时间
-        $update = array('id' => $userInfo['uid'], 'live_time' => time());
+        $update = array('uid' => $userInfo['uid'], 'active_time' => time());
         StockUserNamespace::setUserInfo($userInfo['uid'], $update);
         ResourceBase::output(200, array('cookie' => $cookie), 'OK');
     }

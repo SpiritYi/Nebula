@@ -52,7 +52,7 @@
                             'base': '<?php echo DomainConfig::STA_DOMAIN; ?>',
                             'alias': {
                                 'NB': 'script/base/nb.js',
-                                'Stock': 'script/base/Stock.js'
+                                'Stock': 'script/base/stock.js'
                             }
                         });
                     </script>

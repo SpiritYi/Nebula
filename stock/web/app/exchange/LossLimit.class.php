@@ -12,6 +12,8 @@ class LossLimitPage extends StockMaster {
     }
 
     public function action() {
+        require_once CODE_BASE . '/app/stock/UserStockNamespace.class.php';
+        $this->userStockList = UserStockNamespace::getUserStockList($this->userInfo['uid']);
         $this->render('/exchange/loss_limit.php');
     }
 }

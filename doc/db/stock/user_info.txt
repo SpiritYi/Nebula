@@ -8,7 +8,8 @@ user_info
     email       string  //邮箱地址
     qq      string
     live_time   int     //活跃时间
-    money       float   //总资产
+    money       decimal   //持有现金
+    usable_money decimal //可用现金
     active_time int     //账号开通时间
     begin_money float   //起始资金
     session_expire int  //session 有效时间
@@ -21,7 +22,8 @@ CREATE TABLE IF NOT EXISTS user_info (
     email VARCHAR(64) NOT NULL DEFAULT '' COMMENT '邮箱',
     qq VARCHAR(24) NOT NULL DEFAULT '' COMMENT 'QQ',
     active_time INT NOT NULL DEFAULT 0 COMMENT '活跃时间',
-    money DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '总资产',
+    money DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '持有现金',
+    usable_money DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '可用现金',
     active_time INT NOT NULL DEFAULT 0 COMMENT '开通时间',
     begin_money FLOAT NOT NULL DEFAULT 0 COMMENT '起始资金',
     session_expire INT NOT NULL DEFAULT 86400 COMMENT 'session 有效时间',
@@ -31,4 +33,5 @@ CREATE TABLE IF NOT EXISTS user_info (
 ) ENGINE=InnoDB CHARSET=utf8 COMMIT="用户表";
 
 ALTER TABLE user_info ADD COLUMN session_expire INT NOT NULL DEFAULT 86400 COMMENT 'session 有效时间';
-ALTER TABLE user_info CHANGE live_time active_time INT;
+ALTER TABLE user_info CHANGE live_time active_time INT NOT NULL DEFAULT 0 COMMENT '用户活跃时间';
+ALTER TABLE user_info ADD COLUMN usable_money DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '可用现金' AFTER money;

@@ -59,7 +59,7 @@ class UserStockModel {
         $handle = BaseStockModel::getDBHandle();
         $sqlString = SqlBuilderNamespace::buildUpdateSql(self::$_TABLE, $data, array(array('uid', '=', $uid),
                 array('sid', '=', $sid)));
-        $res = DBMysqlNamespace::query($handle, $sqlString);
+        $res = DBMysqlNamespace::execute($handle, $sqlString);
         return $res;
     }
 }
