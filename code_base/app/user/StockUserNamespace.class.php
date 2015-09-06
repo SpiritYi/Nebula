@@ -36,7 +36,7 @@ class StockUserNamespace {
 
     //设置用户数据
     public static function setUserInfo($id, $data) {
-        $userInfo = StockUserInfoModel::selectUserInfo($id, 'uid');
+        $userInfo = StockUserInfoModel::selectUserInfo($id, 'uid', true);
         if (empty($userInfo))
             return false;
         $updateData = array();
@@ -48,7 +48,6 @@ class StockUserNamespace {
         }
         if (empty($updateData))
             return true;
-        $updateData['active_time'] = time();
         return StockUserInfoModel::updateUserInfo($id, $updateData);
     }
 

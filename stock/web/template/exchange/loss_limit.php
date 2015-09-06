@@ -7,9 +7,13 @@
     <div class="col-lg-4">
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="col-sm-4 control-label">上市公司</label>
+                <label class="col-sm-4 control-label">持股公司</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="stockname" data-provide="typeahead">
+                    <select id="stock_select" class="selectpicker" data-width="100%">
+                        <?php foreach ($this->userStockList as $item) { ?>
+                            <option value="<?php echo $item['sid']; ?>"><?php echo $item['sname']; ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -30,35 +34,11 @@
 
 <script type="text/javascript">
     seajs.use(['NB', 'Stock'], function(NB, Stock) {
-
-        Stock.initStockSelect($('#stockname'));
-
-        // var companyObj;
-        // $('#stockname').typeahead({
-        //     source: function(query, process) {
-        //         console.log(query);
-        //         NB.apiAjax({
-        //             type: 'GET',
-        //             data: {"type": "suggestion", "query": query},
-        //             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/stock/company/information/',
-        //             success: function(data) {
-        //                 companyObj = data.data.obj;
-        //                 process(data.data.show);
-        //             },
-        //             error: function(data) {
-        //                 NB.alert(data.message, 'danger');
-        //             }
-        //         });
-        //     },
-        //     updater: function(str) {    //选择之后更新id
-        //         var strArr = str.split(' '), info = companyObj[strArr[0]];
-        //         $('#stockname').data('sid', info['sid']);
-        //         return info['sname'];
-        //     }
-        // });
+        NB.navActive($('#navbar_losslimit'));
 
         $('#setlimit').click(function() {
-            var sid = $('#stockname').data('sid'), price = $('#price').val();
+            var sid = $('#stock_select').val(), price = $('#price').val();
+            console.log(sid);
 
             NB.apiAjax({
                 loading: $('.submit img'),

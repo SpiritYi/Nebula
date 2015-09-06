@@ -23,7 +23,6 @@
         </script>
         <?php $this->staExport('/script/lib/jquery-2.1.3.js'); ?>
         <?php $this->staExport('/script/lib/jquery.cookie-1.4.1.min.js'); ?>
-        <?php $this->staExport('/script/lib/jquery.md5.js'); ?>
         <?php $this->staExport('/script/lib/moment.min.js'); ?>
         <?php $this->staExport('/script/base/nb.js'); ?>
 

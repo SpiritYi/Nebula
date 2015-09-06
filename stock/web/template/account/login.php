@@ -23,12 +23,16 @@
     .submit-group {
         text-align: center;
     }
+    .submit-group img {
+        margin: 0px;
+    }
 </style>
 <div class="container" style="margin-top: 50px;">
     <div class="form-signin">
         <h2>用户登录</h2>
-        <input type="username" id="username" class="form-control" placeholder="用户名" value="CEO" />
-        <input type="password" id="password" class="form-control" placeholder="密码" value="111" />
+        <input type="username" id="username" class="form-control" placeholder="用户名" value="" >
+        <input type="password" id="password" class="form-control" placeholder="密码">
+        <!-- <input type="password" id="password" class="form-control" placeholder="密码" value="" > -->
         <button id="signin_btn" class="btn btn-primary btn-block" type="button">登录</button>
         <div class="submit-group">
             <img src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/loading.gif" style="display:none;" />
@@ -40,6 +44,7 @@
     </div>
 </div>
 
+<?php $this->staExport('/script/lib/jquery.md5.js'); ?>
 <script type="text/javascript">
     seajs.use(['NB'], function(NB) {
         //回车支持

@@ -19,12 +19,15 @@ class StockCompanyNamespace {
         $fieldArr = explode(',', $arr[3]);
         $info = array(
             'sid' => $arr[2],
-            'opening_price' => $fieldArr[1],        //今日开盘价
-            'ysd_closing_price' => $fieldArr[2],    //昨日收盘价
-            'price' => $fieldArr[3],                //现价
-            'highest' => $fieldArr[4],              //最高价
-            'lowest' => $fieldArr[5],               //最低价
+            'opening_price' => (float)$fieldArr[1],        //今日开盘价
+            'ysd_closing_price' => (float)$fieldArr[2],    //昨日收盘价
+            'price' => self::showPrice($fieldArr[3]),                   //现价
+            'highest' => (float)$fieldArr[4],              //最高价
+            'lowest' => (float)$fieldArr[5],               //最低价
+            'time' => strtotime($fieldArr[30] . ' ' . $fieldArr[31]),   //最后更新时间
         );
+        $info['price_diff'] = self::showPrice($info['price'] - $info['ysd_closing_price']);             //涨跌价差
+        $info['price_diff_rate'] = round($info['price_diff'] / $info['ysd_closing_price'] * 100, 2);    //涨跌幅
         return $info;
     }
 
@@ -41,6 +44,11 @@ class StockCompanyNamespace {
             'sspell' => $fieldArr[1],
         );
         return $info;
+    }
+
+    //输出价格默认保留小数点两位
+    public static function showPrice($price, $fLen = 2) {
+        return sprintf('%.' . $fLen . 'f', $price);
     }
 
     //获取一个公司市场报价信息

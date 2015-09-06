@@ -43,7 +43,7 @@ class ExchangeBKRes extends ResourceBase {
         $commission = $value * 0.001;   //固定千分之一的佣金
         $cost = $value + $commission;   //总花费
         //校验资产
-        if ($userInfo['money'] < $cost) {
+        if ($userInfo['usable_money'] < $cost) {
             $this->output(400, '', '资金不足');
         }
         //生成交易记录
@@ -90,6 +90,7 @@ class ExchangeBKRes extends ResourceBase {
         require_once CODE_BASE . '/app/user/model/StockUserInfoModel.class.php';
         $userUpdate = array(
             'money' => $userInfo['money'] - $cost,
+            'usable_money' => $userInfo['usable_money'] - $cost,
         );
         $changeFlag = StockUserInfoModel::updateUserInfo($userInfo['uid'], $userUpdate);
         if (!$changeFlag) {

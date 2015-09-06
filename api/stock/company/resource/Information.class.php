@@ -6,6 +6,9 @@
  * @copyright nebula-fund.com
  */
 
+require_once CODE_BASE . '/app/stock/model/StockCompanyModel.class.php';
+require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
+
 class InformationRes extends ResourceBase {
     public function setUriMatchConfig() {
         return array(
@@ -32,7 +35,6 @@ class InformationRes extends ResourceBase {
                 if (is_numeric($query)) {
                     $queryField = 'sid';
                 }
-                require_once CODE_BASE . '/app/stock/model/StockCompanyModel.class.php';
                 $res = StockCompanyModel::getSuggestionList($queryField, strtolower($query));
                 $sugList = array();
                 $objList = array();
@@ -42,8 +44,46 @@ class InformationRes extends ResourceBase {
                 }
                 $this->output(200, array('obj' => $objList, 'show' => $sugList));
                 break;
+
+            case 'price_list':      //批量获取公司报价
+                $this->_getCompanyPrice();
+                break;
         }
         $this->output(400, '请求参数错误');
+    }
+
+    //批量获取公司现价
+    private function _getCompanyPrice() {
+        $sids = HttpUtil::getParam('sids');
+        $sidArr = explode(',', $sids);
+        if (empty($sidArr)) {
+            $this->output(400, '', '股票代码参数错误');
+        }
+        //查询公司symbol
+        $companyList = StockCompanyModel::getBatchInfo($sidArr);
+        if (empty($companyList)) {
+            $this->output(400, '', '获取公司信息失败');
+        }
+        $symbolArr = array();
+        foreach ($companyList as $info) {
+            $symbolArr[] = $info['symbol'];
+        }
+        //远程获取公司报价
+        $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, implode(',', $symbolArr));
+        $rspStr = HttpUtil::curlget($url, array());
+        if (empty($rspStr)) {
+            $this->output(500, '', '远程读取公司报价失败');
+        }
+        //解析报价数据
+        $strArr = explode("\n", $rspStr);
+        $res = array();
+        foreach ($strArr as $dataStr) {
+            $dataInfo = StockCompanyNamespace::parseData($dataStr);
+            if (!empty($dataInfo)) {
+                $res[$dataInfo['sid']] = $dataInfo;
+            }
+        }
+        $this->output(200, $res);
     }
 
     public function GetCompanyPriceAction() {
@@ -53,7 +93,6 @@ class InformationRes extends ResourceBase {
         }
 
         $sid = HttpUtil::getParam('sid');
-        require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
         $marketInfo = StockCompanyNamespace::getCompanyMarketInfo($sid);
         $this->output(200, $marketInfo);
     }
