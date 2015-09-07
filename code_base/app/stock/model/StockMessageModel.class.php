@@ -22,7 +22,10 @@ class StockMessageModel {
         return $res;
     }
 
-    //获取未读消息列表
+    /**
+     * 获取未读消息列表
+     * @param $uid int
+     */
     public static function getUnreadList($uid) {
         if (empty($uid)) {
             return array();
@@ -30,6 +33,18 @@ class StockMessageModel {
         $handle = BaseStockModel::getDBHandle();
         $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'title', 'content', 'send_time'), 
                 array(array('uid', '=', $uid), array('status', '=', 0)), array(10), array('id' => 'desc'));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
+
+    //获取未读消息总数
+    public static function getUnreadCount($uid) {
+        if (empty($uid)) {
+            return array();
+        }
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('count(1) as total'), 
+                array(array('uid', '=', $uid), array('status', '=', 0)));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }

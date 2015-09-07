@@ -1,0 +1,61 @@
+/* 消息页面css */
+
+/* 时钟样式 */
+.clock {
+    color: #DDD;
+}
+.clock p {
+    margin-top: 100px;
+    font-size: 128px;
+    text-align: center;
+}
+
+/* 隐藏侧栏样式 */
+.noticebar {
+    position: fixed;
+    right: -23%;
+    top:0px;
+    height: 100%;
+    width: 23%;
+    background-color: rgba(242, 242, 242, 0.6);
+    border-left: 1px solid #DDD;
+    transition: right 0.5s ease;
+}
+.noticebar-hidden {
+    right: 0;
+}
+
+/* 消息流 */
+ul {
+    list-style-type: none;
+}
+.msg-item {
+    padding: 15px 15px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #F1F1F1;
+    border-top: 1px solid #F1F1F1;
+    background-color: #FFF;
+}
+.check-col {
+    padding-top: 1px;
+}
+.content-col {
+    padding-left: 0px;
+}
+.msg-item .head {
+    margin-bottom: 15px;
+    font-size: 120%;
+}
+.msg-item .read {
+    color: #DDD;
+    text-decoration: line-through;
+}
+.head .tm {
+    float: right;
+    margin-top: 4px;
+    font-size: 80%;
+    color: #DDD;
+}
+.msg-item .content {
+    font-size: 90%;
+}
