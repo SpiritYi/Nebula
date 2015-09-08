@@ -1,0 +1,25 @@
+//股票价格指数
+
+stock_point
+    id      //自增id
+    sid     //股票
+    date    //日期，如20150908
+    opening_price   //开盘价
+    closing_price   //收盘价，盘中为现价
+    highest     //最高价
+    lowest      //最低价
+    time    //最后更新时间
+
+CREATE TABLE IF NOT EXISTS stock_point (
+    id int AUTO_INCREMENT,
+    sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    date VARCHAR(8) NOT NULL DEFAULT '' COMMENT '日期，如20150908',
+    opening_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '开盘价',
+    closing_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMEMNT '收盘价，盘中为现价',
+    highest DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '最高价',
+    lowest DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '最低价',
+    time int NOT NULL DEFAULT 0 COMMENT '最后更新时间',
+    PRIMARY KEY (id),
+    KEY idx_sid (sid),
+    KEY idx_date (date)
+) ENGINE=InnoDB charset=utf8 COMMENT '股票价格指数';

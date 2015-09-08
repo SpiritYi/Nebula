@@ -21,3 +21,4 @@ CREATE TABLE IF NOT EXISTS stock_company (
 
 ALTER TABLE stock_company ADD COLUMN symbol VARCHAR(8) NOT NULL DEFAULT '' COMMENT '查询id' AFTER sname;
 ALTER TABLE stock_company ADD COLUMN time int NOT NULL DEFAULT 0 COMMENT '最后更新时间';
+INSERT INTO stock_company(sid, sname, symbol, sspell) VALUES ('699001', '上证指数', 'sh000001', 'szzs');
