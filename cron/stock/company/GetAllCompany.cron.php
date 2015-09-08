@@ -6,9 +6,8 @@
  * @copyright nebula-fund.com
  */
 
-require_once dirname(__FILE__) . '/CronBase.class.php';
+require_once dirname(__FILE__) . '/../../CronBase.class.php';
 require_once CODE_BASE . '/util/http/HttpUtil.class.php';
-require_once CODE_BASE . '/util/logger/Logger.class.php';
 require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
 require_once CODE_BASE . '/app/stock/model/StockCompanyModel.class.php';
 

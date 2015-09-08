@@ -17,6 +17,10 @@ class StockCompanyNamespace {
             return array();
         }
         $fieldArr = explode(',', $arr[3]);
+        //处理上证指数
+        if ($arr[1] . $arr[2] == 'sh000001') {
+            $arr[2] = '699001';
+        }
         $info = array(
             'sid' => $arr[2],
             'opening_price' => (float)$fieldArr[1],        //今日开盘价
@@ -70,6 +74,22 @@ class StockCompanyNamespace {
         }
         $resp['sname'] = $company[0]['sname'];
         return $resp;
+    }
+
+    //是否交易时间
+    public static function isExchangeHour() {
+        $isExchange = false;
+        $t = time();
+        if (!in_array(date('w'), [0, 6]) && 
+            ((strtotime('09:25') < $t && $t < strtotime('11:35')) ||
+            (strtotime('12:55') < $t && $t < strtotime('15:05')))) {
+            require_once CODE_BASE . '/app/stock/model/StockPointModel.class.php';
+            $dayData = StockPointModel::selectDayPoint('699001', date('Ymd'));
+            if (!empty($dayData)) {
+                $isExchange = true;
+            }
+        }
+        return $isExchange;
     }
 
 }
