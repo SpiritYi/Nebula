@@ -5,11 +5,16 @@ define(function(require, exports) {
     var NB = require('script/base/nb.js');
     var config = require('script/base/nbconfig.js');
 
+    /*
+     * 初始化股票联想输入框
+     * @param args object
+     *          - selector: $('#xxx')       //输入框对象
+     *          - updater: function() { }   //选中联想项之后的回调函数
+     */
     exports.initStockSelect = function(args) {
         var companyObj;
         args.selector.typeahead({
             source: function(query, process) {
-                console.log(query);
                 NB.apiAjax({
                     type: 'GET',
                     data: {"type": "suggestion", "query": query},
@@ -33,4 +38,22 @@ define(function(require, exports) {
             }
         });
     };
+
+    /**
+     * 循环获取交易市场状态
+     * @param obj
+     *          - is_exchange   bool    //是否交易时间
+     */
+    exports.getMarketStatus = function(obj) {
+        function refreshStatus() {
+            NB.apiAjax({
+                type: 'GET',
+                url: config.API_DOMAIN + '/stock/company/market/status/',
+                success: function(data) {
+                    obj.is_exchange = data.data.is_exchange;
+                }
+            });
+        }
+        setInterval(function() { refreshStatus(); }, 60 * 1000);
+    }
 });

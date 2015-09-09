@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS message (
     send_time int NOT NULL DEFAULT 0 COMMENT '发送时间',
     status tinyint NOT NULL DEFAULT 0 COMMENT '状态，默认0正常，-1已读',
     update_time int NOT NULL DEFAULT 0 COMMENT '更新时间',
-    PRIMARY KEY id,
+    PRIMARY KEY (id),
     KEY idx_uid (uid),
     KEY idx_send_time (send_time)
 ) ENGINE=InnoDB charset=utf8 COMMENT='通知消息表';

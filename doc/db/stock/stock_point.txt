@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS stock_point (
     sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
     date VARCHAR(8) NOT NULL DEFAULT '' COMMENT '日期，如20150908',
     opening_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '开盘价',
-    closing_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMEMNT '收盘价，盘中为现价',
+    closing_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '收盘价，盘中为现价',
     highest DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '最高价',
     lowest DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '最低价',
     time int NOT NULL DEFAULT 0 COMMENT '最后更新时间',
