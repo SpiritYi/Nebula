@@ -69,12 +69,22 @@
 </div>
 
 <script type="text/javascript">
-    seajs.use(['NB'], function(NB) {
+    seajs.use(['NB', 'Stock'], function(NB, Stock) {
         NB.navActive($('#navbar_holdings'));
+
+        var market = {is_exchange: false};
+        Stock.getMarketStatus(market);
 
         //刷新页面报价信息
         var stockColorClass = 'stock-up stock-under';
-        function refreshData() {
+        /**
+         * 刷新页面数据
+         * @param isFirst bool  //是否首次，首次强刷
+         */
+        function refreshData(isFirst) {
+            if (!isFirst && !market.is_exchange) {
+                return;
+            }
             //收集股票id
             var sidArr = [], sids;
             $('.sid').each(function() {
@@ -116,6 +126,7 @@
                 }
             });
         }
-        refreshData();
+        refreshData(true);
+        setInterval(function() { refreshData(false); }, 5000);
     })
 </script>
