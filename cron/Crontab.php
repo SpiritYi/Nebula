@@ -50,6 +50,7 @@ class Crontab {
         $psStr = shell_exec(sprintf('ps aux | grep -v grep | grep %s', $info['basename']));
         if (!empty($psStr)) {
             Logger::logWarn($info['basename'] . ', still run.', 'crontab_still');
+            /*
             $psArr = explode("\t", preg_replace('/ +/', "\t", $psStr));
             if (is_numeric($psArr[1])) {
                 //判断进程开始启动时间
@@ -62,7 +63,8 @@ class Crontab {
             } else {
                 Logger::logError('kill failed. ' . $psStr, 'crontab_kill_error');
                 return false;
-            }
+            } 
+            */
         }
         shell_exec('php ' . $filePath . ' -r > /dev/null &');
         Logger::logInfo('run ' . $info['basename'], 'crontab_launch');
