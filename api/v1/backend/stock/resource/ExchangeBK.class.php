@@ -64,25 +64,8 @@ class ExchangeBKRes extends ResourceBase {
             $this->output(500, '', '生成交易记录失败');
         }
         //添加持股
-        require_once CODE_BASE . '/app/stock/model/UserStockModel.class.php';
-        $userStock = UserStockModel::selectStockBySid($userInfo['uid'], $sid);
-        if (!empty($userStock)) {   //更新持股
-            $hold = $userStock[0];
-            $update = array(
-                'count' => $hold['count'] + $count,
-                'cost' => $hold['cost'] + $cost,
-            );
-            $opFlag = UserStockModel::updateUserStock($userInfo['uid'], $sid, $update);
-        } else {    //添加持股
-            $data = array(
-                'uid' => $uid,
-                'sid' => $sid,
-                'count' => $count,
-                'cost' => $cost,
-                'time' => time(),
-            );
-            $opFlag = UserStockModel::addUserStock($data);
-        }
+        require_once CODE_BASE . '/app/sotck/UserStockNamespace.class.php';
+        $opFlag = UserStockNamespace::setUserHolding($uid, $sid, $count, $cost, true);
         if (!$opFlag) {
             $this->output(500, '', '生成持股记录失败');
         }

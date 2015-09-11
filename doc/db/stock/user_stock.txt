@@ -5,6 +5,7 @@ user_stock
     uid     int     //uid
     sid     string  //stock id
     count   int     //持股数
+    available_count int //可卖数量
     cost    decimal //总花费
     time    int     //首次购买
     loss_limit decimal //止损价格
@@ -14,6 +15,7 @@ CREATE TABLE IF NOT EXISTS user_stock(
     uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
     sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
     count INT NOT NULL DEFAULT 0 COMMENT '持股数量',
+    available_count INT NOT NULL DEFAULT 0 COMMENT '可卖数量',
     cost DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '总花费',
     time INT NOT NULL DEFAULT 0 COMMENT '首次购买时间',
     loss_limit DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '止损价格',
@@ -22,4 +24,4 @@ CREATE TABLE IF NOT EXISTS user_stock(
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='用户持股表';
 
 ALTER TABLE user_stock ADD COLUMN loss_limit DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '止损价格';
-
+ALTER TABLE user_stock ADD COLUMN available_count INT NOT NULL DEFAULT 0 COMMENT '可卖数量';

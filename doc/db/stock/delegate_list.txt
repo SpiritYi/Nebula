@@ -6,8 +6,10 @@ delegate_list
     sid     string  //stock id
     count   int     //交易数量
     price   decimal //委托价格
+    direction tinyint //交易方向，1买，-1卖
     status  tinyint //委托状态，0正常，-1过期
     time    int     //委托时间
+    update_t int    //更新时间
 
 CREATE TABLE IF NOT EXISTS delegate_list (
     id INT AUTO_INCREMENT,
@@ -17,6 +19,10 @@ CREATE TABLE IF NOT EXISTS delegate_list (
     price DECIMAL(10,4) NOT NULL DEFAULT 0 COMMENT '委托价格',
     status TINYINT NOT NULL DEFAULT 0 COMMENT '委托状态，0正常，-1过期',
     time int NOT NULL DEFAULT 0 COMMENT '委托时间',
+    update_t int NOT NULL DEFAULT 0 COMMENT '更新时间',
     PRIMARY KEY (id),
     KEY idx_uid (uid)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='委托队列';
+
+ALTER TABLE delegate_list ADD COLUMN direction tinyint NOT NULL DEFAULT 0 COMMENT '交易方向，1买，-1卖' AFTER price;
+ALTER TABLE delegate_list ADD COLUMN update_t int NOT NULL DEFAULT 0 COMMENT '更新时间';

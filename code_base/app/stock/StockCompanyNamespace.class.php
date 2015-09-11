@@ -35,6 +35,43 @@ class StockCompanyNamespace {
         return $info;
     }
 
+    /**
+     * 解析公司详细数据
+     * @return array
+     *          - outright_list array   //逐笔记录数组
+     */
+    public static function parseDetailData($str) {
+        $reg = '/^v_(sh|zs)([\d]{6})="(.*)";$/';
+        $arr = array();
+        if (!preg_match($reg, $str, $arr)) {
+            return array();
+        }
+        $fieldArr = explode('~', $arr[3]);
+        if ($arr[1] . $arr[2] == 'sh000001') {  //处理上证指数
+            $arr[2] = $fieldArr[2] = '699001';
+        }
+        $outrightStrArr = explode('|', $fieldArr[29]); //逐笔成交记录数组
+        $recordArr = array();
+        foreach ($outrightStrArr as $record) {
+            $dArr = explode("/", $record);
+            $outrightInfo = array(
+                't' => $dArr[0],
+                'tstamp' => strtotime($dArr[0]),
+                'price' => $dArr[1],        //成交价格
+                'volume' => $dArr[2],       //成交量(手)
+                'direction' => $dArr[3],    //交易方向, B, S
+                'turnover' => $dArr[4],     //成交额
+                'series_id' => $dArr[5],    //交易序列id
+            );
+            $recordArr[] = $outrightInfo;
+        }
+        $detailData = array(
+            'sid' => $fieldArr[2],
+            'outright_list' => $recordArr,  //逐笔数组
+        );
+        return $detailData;
+    }
+
     //解析公司原信息数据, 获取字母拼音
     public static function parseiData($str) {
         $reg = '/^var hq_str_(sh|sz)([\d]{6})_i="(.*)";$/';
@@ -55,25 +92,43 @@ class StockCompanyNamespace {
         return sprintf('%.' . $fLen . 'f', $price);
     }
 
-    //获取一个公司市场报价信息
-    public static function getCompanyMarketInfo($sid) {
+    /**
+     * 批量获取公司报价信息
+     * @return array
+     *          - sid, sname, opening_price, ysd_closing_price, price, highest, lowest, price_diff, price_diff_rate
+     */
+    public static function getCompanyMarketInfo($sidArr) {
+        if (!is_array($sidArr)) {
+            return array();
+        }
         //查询公司symbol
-        $company = StockCompanyModel::getBatchInfo(array($sid));
-        if (empty($company)) {
-            return false;
+        $companyList = StockCompanyModel::getBatchInfo($sidArr);
+        if (empty($companyList)) {
+            return array();
         }
-        $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, $company[0]['symbol']);
-        $str = HttpUtil::curlget($url, array());
-        // $str = 'var hq_str_sh600111="北方稀土,12.50,13.07,13.15,13.46,12.41,13.14,13.18,85085802,1106796739,6000,13.14,8800,13.13,900,13.12,1900,13.09,72499,13.08,262200,13.18,170250,13.19,583019,13.20,59400,13.21,61100,13.22,2015-09-02,15:04:08,00";';
-        if (empty($str)) {
-            return false;
+        $symbolArr = array();
+        foreach ($companyList as $info) {
+            $symbolArr[] = $info['symbol'];
         }
-        $resp = self::parseData($str);
-        if (empty($resp)) {
-            return false;
+        //远程获取公司报价
+        $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, implode(',', $symbolArr));
+        $rspStr = HttpUtil::curlget($url, array());
+        if (empty($rspStr)) {
+            return array();
         }
-        $resp['sname'] = $company[0]['sname'];
-        return $resp;
+        //解析报价数据
+        $strArr = explode("\n", $rspStr);
+        $res = array();
+        foreach ($strArr as $dataStr) {
+            if (empty($dataStr)) {
+                continue;
+            }
+            $dataInfo = self::parseData($dataStr);
+            if (!empty($dataInfo)) {
+                $res[$dataInfo['sid']] = $dataInfo;
+            }
+        }
+        return $res;
     }
 
     //是否交易时间
@@ -83,6 +138,18 @@ class StockCompanyNamespace {
         if (!in_array(date('w'), [0, 6]) && 
             ((strtotime('09:25') < $t && $t < strtotime('11:35')) ||
             (strtotime('12:55') < $t && $t < strtotime('15:05')))) {
+            require_once CODE_BASE . '/app/stock/model/StockPointModel.class.php';
+            $dayData = StockPointModel::selectDayPoint('699001', date('Ymd'));
+            if (!empty($dayData)) {
+                $isExchange = true;
+            }
+        }
+        return $isExchange;
+    }
+    //是否开市日, 交易时间开始后判断才有效
+    public static function isExchangeDay() {
+        $isExchange = false;
+        if (!in_array(date('w'), [0, 6])) {
             require_once CODE_BASE . '/app/stock/model/StockPointModel.class.php';
             $dayData = StockPointModel::selectDayPoint('699001', date('Ymd'));
             if (!empty($dayData)) {

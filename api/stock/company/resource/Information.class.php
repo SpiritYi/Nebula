@@ -59,31 +59,13 @@ class InformationRes extends ResourceBase {
         if (empty($sidArr)) {
             $this->output(400, '', '股票代码参数错误');
         }
-        //查询公司symbol
-        $companyList = StockCompanyModel::getBatchInfo($sidArr);
-        if (empty($companyList)) {
-            $this->output(400, '', '获取公司信息失败');
+
+        $res = StockCompanyNamespace::getCompanyMarketInfo($sidArr);
+        if (empty($res)) {
+            $this->output(500, '获取数据失败');
+        } else {
+            $this->output(200, $res);
         }
-        $symbolArr = array();
-        foreach ($companyList as $info) {
-            $symbolArr[] = $info['symbol'];
-        }
-        //远程获取公司报价
-        $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, implode(',', $symbolArr));
-        $rspStr = HttpUtil::curlget($url, array());
-        if (empty($rspStr)) {
-            $this->output(500, '', '远程读取公司报价失败');
-        }
-        //解析报价数据
-        $strArr = explode("\n", $rspStr);
-        $res = array();
-        foreach ($strArr as $dataStr) {
-            $dataInfo = StockCompanyNamespace::parseData($dataStr);
-            if (!empty($dataInfo)) {
-                $res[$dataInfo['sid']] = $dataInfo;
-            }
-        }
-        $this->output(200, $res);
     }
 
     public function GetCompanyPriceAction() {
@@ -94,6 +76,6 @@ class InformationRes extends ResourceBase {
 
         $sid = HttpUtil::getParam('sid');
         $marketInfo = StockCompanyNamespace::getCompanyMarketInfo($sid);
-        $this->output(200, $marketInfo);
+        $this->output(200, $marketInfo[$sid]);
     }
 }
