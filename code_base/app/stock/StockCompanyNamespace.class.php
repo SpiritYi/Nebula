@@ -112,6 +112,7 @@ class StockCompanyNamespace {
         }
         //远程获取公司报价
         $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, implode(',', $symbolArr));
+        require_once CODE_BASE . '/util/http/HttpUtil.class.php';
         $rspStr = HttpUtil::curlget($url, array());
         if (empty($rspStr)) {
             return array();
