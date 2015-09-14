@@ -9,6 +9,7 @@ user_stock
     cost    decimal //总花费
     time    int     //首次购买
     loss_limit decimal //止损价格
+    limit_alert_time int //止损价格提醒时间
 
 CREATE TABLE IF NOT EXISTS user_stock(
     id INT AUTO_INCREMENT,
@@ -19,9 +20,11 @@ CREATE TABLE IF NOT EXISTS user_stock(
     cost DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '总花费',
     time INT NOT NULL DEFAULT 0 COMMENT '首次购买时间',
     loss_limit DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '止损价格',
+    limit_alert_time int NOT NULL DEFAULT 0 COMMENT '止损触发提醒时间',
     PRIMARY KEY (id),
     KEY idx_uid (uid)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='用户持股表';
 
 ALTER TABLE user_stock ADD COLUMN loss_limit DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '止损价格';
 ALTER TABLE user_stock ADD COLUMN available_count INT NOT NULL DEFAULT 0 COMMENT '可卖数量';
+ALTER TABLE user_stock ADD COLUMN limit_alert_time INT NOT NULL DEFAULT 0 COMMENT '止损触发提醒时间';

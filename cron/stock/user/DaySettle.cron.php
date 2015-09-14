@@ -11,6 +11,7 @@
 require_once dirname(__FILE__) . '/../../CronBase.class.php';
 
 require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
+require_once CRON . '/stock/user/model/UserInfoCronModel.class.php'
 
 class DaySettle extends CronBase {
     public function setCycleConfig() {
@@ -51,6 +52,11 @@ class DaySettle extends CronBase {
 
     //每日统计用户资产
     public function snapshotUserProperty() {
+        $exchangeFlag = StockCompanyNamespace::isExchangeDay();
+        if (!$exchangeFlag) {
+            return false;
+        }
+        
         $userList = UserInfoCronModel::getUserList();
         if (empty($userList)) {
             return false;
@@ -110,26 +116,6 @@ class DelegateListCronModel {
         $sqlString = SqlBuilderNamespace::buildUpdateSql(self::$_TABLE, array('status' => -1), array(array('status', '=', 0)));
         $res = DBMysqlNamespace::execute($handle, $sqlString);
         return $res;
-    }
-}
-
-class UserInfoCronModel {
-    private static $_TABLE = 'user_info';
-
-    //获取用户列表
-    public static function getUserList() {
-        $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'money'));
-        $res = DBMysqlNamespace::query($handle, $sqlString);
-        return $res;
-    }
-
-    //随着所有委托被清理，所有可用资金重置
-    public static function resetUsableMoney() {
-        $handle = BaseStockModel::getDBHandle();
-        $sqlString = "UPDATE " . self::$_TABLE . " SET usable_money = money WHERE usable_money != money";
-        $flag = DBMysqlNamespace::execute($handle, $sqlString);
-        return $flag;
     }
 }
 

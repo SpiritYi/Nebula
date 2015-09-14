@@ -7,6 +7,7 @@
  */
 
 require_once CODE_BASE . '/app/stock/model/StockCompanyModel.class.php';
+require_once CODE_BASE . '/util/http/HttpUtil.class.php';
 
 class StockCompanyNamespace {
     //解析公司正常股票数据
@@ -67,6 +68,7 @@ class StockCompanyNamespace {
         }
         $detailData = array(
             'sid' => $fieldArr[2],
+            'ysd_closing_price' => $fieldArr[4],    //昨收
             'outright_list' => $recordArr,  //逐笔数组
         );
         return $detailData;
@@ -112,7 +114,6 @@ class StockCompanyNamespace {
         }
         //远程获取公司报价
         $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, implode(',', $symbolArr));
-        require_once CODE_BASE . '/util/http/HttpUtil.class.php';
         $rspStr = HttpUtil::curlget($url, array());
         if (empty($rspStr)) {
             return array();
@@ -130,6 +131,34 @@ class StockCompanyNamespace {
             }
         }
         return $res;
+    }
+
+    //批量获取详细数据
+    public static function getCompanyDetail($sidArr) {
+        //批量获取公司信息
+        $symbolArr = array();
+        $companyList = StockCompanyModel::getBatchInfo($sidArr);
+        foreach ($companyList as $info) {
+            $symbolArr[] = $info['symbol'];
+        }
+        $dataUrl = sprintf(DBConfig::STOCK_COMPANY_DETAIL_URL, implode(',', $symbolArr));
+        $dataStr = HttpUtil::curlget($dataUrl);
+        if (empty($dataStr)) {
+            return false;
+        }
+        $strArr = explode("\n", $dataStr);
+        $detailList = array();
+        //解析数据字符串
+        foreach ($strArr as $strItem) {
+            if (empty($strItem)) {
+                continue;
+            }
+            $detailData = self::parseDetailData($strItem);
+            if (!empty($detailData)) {
+                $detailList[$detailData['sid']] = $detailData;
+            }
+        }
+        return $detailList;
     }
 
     //是否交易时间
