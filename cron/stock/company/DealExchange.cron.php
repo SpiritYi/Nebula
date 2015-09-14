@@ -53,7 +53,7 @@ class DealExchange extends CronBase {
             foreach ($dlglist as $item) {
                 $sidArr[] = $item['sid'];
             }
-            $detailList = $this->_getBatchCompanyDetail($sidArr);
+            $detailList = StockCompanyNamespace::getCompanyDetail($sidArr);
             if (empty($detailList)) {
                 continue;
             }
@@ -170,36 +170,6 @@ class DealExchange extends CronBase {
             }
             exit;
         }
-    }
-
-    //批量获取详细数据
-    private function _getBatchCompanyDetail($sidArr) {
-        var_dump($sidArr);
-        //批量获取公司信息
-        $symbolArr = array();
-        $companyList = StockCompanyModel::getBatchInfo($sidArr);
-        foreach ($companyList as $info) {
-            $symbolArr[] = $info['symbol'];
-        }
-        $dataUrl = sprintf(DBConfig::STOCK_COMPANY_DETAIL_URL, implode(',', $symbolArr));
-        $dataStr = HttpUtil::curlget($dataUrl);
-        if (empty($dataStr)) {
-            return false;
-        }
-        var_dump($dataStr);
-        $strArr = explode("\n", $dataStr);
-        $detailList = array();
-        //解析数据字符串
-        foreach ($strArr as $strItem) {
-            if (empty($strItem)) {
-                continue;
-            }
-            $detailData = StockCompanyNamespace::parseDetailData($strItem);
-            if (!empty($detailData)) {
-                $detailList[$detailData['sid']] = $detailData;
-            }
-        }
-        return $detailList;
     }
 
     //获取用户持股单位成本

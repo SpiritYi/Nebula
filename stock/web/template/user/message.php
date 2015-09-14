@@ -123,7 +123,7 @@
                             </div>\
                         </li>';
                     });
-                    $('.msg-flow').append(html);
+                    $('.msg-flow').prepend(html);
                     checkInit();
 
                     //处理已读
@@ -133,6 +133,11 @@
 
                     //消息提醒
                     setTitleRemind(data.data.unread_count);
+                },
+                error: function(data) {
+                    if (data.code == 40301) {
+                        location.reload();
+                    }
                 }
             });
         }

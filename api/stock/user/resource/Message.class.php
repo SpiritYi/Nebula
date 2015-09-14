@@ -23,7 +23,7 @@ class MessageRes extends ResourceBase {
     public function getMsgListAction() {
         $user = $this->getStockSessionUser();
         if (empty($user)) {
-            $this->output(403, '', '请刷新页面，重新登录');
+            $this->output(403, '', '请刷新页面，重新登录', 40301);
         }
 
         $classify = HttpUtil::getParam('classify');
