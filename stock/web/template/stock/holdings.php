@@ -8,14 +8,24 @@
                     <th>股票市值</th>
                     <th>现金</th>
                     <th>可用现金</th>
+
+                    <th>今日盈亏</th>
+                    <th>本周盈亏</th>
+                    <th>本月盈亏</th>
+                    <th>今年盈亏</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th id="property">0</th>
-                    <th id="value_count">0</th>
-                    <th id="money"><?php echo (int)$this->userProperty['money']; ?></th>
-                    <th><?php echo (int)$this->userProperty['usable_money']; ?></th>
+                    <td id="property" class="p-field">0</td>
+                    <td id="value_count" class="p-field">0</td>
+                    <td id="money"><?php echo (int)$this->userProperty['money']; ?></td>
+                    <td><?php echo (int)$this->userProperty['usable_money']; ?></td>
+
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
                 </tr>
             </tbody>
         </table>
@@ -52,12 +62,12 @@
                             <td class="count"><?php echo $item['count']; ?></td>
                             <td><?php echo $this->showPrice($item['per_cost'], 3); ?></td>
 
-                            <td class="price"></td>
-                            <td class="price-diff-rate"></td>
+                            <td class="price hg-field"></td>
+                            <td class="price-diff-rate hg-field"></td>
                             <td class="market-value"></td>
 
-                            <td class="earn-rate"></td>
-                            <td class="earn"></td>
+                            <td class="earn-rate hg-field"></td>
+                            <td class="earn hg-field"></td>
 
                             <td><?php echo $this->showPrice($item['loss_limit']); ?></td>
                         </tr>
@@ -72,7 +82,7 @@
     seajs.use(['NB', 'Stock'], function(NB, Stock) {
         NB.navActive($('#navbar_holdings'));
 
-        var market = {is_exchange: false};
+        var market = {is_exchange: true};
         Stock.getMarketStatus(market);
 
         //刷新页面报价信息
@@ -99,30 +109,40 @@
                     //刷新价格
                     var valueCount = 0;     //总市值
                     $.each(data.data, function(sid, item) {
-                        var tr = $('#' + sid), colorClass = item['price_diff'] > 0 ? 'stock-up' : 'stock-under';
-                        //现价
-                        tr.children('.price').html(item['price']);
-                        tr.children('.price').removeClass(stockColorClass).addClass(colorClass);
+                        var tr = $('#' + sid), colorClassBk = colorClass = item['price_diff'] > 0 ? 'stock-up' : 'stock-under';
+                        if (tr.children('.price').html() != item['price']) {    //价格变动才做变化
+                            //现价
+                            tr.children('.price').html(item['price']);
+                            tr.children('.price').removeClass(stockColorClass).addClass(colorClass);
 
-                        //涨跌幅
-                        tr.children('.price-diff-rate').html(item['price_diff_rate'] + '%');
-                        tr.children('.price-diff-rate').removeClass(stockColorClass).addClass(colorClass);
+                            //涨跌幅
+                            tr.children('.price-diff-rate').html(item['price_diff_rate'] + '%');
+                            tr.children('.price-diff-rate').removeClass(stockColorClass).addClass(colorClass);
 
-                        //市值
-                        var itemValue = item['price'] * tr.children('.count').html();
-                        tr.children('.market-value').html(itemValue);
-                        valueCount += itemValue;
+                            //市值
+                            var itemValue = item['price'] * tr.children('.count').html();
+                            tr.children('.market-value').html(itemValue);
+                            valueCount += itemValue;
 
-                        //盈亏
-                        var cost = tr.data('cost'), earn = itemValue - cost, colorClass = earn > 0 ? 'stock-up' : 'stock-under';
-                        tr.children('.earn-rate').html((earn / cost * 100).toFixed(2) + '%');
-                        tr.children('.earn-rate').removeClass(stockColorClass).addClass(colorClass);
-                        tr.children('.earn').html(parseInt(earn));
-                        tr.children('.earn').removeClass(stockColorClass).addClass(colorClass);
+                            //盈亏
+                            var cost = tr.data('cost'), earn = itemValue - cost, colorClass = earn > 0 ? 'stock-up' : 'stock-under';
+                            tr.children('.earn-rate').html((earn / cost * 100).toFixed(2) + '%');
+                            tr.children('.earn-rate').removeClass(stockColorClass).addClass(colorClass);
+
+                            tr.children('.earn').html(parseInt(earn));
+                            tr.children('.earn').removeClass(stockColorClass).addClass(colorClass);
+
+                            Stock.highlightField(tr.children('.hg-field'), colorClassBk);
+                        } else {
+                            valueCount += parseInt(tr.children('.market-value').html());
+                        }
                     });
                     //刷新总资产
+                    var colorClass = valueCount > $('#value_count').html() ? 'stock-up' : 'stock-under';
                     $('#value_count').html(valueCount);
                     $('#property').html(valueCount + parseInt($('#money').html()));
+
+                    Stock.highlightField($('.p-field'), colorClass);
                 }
             });
         }

@@ -40,6 +40,17 @@ define(function(require, exports) {
     };
 
     /**
+     * 高亮价格变化栏
+     */
+    exports.highlightField = function(selector, colorClass) {
+            selector.removeClass('stock-up-bk stock-under-bk field-recover');
+            selector.addClass(colorClass + '-bk');
+            setTimeout(function() {
+                selector.addClass('field-recover');
+            }, 500);
+        }
+
+    /**
      * 循环获取交易市场状态
      * @param obj
      *          - is_exchange   bool    //是否交易时间
