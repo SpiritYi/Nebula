@@ -65,6 +65,7 @@ define(function(require, exports) {
                 }
             });
         }
+        refreshStatus();
         setInterval(function() { refreshStatus(); }, 60 * 1000);
     }
 });

@@ -45,8 +45,8 @@ class UserStockModel {
             return array();
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'cost', 'loss_limit', 'limit_alert_time'),
-                array(array('uid', '=', $uid)), array(), array('time' => 'ASC'));
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'available_count',
+                 'cost', 'loss_limit', 'limit_alert_time'), array(array('uid', '=', $uid)), array(), array('time' => 'ASC'));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }

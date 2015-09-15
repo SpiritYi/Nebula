@@ -1,3 +1,8 @@
+<style type="text/css">
+    .sname {
+        color: #A020F0;
+    }
+</style>
 <div class="container">
     <div>
         <h3>总资产</h3>
@@ -22,10 +27,10 @@
                     <td id="money"><?php echo (int)$this->userProperty['money']; ?></td>
                     <td><?php echo (int)$this->userProperty['usable_money']; ?></td>
 
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td class="last-earn p-field" data-earn="<?php echo $this->lastProperty['last_day']; ?>">0</td>
+                    <td class="last-earn p-field" data-earn="<?php echo $this->lastProperty['last_week']; ?>">0</td>
+                    <td class="last-earn p-field" data-earn="<?php echo $this->lastProperty['last_month']; ?>">0</td>
+                    <td class="last-earn p-field" data-earn="<?php echo $this->lastProperty['last_year']; ?>">0</td>
                 </tr>
             </tbody>
         </table>
@@ -39,6 +44,7 @@
                     <th>股票代码</th>
                     <th>股票名称</th>
                     <th>总数量</th>
+                    <th>可用数量</th>
                     <th>持仓成本</th>
 
                     <th>现价</th>
@@ -56,10 +62,11 @@
                     $index = 1;
                     foreach ($this->stockList as $item) { ?>
                         <tr id="<?php echo $item['sid']; ?>" data-cost="<?php echo $item['cost']; ?>">
-                            <td><?php echo $index; ?></td>
+                            <td class="note"><?php echo $index; ?></td>
                             <td class="sid"><?php echo $item['sid']; ?></td>
-                            <td><?php echo $item['sname']; ?></td>
+                            <td class="sname"><?php echo $item['sname']; ?></td>
                             <td class="count"><?php echo $item['count']; ?></td>
+                            <td class=""><?php echo $item['available_count']; ?></td>
                             <td><?php echo $this->showPrice($item['per_cost'], 3); ?></td>
 
                             <td class="price hg-field"></td>
@@ -69,7 +76,7 @@
                             <td class="earn-rate hg-field"></td>
                             <td class="earn hg-field"></td>
 
-                            <td><?php echo $this->showPrice($item['loss_limit']); ?></td>
+                            <td class="note"><?php echo $this->showPrice($item['loss_limit']); ?></td>
                         </tr>
                     <?php $index ++;
                 } ?>
@@ -137,12 +144,20 @@
                             valueCount += parseInt(tr.children('.market-value').html());
                         }
                     });
-                    //刷新总资产
-                    var colorClass = valueCount > $('#value_count').html() ? 'stock-up' : 'stock-under';
-                    $('#value_count').html(valueCount);
-                    $('#property').html(valueCount + parseInt($('#money').html()));
+                    if (valueCount != $('#value_count').html()) {
+                        var colorClass = valueCount > $('#value_count').html() ? 'stock-up' : 'stock-under',
+                            allProperty = valueCount + parseInt($('#money').html());
 
-                    Stock.highlightField($('.p-field'), colorClass);
+                        $('#value_count').html(valueCount);
+                        $('#property').html(allProperty);
+
+                        //刷新最近盈亏
+                        $('.last-earn').each(function() {
+                            $(this).html(parseInt(allProperty - $(this).data('earn')));
+                            $(this).removeClass(stockColorClass).addClass($(this).html() >= 0 ? 'stock-up' : 'stock-under');
+                        });
+                        Stock.highlightField($('.p-field'), colorClass);
+                    }
                 }
             });
         }

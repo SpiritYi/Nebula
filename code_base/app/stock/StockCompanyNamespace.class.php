@@ -32,7 +32,7 @@ class StockCompanyNamespace {
             'time' => strtotime($fieldArr[30] . ' ' . $fieldArr[31]),   //最后更新时间
         );
         $info['price_diff'] = self::showPrice($info['price'] - $info['ysd_closing_price']);             //涨跌价差
-        $info['price_diff_rate'] = round($info['price_diff'] / $info['ysd_closing_price'] * 100, 2);    //涨跌幅
+        $info['price_diff_rate'] = self::showPrice(round($info['price_diff'] / $info['ysd_closing_price'] * 100, 2));    //涨跌幅
         return $info;
     }
 
@@ -168,7 +168,7 @@ class StockCompanyNamespace {
     public static function isExchangeHour() {
         $isExchange = false;
         $t = time();
-        if (!in_array(date('w'), [0, 6]) && 
+        if (!in_array(date('w'), [0, 6]) &&
             ((strtotime('09:25') < $t && $t < strtotime('11:35')) ||
             (strtotime('12:55') < $t && $t < strtotime('15:05')))) {
             require_once CODE_BASE . '/app/stock/model/StockPointModel.class.php';
