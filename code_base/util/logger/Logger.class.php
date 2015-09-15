@@ -6,6 +6,8 @@
  * @copyright nebula.com
  */
 
+require_once CONFIG . '/DBConfig.class.php';
+
 class Logger {
     public static function logInfo($msg, $category) {
         self::_saveLog(__FUNCTION__, $msg, $category);
@@ -26,7 +28,6 @@ class Logger {
             'category' => $category,
             'msg' => $msg,
         );
-        require_once CONFIG . '/DBConfig.class.php';
         $logFile = sprintf('%s.log', strtolower($func));
         file_put_contents(DBConfig::LOG_PATH . '/' . $logFile, implode("\t", $saveData) . "\n", FILE_APPEND);
     }
