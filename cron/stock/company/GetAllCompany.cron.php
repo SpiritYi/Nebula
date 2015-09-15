@@ -62,7 +62,7 @@ class GetAllCompanyCron extends CronBase {
                 $sidiArr[] = $item[0] . '_i';
                 $companyList[$item[1]] = array(
                     'sid' => $item[1],
-                    'sname' => $item[2],
+                    'sname' => str_replace(' ', '', $item[2]),
                     'symbol' => $item[0],
                 );
             }

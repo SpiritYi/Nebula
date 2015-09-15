@@ -109,8 +109,10 @@ class StockCompanyNamespace {
             return array();
         }
         $symbolArr = array();
+        $snameArr = array();
         foreach ($companyList as $info) {
             $symbolArr[] = $info['symbol'];
+            $snameArr[$info['sid']] = $info['sname'];
         }
         //远程获取公司报价
         $url = sprintf(DBConfig::STOCK_COMPANY_DATA_URL, implode(',', $symbolArr));
@@ -127,6 +129,7 @@ class StockCompanyNamespace {
             }
             $dataInfo = self::parseData($dataStr);
             if (!empty($dataInfo)) {
+                $dataInfo['sname'] = $snameArr[$dataInfo['sid']];
                 $res[$dataInfo['sid']] = $dataInfo;
             }
         }
