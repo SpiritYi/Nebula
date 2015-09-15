@@ -4,5 +4,16 @@
     color: red;
 }
 .stock-under {
-    color: green;
+    color: #0A0;
+}
+.stock-up-bk {
+    background-color: rgba(255, 0, 0, 0.2);
+    transition: background 0.5s ease;
+}
+.stock-under-bk {
+    background-color: rgba(0, 255, 0, 0.2);
+    transition: background 0.5s ease;
+}
+.field-recover {
+    background-color: #FFF;
 }
