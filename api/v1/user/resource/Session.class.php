@@ -46,10 +46,12 @@ class SessionRes extends ResourceBase {
 
     public function signoutAction() {
         $verify = HttpUtil::getParam('verify_user');
+        /*
         $cookieData = UserNamespace::splitVerifyCookie($verify);
         if (empty($cookieData)) {
             Logger::logError('解密用户数据失败', 'signout');
         }
+        */
         ResourceBase::output(200, '', 'OK');
 
     }

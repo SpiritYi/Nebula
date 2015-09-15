@@ -39,7 +39,7 @@ class InformationRes extends ResourceBase {
                 $sugList = array();
                 $objList = array();
                 foreach ($res as $item) {
-                    $objList[$item[$queryField]] = $item;
+                    $objList[$item['sname']] = $item;
                     $sugList[] = $item[$queryField] . ' ' . $item['sname'];
                 }
                 $this->output(200, array('obj' => $objList, 'show' => $sugList));
@@ -75,7 +75,7 @@ class InformationRes extends ResourceBase {
         }
 
         $sid = HttpUtil::getParam('sid');
-        $marketInfo = StockCompanyNamespace::getCompanyMarketInfo($sid);
+        $marketInfo = StockCompanyNamespace::getCompanyMarketInfo(array($sid));
         $this->output(200, $marketInfo[$sid]);
     }
 }

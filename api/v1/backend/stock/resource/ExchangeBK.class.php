@@ -64,7 +64,7 @@ class ExchangeBKRes extends ResourceBase {
             $this->output(500, '', '生成交易记录失败');
         }
         //添加持股
-        require_once CODE_BASE . '/app/sotck/UserStockNamespace.class.php';
+        require_once CODE_BASE . '/app/stock/UserStockNamespace.class.php';
         $opFlag = UserStockNamespace::setUserHolding($uid, $sid, $count, $cost, true);
         if (!$opFlag) {
             $this->output(500, '', '生成持股记录失败');
