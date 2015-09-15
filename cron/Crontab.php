@@ -66,7 +66,7 @@ class Crontab {
             } 
             */
         }
-        shell_exec('php ' . $filePath . ' -r > /dev/null &');
+        shell_exec('php ' . $filePath . ' -r > ' . DBConfig::LOG_PATH . '/cli_run.log &');
         Logger::logInfo('run ' . $info['basename'], 'crontab_launch');
     }
 }

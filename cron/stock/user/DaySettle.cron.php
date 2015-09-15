@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../../CronBase.class.php';
 
 require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
-require_once CRON . '/stock/user/model/UserInfoCronModel.class.php'
+require_once CRON . '/stock/user/model/UserInfoCronModel.class.php';
 
 class DaySettle extends CronBase {
     public function setCycleConfig() {
