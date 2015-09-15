@@ -32,7 +32,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
-                        <img alt="Nebula" height="42px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_64.png" >
+                        <img alt="Nebula" height="42px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_stock_128.png" >
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
