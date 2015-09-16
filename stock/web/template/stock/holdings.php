@@ -158,6 +158,11 @@
                         });
                         Stock.highlightField($('.p-field'), colorClass);
                     }
+                },
+                error: function(data) {
+                    if (data.code == 40301) {
+                        location.reload();
+                    }
                 }
             });
         }

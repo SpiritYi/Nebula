@@ -24,7 +24,7 @@ class InformationRes extends ResourceBase {
     public function GetCompanyInfoAction() {
         $user = $this->getStockSessionUser();
         if (empty($user) && !$this->adminSessionCheck()) {
-            $this->output(403, '', '请重新登录');
+            $this->output(403, '', '请重新登录', 40301);
         }
 
         $type = HttpUtil::getParam('type');

@@ -13,7 +13,7 @@ class HoldingsPage extends StockMaster {
 
     public function action() {
         require_once CODE_BASE . '/app/user/StockUserNamespace.class.php';
-        $this->userProperty = StockUserNamespace::getUserProperty($this->userInfo['uid']);
+        $this->userProperty = StockUserNamespace::getUserInfoById($this->userInfo['uid']);
 
         //获取最近资产数据
         require_once CODE_BASE . '/app/stock/model/MoneySnapshotModel.class.php';

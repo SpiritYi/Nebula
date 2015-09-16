@@ -136,7 +136,7 @@ class StockCompanyNamespace {
         return $res;
     }
 
-    //批量获取详细数据
+    //批量获取详细数据, 逐笔成交明细
     public static function getCompanyDetail($sidArr) {
         //批量获取公司信息
         $symbolArr = array();
