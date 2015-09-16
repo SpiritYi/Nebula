@@ -21,9 +21,8 @@ class CodeTest {
     }
 
     public function info() {
-        require_once CODE_BASE . '/util/http/HttpUtil.class.php';
-        require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
-        $res = StockCompanyNamespace::getCompanyMarketInfo('600111');
+        require_once CODE_BASE . '/app/stock/model/MoneySnapshotModel.class.php';
+        $res = MoneySnapshotModel::getRecentShot('1', strtotime(date('Y/m/d')) - 1);
         var_dump($res);
     }
 }

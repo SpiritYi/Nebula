@@ -75,7 +75,8 @@ class DealExchange extends CronBase {
                         continue;
                     }
                     //买卖判断
-                    if (($dlgItem['direction'] == ExchangeModel::DIRECTION_BUY && $record['price'] <= $dlgItem['price']) ||    //成交价格 <= 委托价格，均可成交
+                    if (($dlgItem['price'] == -1) ||    //现价委托
+                        ($dlgItem['direction'] == ExchangeModel::DIRECTION_BUY && $record['price'] <= $dlgItem['price']) ||    //成交价格 <= 委托价格，均可成交
                         ($dlgItem['direction'] == ExchangeModel::DIRECTION_SELL && $record['price'] >= $dlgItem['price'])) {    
                             $availableV['count'] += $record['volume'] * 100;
                             $availableV['match'][$record['price']] = $record['volume'] * 100;       //记录各价格段可成交量
