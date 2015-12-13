@@ -22,8 +22,8 @@ class EarningsRateModel extends BaseMainModel {
     public static function getEarningsReteList($type) {
         $handle = self::getDBHandle();
         $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('*'), array(array('type', '=', $type)),
-                array(), array('date_m' => 'ASC'));
+                array(12), array('date_m' => 'DESC'));
         $result = DBMysqlNamespace::query($handle, $sqlString);
-        return $result;
+        return array_reverse($result);
     }
 }
