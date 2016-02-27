@@ -41,7 +41,7 @@
                         <li id="navbar_default"><a href="/">首页<span class="sr-only">(current)</span></a></li>
                         <!-- <li><a href="/">知识堂</a></li> -->
                         <li id="navbar_notice"><a href="/article/noticelist">公告板</a></li>
-                        <li id="navbar_earnings"><a href="/company/earnings">投资收益</a></li>
+                        <li id="navbar_earnings"><a href="/company/earnings?y=2016">投资收益</a></li>
                         <li id="navbar_about" class="dropdown">
                             <a href="/company/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">关于公司 <span class="caret"></span></a>
                             <ul class="dropdown-menu nav-dropdown" role="menu">
