@@ -1,4 +1,19 @@
+<style type="text/css">
+    .year-link {
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+    .year-link div a {
+        float: left;
+        width: 100%;
+        padding: 20px 50px;
+        text-align: center;
+        font-size: 150%;
+        background-color: #F5F5F5;
+    }
+</style>
 <div class="container">
+    <input type="hidden" id="show_year" value="<?php echo !empty($_GET['y']) ? $_GET['y'] : date('Y'); ?>">
     <div class="row">
         <div id="earnings_charts" style="margin-top:15px;margin-bottom:50px;">
         </div>
@@ -7,13 +22,29 @@
     </div>
     <p class="note">说明：每月结算时间周期为当月10日开盘，到次月9日收盘，如遇假期，以最近有效数据为准。</p>
 </div>
+<div class="container">
+    <div class="row year-link">
+        <div class="col-lg-4">
+            <a href="/company/earnings?y=2016">2016投资收益</a>
+        </div>
+        <div class="col-lg-4">
+            <a href="/company/earnings?y=2015">2015投资收益</a>
+        </div>
+        <div class="col-lg-4">
+            <a href="/company/earnings?y=2014">2014投资收益</a>
+        </div>
+    </div>
+</div>
 
 <script text="text/javascript">
     seajs.use(['NB', 'script/base/page'], function(NB, page) {
         NB.navActive($('#navbar_earnings'));
 
+        var year = $('#show_year').val();
+
         NB.apiAjax({
             type: 'GET',
+            data: {'y': year},
             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/company/earnings/',
             dataType: 'json',
             success: function(data) {
@@ -62,8 +93,9 @@
             }
         });
 
-        $.ajax({
+        NB.apiAjax({
             type: 'GET',
+            data: {'y': year},
             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/company/earnings/line/',
             dataType: 'json',
             success: function(data) {

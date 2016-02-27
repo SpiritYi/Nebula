@@ -19,9 +19,16 @@ class EarningsRateModel extends BaseMainModel {
         self::MY_EARN_TYPE => '星云营收',
     );
 
-    public static function getEarningsReteList($type) {
+    /**
+     * 查询收益数据
+     * @param $type int     //1.上证指数、2.星云财富
+     * @param $start int    //查询的起始时间
+     * @param $end int      //查询的结束时间
+     */
+    public static function getEarningsReteList($type, $start, $end) {
         $handle = self::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('*'), array(array('type', '=', $type)),
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('*'),
+                array(array('type', '=', $type), array('date_m', '>', $start), array('date_m', '<', $end)),
                 array(12), array('date_m' => 'DESC'));
         $result = DBMysqlNamespace::query($handle, $sqlString);
         return array_reverse($result);
