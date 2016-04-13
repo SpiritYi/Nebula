@@ -2,6 +2,15 @@
     .col-lg-4 {
         margin: 0px;
     }
+    .notice-board h3 {
+        padding: 15px 18px;
+        margin-bottom: 0px;
+        background-color: #EAEAEA;
+    }
+    .board-body {
+        padding: 10px 18px;
+        background-color: #F5F5F5;
+    }
 </style>
 <div class="container">
     <?php
@@ -10,11 +19,13 @@
         foreach ($this->noticeList as $notice) {
             $html[$index % 3] .= '
                 <div class="row" style="margin-bottom: 25px">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 notice-board">
                         <h3>' . $notice['title'] . '</h3>
-                        <p class="note">' . date('Y/m/d', $notice['p_time']) . '</p>
-                        <p>' . $notice['brief'] . '</p>
-                        <p><a class="btn btn-default" href="/article/article?id=' . $notice['id'] . '">查看详情 &raquo;</a></p>
+                        <div class="board-body">
+                            <p class="note">' . date('Y/m/d', $notice['p_time']) . '</p>
+                            <p>' . $notice['brief'] . '</p>
+                            <p><a class="btn btn-default" href="/article/article?id=' . $notice['id'] . '">查看详情 &raquo;</a></p>
+                        </div>
                     </div>
                 </div>';
             $index ++;
