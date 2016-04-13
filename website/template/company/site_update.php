@@ -1,5 +1,12 @@
 <div class="container">
     <div class="page-header">
+        <h3>2016/04/13</h3>
+    </div>
+    <p>公告板页面样式调整</p>
+    <p>历史公告数据文件迁移</p>
+</div>
+<div class="container">
+    <div class="page-header">
         <h3>2016/02/12</h3>
     </div>
     <p>基金收益页面调整，按年份展示</p>
