@@ -1,11 +1,19 @@
 <style type="text/css">
+    .event-item {
+        padding: 20px 20px 10px 20px;
+        margin: 20px 0px;
+        background-color: #F5F5F5;
+    }
     .top-text {
-        margin: 30px 0 5px 0;
-        color: #CCC;
+        color: #BBB;
     }
     .big-word {
         font-size: 300%;
         color: #CCC;
+    }
+    .remain-day {
+        float: left;
+        width: 80px;
     }
     .gap-text {
         margin-right: 20px;
@@ -13,14 +21,21 @@
 </style>
 <div class="container">
     <div class="row">
-        <div class="top-text">
-            <span>距离 2017/12/31</span>
-        </div>
-        <div>
-            <input type="hidden" id="end_ts" value="<?php echo $this->endTstamp; ?>" />
-            <span class="big-word" id="remain_day"></span><span class="gap-text">天</span>
-            <span class="big-word" id="tail_time"></span>
-        </div>
+        <?php foreach($this->endTimeConfig as $i => $endTimeStr) {
+            if (strtotime($endTimeStr) < time()) {
+                continue;
+            } ?>
+            <div class="event-item">
+                <div class="top-text">
+                    <span>距离 <?php echo $endTimeStr; ?></span>
+                </div>
+                <div class="time-body">
+                    <input type="hidden" class="end-ts" data-tag="<?php echo $i; ?>" value="<?php echo strtotime($endTimeStr); ?>" />
+                    <span class="big-word remain-day"></span><span class="gap-text">天</span>
+                    <span class="big-word tail-time"></span>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
 
@@ -37,11 +52,24 @@
     });
 
     seajs.use(['NB'], function(NB) {
-
-        var endTs = $('#end_ts').val();
         var nowTstamp = parseInt(new Date().getTime() / 1000), daySec = 24 * 3600;
-        var sec = endTs - nowTstamp;
-        function refreshTime() {
+        
+        var itemCount = $('.event-item').length;
+
+        //初始化各项结束
+        var secArr = new Array(itemCount);
+        function initTimeItem() {
+            $('.event-item').each(function() {
+                var index = $(this).find('.time-body .end-ts').data('tag');
+                secArr[index] = $(this).find('.time-body .end-ts').val() - nowTstamp;
+            });
+        }
+        initTimeItem();
+
+        //刷新时间
+        function refreshTime(jqObj) {
+            var index = jqObj.find('.time-body .end-ts').data('tag');
+            var sec = secArr[index];
             var remDay = parseInt(sec / (24 * 3600));
             var dayTailSec = sec % daySec;
             var hour = parseInt(dayTailSec / 3600);
@@ -49,17 +77,21 @@
             var second = parseInt(dayTailSec % 60);
             var timeStr = hour.twoDigit() + ':' + minute.twoDigit() + ':' + second.twoDigit();
 
-            $('#tail_time').html(timeStr);
-            $('#remain_day').html(remDay);
-            sec --;
+            jqObj.find('.tail-time').html(timeStr);
+            jqObj.find('.remain-day').html(remDay);
+            secArr[index] --;
 
-            if (sec % 60 == 0) {    //每分钟校正时间
-                sec = endTs - parseInt(new Date().getTime() / 1000);
-                console.log(sec);
+            if (secArr[index] % 60 == 0) {    //每分钟校正时间
+                secArr[index] = jqObj.find('.time-body .end-ts').val() - parseInt(new Date().getTime() / 1000);
             }
         }
-        refreshTime();
-        setInterval(refreshTime, 1000);
+        function betachRun() {
+            $('.event-item').each(function() {
+               refreshTime($(this));
+            })
+        }
+        betachRun();
+        setInterval(betachRun, 1000);
 
     });
 </script>
