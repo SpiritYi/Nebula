@@ -16,7 +16,7 @@ class FreePage extends StockEmpty {
     public function action() {
         $this->endTstamp = strtotime('2017/12/31');
         $this->endTimeConfig = [
-            '2016/04/29 12:00:00',
+            '2016/06/04 12:00:00',
             '2016/08/05',
             '2017/12/31',
         ];
