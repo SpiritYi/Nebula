@@ -7,6 +7,7 @@
  */
 
 require_once CODE_BASE . '/app/stock/model/UserStockModel.class.php';
+require_once CODE_BASE . '/app/stock/model/ExchangeModel.class.php';
 
 class UserStockNamespace {
 
@@ -76,5 +77,11 @@ class UserStockNamespace {
             $opFlag = UserStockModel::addUserStock($data);
         }
         return $opFlag;
+    }
+
+    public static function getUserExchangeList($uid, $page, $count) {
+        $offset = $page * $count;
+        $list = ExchangeModel::getUserExchangeList($uid, $offset, $count);
+        return $list;
     }
 }

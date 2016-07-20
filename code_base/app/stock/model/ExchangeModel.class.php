@@ -20,4 +20,13 @@ class ExchangeModel {
         $res = DBMysqlNamespace::execute($handle, $sqlString);
         return $res;
     }
+
+    //分页获取交易列表
+    public static function getExchangeList($uid, $offset, $count) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'price', 'direction',
+                'commission', 'tax', 'earn', 'time'), array(array('uid', '=', $uid)), array($offset, $count), array('time' => 'desc'));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
 }
