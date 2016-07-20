@@ -104,7 +104,7 @@
                         type: 'line'
                     },
                     title: {
-                        text: '资产累计走势曲线'
+                        text: '投资收益走势曲线'
                     },
                     subtitle: {
                         text: '按月结算，累进入投'
@@ -120,7 +120,7 @@
                     tooltip: {
                         valueSuffix: ' 份'
                     },
-                    colors: ['#A020F0'],
+                    colors: ['#A020F0', '#000'],
                     plotOptions: {
                         line: {
                             dataLabels: {

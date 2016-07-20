@@ -67,22 +67,34 @@ class EarningsRes extends ResourceBase {
 
         require_once API . '/v1/company/model/EarningsRateModel.class.php';
         $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::MY_EARN_TYPE, $start, $end);
-        // $myRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::SH_EARN_TYPE);
+        $shRateList = EarningsRateModel::getEarningsReteList(EarningsRateModel::SH_EARN_TYPE, $start, $end);
         $total = 10000;     //模拟起始投资10000 收益累计
         $line = array($total);
         $dateList = array();
         foreach ($myRateList as $item) {
             $dateList[] = date('Y/m', $item['date_m']);
-            $total = $total + $total * (float)$item['rate'] * 0.01;
+            $total = $total + $total * floatval($item['rate']) * 0.01;
             $line[] = (float)sprintf('%d', $total);
         }
         array_unshift($dateList, $dateList[0]);
+
+        $total = 10000;
+        $shLineList = array($total);
+        foreach ($shRateList as $shItem) {
+            $total = $total + $total * floatval($shItem['rate']) * 0.01;
+            $shLineList[] = floatval(sprintf('%d', $total));
+        }
+
         $resData = array(
             'date_list' => $dateList,
             'charts_list' => array(
                 array(
-                    'name' => '投资1W曲线',
+                    'name' => '投资1W收益',
                     'data' => $line,
+                ),
+                array(
+                    'name' => '上证指数收益',
+                    'data' => $shLineList,
                 ),
             ),
         );

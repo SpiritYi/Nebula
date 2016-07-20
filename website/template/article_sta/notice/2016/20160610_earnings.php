@@ -1,11 +1,11 @@
 <div class="container">
     <div class="page-header">
-        <h3>2016年6月业绩报告</h3>
+        <h3>2016年5月业绩报告</h3>
     </div>
     <p class="note"><?php echo date('Y/m/d', $this->articleInfo[0]['p_time']); ?></p>
     <p>致各位投资人：</p>
 
-    <p>星云财富基金2016年6月收益率 <code class="red">2.70%</code></p>
+    <p>星云财富基金2016年5月收益率 <code class="red">2.70%</code></p>
     <p>同期上证指数(2832.11, 2927.16) 上涨 3.36%</p>
 
     <p>又一个死气沉沉的交易月，整个大盘的波动范围非常小，上证指数20周均线已经跟指数相遇，处于方向选择的十字路口，在方向及不确定的周期，

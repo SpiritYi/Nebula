@@ -15,7 +15,7 @@ require_once CRON . '/stock/user/model/UserInfoCronModel.class.php';
 
 class DaySettle extends CronBase {
     public function setCycleConfig() {
-        return '5 15 * *';  //每天下午15：05 收市后执行一次
+        return '1 15 * *';  //每天下午15：05 收市后执行一次
     }
 
     public function run() {
@@ -56,7 +56,7 @@ class DaySettle extends CronBase {
         if (!$exchangeFlag) {
             return false;
         }
-        
+
         $userList = UserInfoCronModel::getUserList();
         if (empty($userList)) {
             return false;
