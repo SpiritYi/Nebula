@@ -17,13 +17,19 @@ CREATE TABLE IF NOT EXISTS exchange(
     uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
     sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
     count INT NOT NULL DEFAULT 0 COMMENT '交易数量',
-    price DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '价格',
+    delegate_price DECIMAL(10, 4) NOT NULL DEFAULT -1 COMMENT '委托价格',
+    strike_price DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '执行价格',
     direction TINYINT NOT NULL DEFAULT 0 COMMENT '交易方向, 1买，-1卖',
     commission DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '交易佣金',
     tax DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '印花税',
     earn DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '盈亏, 小于0亏损',
     time INT NOT NULL DEFAULT 0 COMMENT '成交时间',
+    desc_notice VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '备注说明',
     PRIMARY KEY (id),
     KEY idx_uid (uid),
     KEY idx_sid_time (sid, time)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='交易记录表';
+
+ALTER TABLE exchange CHANGE price strike_price DECIMAL(10, 4) COMMENT '执行价格';
+ALTER TABLE exchange ADD COLUMN delegate_price DECIMAL(10, 4) NOT NULL DEFAULT -1 COMMENT '委托价格' AFTER count;
+ALTER TABLE exchange ADD COLUMN desc_notice VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '备注说明';

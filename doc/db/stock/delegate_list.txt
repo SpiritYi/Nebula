@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS delegate_list (
     sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
     count INT NOT NULL DEFAULT 0 COMMENT '交易数量',
     price DECIMAL(10,4) NOT NULL DEFAULT 0 COMMENT '委托价格',
+    freeze_money DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '委买的冻结金额',
     status TINYINT NOT NULL DEFAULT 0 COMMENT '委托状态，0正常，-1过期',
     time int NOT NULL DEFAULT 0 COMMENT '委托时间',
     update_t int NOT NULL DEFAULT 0 COMMENT '更新时间',
@@ -26,3 +27,4 @@ CREATE TABLE IF NOT EXISTS delegate_list (
 
 ALTER TABLE delegate_list ADD COLUMN direction tinyint NOT NULL DEFAULT 0 COMMENT '交易方向，1买，-1卖' AFTER price;
 ALTER TABLE delegate_list ADD COLUMN update_t int NOT NULL DEFAULT 0 COMMENT '更新时间';
+ALTER TABLE delegate_list ADD COLUMN freeze_money DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '委买的冻结金额' AFTER PRICE;
