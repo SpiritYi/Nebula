@@ -9,6 +9,8 @@
 class ClientRouter {
     //拆分uri 数据信息
     public static function match($uri) {
+        preg_match('/^([^\?]*)(\?.*)?$/', $uri, $tempArr);
+        $uri = $tempArr[1] . '/';
         $uri = str_replace('//', '/', $uri);
         $root = '/';
         //匹配location
@@ -17,6 +19,7 @@ class ClientRouter {
             return array();
         }
         $resourcePreg = '/^' . str_replace("/", "\/", str_replace('//', '/', $root . $locPath)) . "([\w\-\/]*)\/" . '/';
+
         preg_match($resourcePreg, $uri, $uriArr);
         //切分resource
         $section = explode('/', $uriArr[1]);
