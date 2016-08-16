@@ -37,8 +37,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li id="navbar_holdings"><a href="/stock/holdings">持股</a></li>
+                        <li id="navbar_holdings"><a href="/stock/holdings">我的持仓</a></li>
                         <li id="navbar_losslimit"><a href="/exchange/losslimit">设置止损</a></li>
+                        <li id="navbar_delegate"><a href="/exchange/delegate">当日委托</a></li>
+                        <li id="navbar_record"><a href="/stock/exchange">交易记录</a></li>
                         <li id="navbar_account" class="dropdown">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">账号 <span class="caret"></span></a>
                             <ul class="dropdown-menu nav-dropdown" role="menu">

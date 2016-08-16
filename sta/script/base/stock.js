@@ -29,12 +29,12 @@ define(function(require, exports) {
                 });
             },
             updater: function(str) {    //选择之后更新id
-                var strArr = str.split(' '), info = companyObj[strArr[1]];
+                var strArr = str.split(' '), info = companyObj[strArr[strArr.length - 1]];
                 $('#stockname').data('sid', info['sid']);
                 if (args.updaterBack) { //选择之后的回调函数
                     args.updaterBack();
                 }
-                return info['sname'];
+                return info['sname'] + ' ' + info['sid'];
             }
         });
     };
