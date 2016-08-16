@@ -48,7 +48,7 @@ class UserStockNamespace {
      * @param $cost float   //花费， < 0 卖出
      * @param $isAvailable  bool    //是否立即可用
      */
-    public static function setUserHolding($uid, $sid, $count, $cost, $isAvailable = false) {
+    public static function setUserHolding($uid, $sid, $count, $cost = 0, $isAvailable = false) {
         $opFlag = false;
         //添加持股
         $userStock = UserStockModel::selectStockBySid($uid, $sid);
@@ -81,7 +81,33 @@ class UserStockNamespace {
 
     public static function getUserExchangeList($uid, $page, $count) {
         $offset = $page * $count;
-        $list = ExchangeModel::getUserExchangeList($uid, $offset, $count);
-        return $list;
+        $rcdList = ExchangeModel::getExchangeList($uid, $offset, $count);
+        if (empty($rcdList)) {
+            return array();
+        }
+        $sidArr = [];
+        foreach ($rcdList as $rcdItem) {
+            $sidArr[] = $rcdItem['sid'];
+        }
+        require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
+        $stockCmpList = StockCompanyNamespace::getCompanyInfo($sidArr);
+        $resData = array();
+        foreach ($rcdList as $rcdItem) {
+            $cmpInfo = $stockCmpList[$rcdItem['sid']];
+            $resData[] = array(
+                'sid' => $rcdItem['sid'],
+                'sname' => $cmpInfo['sname'],
+                'count' => $rcdItem['count'],
+                'delegate_price' => $rcdItem['delegate_price'],
+                'strike_price' => $rcdItem['strike_price'],
+                'direction' => $rcdItem['direction'],
+                'commission' => $rcdItem['commission'],
+                'tax' => $rcdItem['tax'],
+                'earn' => $rcdItem['earn'],
+                'time' => $rcdItem['time'],
+                'desc' => $rcdItem['desc_notice'],
+            );
+        }
+        return $resData;
     }
 }

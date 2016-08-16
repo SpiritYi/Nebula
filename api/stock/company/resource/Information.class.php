@@ -39,8 +39,8 @@ class InformationRes extends ResourceBase {
                 $sugList = array();
                 $objList = array();
                 foreach ($res as $item) {
-                    $objList[$item['sname']] = $item;
-                    $sugList[] = $item[$queryField] . ' ' . $item['sname'];
+                    $objList[$item['sid']] = $item;
+                    $sugList[] = $item[$queryField] . ' ' . $item['sname'] . ' ' . $item['sid'];
                 }
                 $this->output(200, array('obj' => $objList, 'show' => $sugList));
                 break;

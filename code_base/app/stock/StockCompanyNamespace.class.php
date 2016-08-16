@@ -95,6 +95,27 @@ class StockCompanyNamespace {
     }
 
     /**
+     * 获取公司基本信息
+     * @param array $sidArr
+     * @return array
+     *          - sid, sname, symbol
+     */
+    public static function getCompanyInfo($sidArr) {
+        if (!is_array($sidArr)) {
+            return array();
+        }
+        $companyList = StockCompanyModel::getBatchInfo($sidArr);
+        if (empty($companyList)) {
+            return array();
+        }
+        $resData = array();
+        foreach ($companyList as $key => $item) {
+            $resData[$item['sid']] = $item;
+        }
+        return $resData;
+    }
+
+    /**
      * 批量获取公司报价信息
      * @return array
      *          - sid, sname, opening_price, ysd_closing_price, price, highest, lowest, price_diff, price_diff_rate

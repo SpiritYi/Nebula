@@ -21,11 +21,19 @@ class ExchangeModel {
         return $res;
     }
 
+    //获取总记录条数
+    public static function getExchangeCount($uid) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('count(1) as record_count'), array(array('uid', '=', $uid)));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
+
     //分页获取交易列表
     public static function getExchangeList($uid, $offset, $count) {
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'price', 'direction',
-                'commission', 'tax', 'earn', 'time'), array(array('uid', '=', $uid)), array($offset, $count), array('time' => 'desc'));
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'delegate_price', 'strike_price',
+            'direction', 'commission', 'tax', 'earn', 'time', 'desc_notice'), array(array('uid', '=', $uid)), array($offset, $count), array('time' => 'desc'));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }

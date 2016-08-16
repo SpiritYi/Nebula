@@ -23,7 +23,7 @@ class DelegateListModel {
             return false;
         }
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, $data);
+        $sqlString = SqlBuilderNamespace::buildInsertSql(self::$_TABLE, $data);
         $res = DBMysqlNamespace::execute($handle, $sqlString);
         return $res;
     }
@@ -31,8 +31,8 @@ class DelegateListModel {
     //查询用户的某个委托详情
     public static function getDelegateInfo($id) {
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid'), array(array('id', '=', $id)));
-        $res = DBMysqlNamespace::query($handle, $query);
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'sid', 'count', 'freeze_money', 'direction'), array(array('id', '=', $id)));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }
 
@@ -47,7 +47,7 @@ class DelegateListModel {
         }
         $handle = BaseStockModel::getDBHandle();
         $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'sid', 'direction', 'price', 'count', 'time'),
-                array(array('uid', '=', $uid), array('direction', '=', $dirc), array('status', '=', 0)));
+                array(array('uid', '=', $uid), array('direction', '=', $dirc), array('status', '=', 0)), array(), array('time' => 'DESC'));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }

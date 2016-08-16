@@ -6,30 +6,28 @@
  * @copyright nebula-fund.com
  */
 
-class DelegateBuyPage extends StockMaster {
+class DelegatePage extends StockMaster {
 
     const OP_BUY = 'buy';
     const OP_SELL = 'sell';
 
+    public $userStockList = array();
+
     public function loadHead() {
         $this->op = HttpUtil::getParam('op');
+        if (empty($this->op)) {
+            $this->op = self::OP_BUY;
+        }
         $tileStr = $this->op == self::OP_SELL ? '委托卖出' : '委托买入';
         $this->staExport('<title>' . $tileStr . '</title>');
     }
 
     public function action() {
-        error_reporting(1);
-ini_set('display_errors', 1);
-error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-
         if ($this->op == self::OP_SELL) {
             //获取用户持股列表
             require_once CODE_BASE . '/app/stock/UserStockNamespace.class.php';
-            $this->userStockList = UserStockNamespace::getUserStockList();
+            $this->userStockList = UserStockNamespace::getUserStockList($this->userInfo['uid']);
         }
-        //获取用户委托列表
-        require_once CODE_BASE . '/app/stock/model/DelegateListModel.class.php';
-        $this->dlgList = DelegateListModel::getUserDlgList($this->userInfo['uid'], $this->op == self::OP_BUY ? 1 : -1);
-        $this->render('/exchange/delegate_buy.php');
+        $this->render('/exchange/delegate.php');
     }
 }
