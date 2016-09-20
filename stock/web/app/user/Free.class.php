@@ -18,7 +18,7 @@ class FreePage extends StockEmpty {
         $this->endTimeConfig = [
             '2016/08/05',
             '2016/08/20',
-            '2016/11/28 12:00:00',
+            '2016/11/20 10:00:00',
             '2017/12/31',
         ];
         $this->render('/user/free.php');
