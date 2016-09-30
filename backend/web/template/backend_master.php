@@ -16,6 +16,12 @@
                 padding: 4px;
                 margin-right: 15px;
             }
+            .plat-title {
+                float: left;
+                margin-top: 10px;
+                font-size: 170%;
+                color: #9D9D9D;
+            }
         </style>
     </head>
     <body>
@@ -25,6 +31,7 @@
                     <a class="navbar-brand" href="/">
                         <img alt="Nebula" height="42px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_64.png" >
                     </a>
+                    <span class="plat-title">星系港</span>
                 </div>
                 <div id="nav" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">

@@ -90,7 +90,7 @@ class DelegateRes extends ResourceBase {
             }
         } else {
             //委买，检查用户金额
-            $freezeMoney = $count * $tmpPrice * (1 + 0.001);    //当前委买需要支付的冻结金额
+            $freezeMoney = $count * $tmpPrice;    //当前委买需要支付的冻结金额
             if ($freezeMoney >= $user['usable_money']) {
                 $this->output(400, '', '可用资金不足');
             }
