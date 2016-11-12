@@ -60,9 +60,10 @@
                 var sum = $(this).val();
                 var html = '';
                 for (var i = 1; i > 0.2; i -= 0.1) {
+                    var temp = parseInt(sum * i % 10000) + 10000;
                     html += '<p class="note"><span class="rb-rate">' + parseInt(i * 100) + '%</span>' +
                         '<span class="rb-amount">' + parseInt(sum * i / 10000) + '&nbsp;</span>' +
-                        '<span>' + parseInt(sum * i % 10000) + '</span></p>';
+                        '<span>' + temp.toString().substring(1) + '</span></p>';
                 }
                 $('#rate_block').html(html);
             }
