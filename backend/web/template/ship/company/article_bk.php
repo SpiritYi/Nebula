@@ -42,7 +42,7 @@
                         <div class="col-lg-12">
                             <div class="input-group">
                                 <span class="input-group-addon">页面文件</span>
-                                <input type="text" id="template" class="form-control" />
+                                <input type="text" id="template" class="form-control" value="/article_sta/" />
                             </div>
                         </div>
                     </div>
