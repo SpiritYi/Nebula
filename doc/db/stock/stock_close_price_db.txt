@@ -1,0 +1,29 @@
+//各股票收盘价格, 每年一个表
+
+stock_close_price
+    id
+    sid                 //公司代码
+    date                //20161223 交易日期
+    opening_price       //开票价
+    price               //当前价/收盘价
+    highest             //最高价
+    lowest              //最低价
+    price_diff          //当日收盘较昨日收盘变化价格, 涨跌价
+    price_diff_rate     //涨跌幅
+    time                //按交易日3点整时间戳
+
+CREATE TABLE IF NOT EXISTS stock_close_price_2016 (
+    id INT NOT NULL AUTO_INCREMENT,
+    sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    date VARCHAR(8) NOT NULL DEFAULT '' COMMENT '交易日期, 如20161223',
+    opening_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '开盘价',
+    price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '当前价/收盘价',
+    highest DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '最高价',
+    lowest DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '最低价',
+    price_diff DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '涨跌价',
+    price_diff_rate DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '涨跌幅,%多少',
+    time INT NOT NULL DEFAULT 0 COMMENT '按交易日3点整时间戳',
+    PRIMARY KEY (id),
+    KEY idx_sid (sid),
+    KEY idx_date (date)
+) ENGINE=InnoDB charset=utf8 COMMENT '股票价格';
