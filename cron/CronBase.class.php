@@ -13,6 +13,7 @@ require_once CODE_BASE . '/util/logger/Logger.class.php';
 abstract class CronBase {
     public function __construct() {
         if (empty($_SERVER['argv'][1])) {
+            echo 'Error run commend. "-t" or "-r" ?' . "\n";
             return false;
         }
         $cycleConfigFlag = $this->checkCycleConfig();

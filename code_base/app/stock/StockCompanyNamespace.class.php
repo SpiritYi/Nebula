@@ -17,6 +17,9 @@ class StockCompanyNamespace {
         if (!preg_match($reg, $str, $arr)) {
             return array();
         }
+        if (empty($arr[3])) {
+            return array();
+        }
         $fieldArr = explode(',', $arr[3]);
         //处理上证指数
         if ($arr[1] . $arr[2] == 'sh000001') {
@@ -72,21 +75,6 @@ class StockCompanyNamespace {
             'outright_list' => $recordArr,  //逐笔数组
         );
         return $detailData;
-    }
-
-    //解析公司原信息数据, 获取字母拼音
-    public static function parseiData($str) {
-        $reg = '/^var hq_str_(sh|sz)([\d]{6})_i="(.*)";$/';
-        $arr = array();
-        if (!preg_match($reg, $str, $arr)) {
-            return array();
-        }
-        $fieldArr = explode(',', $arr[3]);
-        $info = array(
-            'sid' => $arr[2],
-            'sspell' => $fieldArr[1],
-        );
-        return $info;
     }
 
     //输出价格默认保留小数点两位
@@ -183,6 +171,12 @@ class StockCompanyNamespace {
             }
         }
         return $detailList;
+    }
+
+    //获取现在公司总数
+    public static function getCompanyCount() {
+        $count = StockCompanyModel::getCompanyCount();
+        return !empty($count[0]['total']) ? intval($count[0]['total']) : 0;
     }
 
     //是否交易时间

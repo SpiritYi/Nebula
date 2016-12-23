@@ -8,3 +8,5 @@ test.php
 Test.class.php
 
 cron/data/*
+
+.idea

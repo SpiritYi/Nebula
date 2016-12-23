@@ -30,6 +30,15 @@ class StockCompanyModel {
         return $res;
     }
 
+    //根据sid 排序获取公司列表, 扫所有公司
+    public static function getCompanyListOrderSid($startSid, $limit) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('sid', 'symbol'),
+            array(array('sid', '>', $startSid)), array($limit), array('sid' => 'asc'));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
+
     //ajax 公司联想列表
     public static function getSuggestionList($field, $value) {
         if (!in_array($field, ['sid', 'sspell']) || empty($value)) {

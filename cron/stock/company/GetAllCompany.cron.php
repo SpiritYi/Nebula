@@ -143,13 +143,28 @@ class GetAllCompanyCron extends CronBase {
         $strArr = explode("\n", $str);
         $sspellList = array();
         foreach ($strArr as $strItem) {
-            $infoi = StockCompanyNamespace::parseiData($strItem);
+            $infoi = self::_parseiData($strItem);
             if (empty($infoi)) {
                 continue;
             }
             $sspellList[$infoi['sid']] = $infoi['sspell'];
         }
         return $sspellList;
+    }
+
+    //解析公司原信息数据, 获取字母拼音
+    private static function _parseiData($str) {
+        $reg = '/^var hq_str_(sh|sz)([\d]{6})_i="(.*)";$/';
+        $arr = array();
+        if (!preg_match($reg, $str, $arr)) {
+            return array();
+        }
+        $fieldArr = explode(',', $arr[3]);
+        $info = array(
+            'sid' => $arr[2],
+            'sspell' => $fieldArr[1],
+        );
+        return $info;
     }
 
     //保存公司数据
