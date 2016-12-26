@@ -9,6 +9,8 @@
 require_once dirname(__FILE__) . '/../../CronBase.class.php';
 require_once CODE_BASE . '/app/stock/StockCompanyNamespace.class.php';
 require_once CODE_BASE . '/app/stock/model/StockClosePriceModel.class.php';
+require_once CODE_BASE . '/app/stock/DayStatisticsNamespace.class.php';
+require_once CODE_BASE . '/app/stock/model/DayStatisticsModel.class.php';
 
 class CollectAllClosePoint extends CronBase {
     public function setCycleConfig() {
@@ -19,6 +21,7 @@ class CollectAllClosePoint extends CronBase {
         Logger::logInfo(__CLASS__ . ', start', 'cron_close_price_run');
 
         $this->loopCollect();
+        $this->dayStatistice();
 
         Logger::logInfo(__CLASS__ . ', end', 'cron_close_price_run');
     }
@@ -72,6 +75,78 @@ class CollectAllClosePoint extends CronBase {
 
             sleep(1);
         }
+        return true;
+    }
+
+    public function dayStatistice() {
+        $dealDate = date('Ymd');
+//        $dealDate = '20161223';
+        if ($dealDate == date('Ymd')) {
+            $openFlag = StockCompanyNamespace::isExchangeDay();
+            if (!$openFlag) {   //当天不交易不处理
+                return true;
+            }
+        }
+
+        $cmpCount = StockCompanyNamespace::getCompanyCount();
+        if (empty($cmpCount)) {
+            $cmpCount = 3000;
+        }
+        $loopFlag = true;
+        $startSid = '';
+        $limit = 100;
+        $loopCount = 0;             //循环总数计数, 防止死循环
+        $emptyLoopCount = 0;        //数据库请求返回空循环计数
+        $statisticsArr = array();
+        while ($loopFlag) {
+            $loopCount += $limit;
+            if ($loopCount > $cmpCount + 5 * $limit) {
+                break;
+            }
+            $priceList = StockClosePriceModel::getRecordListOrderSid($dealDate, $startSid, $limit);
+            if (empty($priceList)) {
+                $emptyLoopCount ++;
+                if ($emptyLoopCount > 5) {
+                    break;
+                }
+                continue;
+            }
+            $emptyLoopCount = 0;
+
+            foreach ($priceList as $priceItem) {            //分析每个公司归属统计类型
+                if ($priceItem['sid'] == '699001') {        //读到最大上证指数,结束
+                    $loopFlag = false;
+                }
+                $startSid = $priceItem['sid'];
+                $mapType = DayStatisticsNamspace::mapType($priceItem);
+                if (empty($mapType)) {
+                    continue;
+                }
+                foreach ($mapType as $type) {               //统计该公司的走势类型
+                    if (!isset($statisticsArr[$type])) {
+                        $statisticsArr[$type] = 1;
+                    } else {
+                        $statisticsArr[$type] ++;
+                    }
+                }
+            }
+        }
+
+        //统计完成,存储数据
+        if (!empty($statisticsArr)) {
+            foreach ($statisticsArr as $type => $count) {
+                $sData = array(
+                    'date' => $dealDate,
+                    'type' => $type,
+                    'count' => $count,
+                );
+                $res = DayStatisticsModel::addRecord($sData);
+                if (!$res) {
+                    Logger::logError(json_encode($sData), 'cron_close_price_statistics');
+                }
+            }
+        }
+        return true;
     }
 }
 
