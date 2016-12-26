@@ -1,0 +1,16 @@
+//每日交易数据统计
+
+day_statistics
+    id
+    date        //日期
+    type        //统计类型类型
+    count       //公司数
+
+CREATE TABLE IF NOT EXISTS day_statistics (
+    id INT NOT NULL AUTO_INCREMENT,
+    date VARCHAR(8) NOT NULL DEFAULT '' COMMENT '交易日期',
+    type INT NOT NULL DEFAULT 0 COMMENT '统计类型',
+    count INT NOT NULL DEFAULT 0 COMMENT '公司数',
+    PRIMARY KEY (id),
+    KEY idx_date_type (date, type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='每日数据统计';
