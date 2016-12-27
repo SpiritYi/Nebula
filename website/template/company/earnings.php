@@ -48,7 +48,6 @@
             url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/company/earnings/',
             dataType: 'json',
             success: function(data) {
-                console.log(data.data.charts_list);
                 $('#earnings_charts').highcharts({
                     chart: {
                         type: 'column'

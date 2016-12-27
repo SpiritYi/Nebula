@@ -42,17 +42,18 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 sidebar">
+                <div class="col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li id="nav_usership"><a href="/ship/user/usership">用户管理</a></li>
                         <li id="nav_companyship"><a href="/ship/company/companyship">公司数据</a></li>
                         <li id="nav_exchange"><a href="/ship/stock/stockship">股票交易</a></li>
+                        <li id="nav_statistics"><a href="/ship/stock/statisticscv">行情统计</a></li>
                     </ul>
                     <footer class="footer">
                         <p class="copyright" data-ceo="SpiritYi">© <?php echo date('Y'); ?> Nebula Fund.</p>
                     </footer>
                 </div>
-                <div class="col-lg-10 col-lg-offset-2 main-wrap">
+                <div class="col-md-10 col-md-offset-2 main-wrap">
                     <?php $this->staExport('script/lib/sea.js'); ?>
                     <script type="text/javascript">
                         seajs.config({

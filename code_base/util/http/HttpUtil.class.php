@@ -56,3 +56,7 @@ class HttpUtil {
         return $default;
     }
 }
+
+class HttpUtilEx extends HttpUtil {
+
+}

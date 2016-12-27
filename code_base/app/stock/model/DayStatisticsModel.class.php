@@ -17,4 +17,13 @@ class DayStatisticsModel {
         $res = DBMysqlNamespace::execute($handle, $sqlString);
         return $res;
     }
+
+    //查询指定type 指定时间内所有数据
+    public static function getList($type, $startDate, $endDate) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('date', 'type', 'count'),
+            array(array('date', '>=', $startDate), array('date', '<=', $endDate), array('type', '=', $type)));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
 }
