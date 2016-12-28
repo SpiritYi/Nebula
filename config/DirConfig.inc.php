@@ -15,6 +15,7 @@ define('WEBSITE', WWWROOT . '/website');
 define('CRON', WWWROOT . '/cron');
 
 define('BACKEND', WWWROOT . '/backend');
+define('LEO_BACKEND', WWWROOT . '/leo_backend');
 define('STOCK', WWWROOT . '/stock');
 
 date_default_timezone_set('PRC');
