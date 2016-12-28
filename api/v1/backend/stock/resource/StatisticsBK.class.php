@@ -91,8 +91,8 @@ class StatisticsBKRes extends ResourceBase {
 
     /**
      * 通用处理charts 展示数据,只需配置数据线type, 支持自动扩展
-     * @param array $config             //展示那些type 线的配置
-     *          - type => title
+     * @param array $config             //展示哪些type 线的配置
+     *          - type, name, color
      * @param $startDate
      * @param $endDate
      * @return array
@@ -109,15 +109,16 @@ class StatisticsBKRes extends ResourceBase {
             $typeLine = array();
             foreach ($dataList as $dataItem) {
                 $itemDate = date('Y/m/d', strtotime($dataItem['date']));
+                if (!in_array($itemDate, $dateArr)) {       //保留所有日期数据
+                    $dateArr[$dataItem['date']] = $itemDate;
+                }
                 $typeLine[$itemDate] = intval($dataItem['count']);
             }
             $lineArr[$cItem['type']] = $typeLine;
-            if (count($typeLine) > count($dateArr)) {        //保留最长数据的日期列表
-                $dateArr = array_keys($typeLine);
-            }
         }
+        ksort($dateArr);
         //格式化, 补充空日期数据
-        foreach ($dateArr as $i => $date) {
+        foreach ($dateArr as $date) {
             foreach ($lineArr as $type => $line) {
                 if (!isset($lineArr[$type][$date])) {
                     $lineArr[$type][$date] = 0;
@@ -135,7 +136,7 @@ class StatisticsBKRes extends ResourceBase {
             );
         }
         $resData = array(
-            'date_list' => $dateArr,
+            'date_list' => array_values($dateArr),
             'color_list' => $colorList,
             'charts_list' => $chartsList,
         );
