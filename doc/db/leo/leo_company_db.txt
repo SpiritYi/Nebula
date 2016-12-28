@@ -6,6 +6,8 @@ leo_company
     website
     phone
     address
+    status          //记录状态, 0 正常展示, -1 删除
+    update_t        //数据更新时间
 
 CREATE TABLE IF NOT EXISTS leo_company (
     cid INT NOT NULL AUTO_INCREMENT COMMENT '自增id',
@@ -13,5 +15,10 @@ CREATE TABLE IF NOT EXISTS leo_company (
     website VARCHAR(512) NOT NULL DEFAULT '' COMMENT '公司官网',
     phone VARCHAR(32) NOT NULL DEFAULT '' COMMENT '客服电话',
     address VARCHAR(256) NOT NULL DEFAULT '' COMMENT '地址',
+    status TINYINT NOT NULL DEFAULT 0 COMMENT '记录状态, 0 正常展示, -1 删除',
+    update_t INT NOT NULL DEFAULT 0 COMMENT '数据更新时间',
     PRIMARY KEY (cid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商公司信息';
+
+ALTER TABLE leo_company ADD COLUMN status TINYINT NOT NULL DEFAULT 0 COMMENT '记录状态, 0 正常展示, -1 删除' AFTER address;
+ALTER TABLE leo_company ADD COLUMN update_t INT NOT NULL DEFAULT 0 COMMENT '数据更新时间' AFLTER status;
