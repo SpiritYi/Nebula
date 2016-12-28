@@ -1,0 +1,24 @@
+//leo 项目货物记录表格,暂时放在nebula 库
+
+leo_cargo
+    id              //自增id
+    name            //物品名称
+    content         //物品描述
+    price           //物品价格
+    company_id      //供货商id
+    update_t        //更新时间
+    desc_website    //详情描述站点
+    status          //0 正常展示状态, -1 待审核, -2 信息删除
+
+CREATE TABLE IF NOT EXISTS leo_cargo (
+    id INT NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    name VARCHAR(256) NOT NULL DEFAULT '' COMMENT '名称',
+    content VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '简介',
+    price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '价格',
+    company_id INT NOT NULL DEFAULT 0 COMMENT '供货商id',
+    update_t INT NOT NULL DEFAULT 0 COMMENT '数据更新时间戳',
+    desc_website VARCHAR(512) NOT NULL DEFAULT '' COMMENT '官方描述网站',
+    status INT NOT NULL DEFAULT -1 COMMENT '默认0 正常展示状态, -1 待审核, -2 信息删除',
+    PRIMARY KEY (id),
+    KEY idx_cid (company_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='物品仓库';

@@ -1,0 +1,17 @@
+//leo 物品供货商
+
+leo_company
+    cid
+    name
+    website
+    phone
+    address
+
+CREATE TABLE IF NOT EXISTS leo_company (
+    cid INT NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    name VARCHAR(256) NOT NULL DEFAULT '' COMMENT '公司名称',
+    website VARCHAR(512) NOT NULL DEFAULT '' COMMENT '公司官网',
+    phone VARCHAR(32) NOT NULL DEFAULT '' COMMENT '客服电话',
+    address VARCHAR(256) NOT NULL DEFAULT '' COMMENT '地址',
+    PRIMARY KEY (cid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商公司信息';
