@@ -6,17 +6,16 @@
  * @copyright nebula-fund.com
  */
 
-class CompanyShipPage extends BackendMaster {
+class LeoCompanyShipPage extends LeoBackendMaster {
+    public $companyList;
+
     public function loadHead() {
         $this->staExport('<title>公司数据管理导航</title>');
     }
 
     public function action() {
-        require_once API . '/v1/company/model/EarningsRateModel.class.php';
-        $this->rateTypeList = EarningsRateModel::$TYPE_NAME;
-
-        require_once CODE_BASE . '/model/company/ArticleModel.class.php';
-        $this->articleTypeList = ArticleModel::$TYPE_NAME;
+        require_once CODE_BASE . '/app/leo/company/LeoCompanyNamespace.class.php';
+        $this->companyList = LeoCompanyNamespace::getList(0, 10);
 
         $this->render('/ship/company/company_ship.php');
     }
