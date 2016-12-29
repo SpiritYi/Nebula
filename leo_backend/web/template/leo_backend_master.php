@@ -45,6 +45,7 @@
                 <div class="col-lg-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li id="nav_companyship"><a href="/ship/company/leocompanyship">公司数据</a></li>
+                        <li id="nav_cargoship"><a href="/ship/cargo/leocargoship">物品数据</a></li>
                     </ul>
                     <footer class="footer">
                         <p class="copyright" data-ceo="SpiritYi">© <?php echo date('Y'); ?> Leo Nebula.</p>

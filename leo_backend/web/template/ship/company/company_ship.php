@@ -175,8 +175,7 @@
             }, function() {
                 $(this).parent().removeClass('hover');
             }
-        );
-        $('.cmp-item').click(function() {
+        ).click(function() {
             var cid = $(this).parent().data('cid'), trSourceSlt = '#cmp_source_' + cid;
             var itemArr = JSON.parse($(trSourceSlt).html());
             itemArr.title = '公司信息';
