@@ -50,7 +50,9 @@ class LeoCompanyNamespace {
         if (empty($data)) {
             return true;
         }
-        $data['update_t'] = time();
+        if (!isset($data['update_t'])) {
+            $data['update_t'] = time();
+        }
         $res = LeoCompanyModel::updateInfo($cid, $data);
         return $res;
     }
