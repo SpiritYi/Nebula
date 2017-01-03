@@ -7,6 +7,7 @@
  */
 
 require_once CODE_BASE . '/app/leo/model/LeoCargoModel.class.php';
+require_once CODE_BASE . '/app/es/LeoEsNamespace.class.php';
 
 class LeoCargoNamespace {
 
@@ -16,6 +17,26 @@ class LeoCargoNamespace {
         }
         $data['update_t'] = time();
         $res = LeoCargoModel::addRecord($data);
+        if ($res > 0) {     //返回保存的id成功, 存储数据到es
+            $esItem = $data;
+            $esItem['id'] = $res;
+            $companyId = $data['company_id'];
+            $companyInfo = LeoCompanyNamespace::getBatchInfo([$companyId]);
+            $esItem['company_name'] = $companyInfo[$companyId]['name'];
+            $esRes = LeoEsNamespace::addRecord($res, $esItem);
+        }
+        return $res;
+    }
+
+    //删除记录,实际是把状态改成-1
+    public static function delRecord($id) {
+        if (empty($id) || !is_numeric($id)) {
+            return false;
+        }
+        $data = array('status' => -1, 'update_t' => time());
+        $res = LeoCargoModel::updateRecord($id, $data);
+        //删除es 记录
+        $esRes = LeoEsNamespace::delRecord($id);
         return $res;
     }
 
@@ -62,6 +83,15 @@ class LeoCargoNamespace {
         if (!isset($data['update_t'])) {
             $data['update_t'] = time();
         }
+        //更新es 数据
+        $esItem = $data;
+        if (isset($data['company_id'])) {
+            $companyId = $data['company_id'];
+            $companyInfo = LeoCompanyNamespace::getBatchInfo([$companyId]);
+            $esItem['company_name'] = $companyInfo[$companyId]['name'];
+        }
+        $esRes = LeoEsNamespace::updateRecord($id, $esItem);
+
         $res = LeoCargoModel::updateRecord($id, $data);
         return $res;
     }

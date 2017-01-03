@@ -45,7 +45,6 @@ class LeoEsNamespace {
         if (empty($newData) || !is_array($newData)) {
             return false;
         }
-        $newData['update_t'] = time();
         $url = self::_getEsUrl() . "{$id}/_update";
         $res = EsUtil::curlRequest($url, 'POST', ['doc' => $newData]);
         return !empty($res['_shards']['successful']) ? true : false;

@@ -107,8 +107,7 @@ class LeoCargoBKRes extends ResourceBase {
         if (empty($infoArr[$id])) {
             $this->output(400, '', '物品不存在');
         }
-        $data = array('status' => -1);
-        $res = LeoCargoNamespace::updateRecord($id, $data);
+        $res = LeoCargoNamespace::delRecord($id);
         if ($res) {
             $this->output(200, [], '操作成功');
         } else {

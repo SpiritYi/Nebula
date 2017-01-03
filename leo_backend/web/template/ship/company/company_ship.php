@@ -147,7 +147,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" id="delete_group">
+            <div class="modal-footer submit-group">
                 <img src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/loading.gif" style="display:none;" />
                 <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
                 <button type="button" id="info_delete" class="btn btn-danger">删 除</button>
