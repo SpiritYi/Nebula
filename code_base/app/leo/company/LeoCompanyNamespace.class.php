@@ -24,6 +24,15 @@ class LeoCompanyNamespace {
         return $res;
     }
 
+    public static function delRecord($cid) {
+        if (empty($cid) || !is_numeric($cid)) {
+            return false;
+        }
+        $update = array('status' => -1, 'update_t' => time());
+        $res = LeoCompanyNamespace::updateInfo($cid, $update);
+        return $res;
+    }
+
     //获取指定id 详细信息
     public static function getBatchInfo($cidArr) {
         $list = LeoCompanyModel::getBatchInfo($cidArr);

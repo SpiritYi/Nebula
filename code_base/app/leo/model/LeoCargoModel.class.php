@@ -12,7 +12,7 @@ class LeoCargoModel {
     public static function addRecord($data) {
         $handle = BaseMainModel::getDBHandle();
         $sqlString = SqlBuilderNamespace::buildInsertSql(self::$_TABLE, $data);
-        $res = DBMysqlNamespace::execute($handle, $sqlString);
+        $res = DBMysqlNamespace::insertAndGetID($handle, $sqlString);
         return $res;
     }
 

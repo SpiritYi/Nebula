@@ -94,8 +94,7 @@ class LeoCompanyBKRes extends ResourceBase {
         if (empty($info[$cid])) {
             $this->output(404, '', '未找到对应公司');
         }
-        $update = array('status' => -1, 'update_t' => time());
-        $res = LeoCompanyNamespace::updateInfo($cid, $update);
+        $res = LeoCompanyNamespace::delRecord($cid);
         if ($res) {
             $this->output(200, [], '操作成功');
         } else {
