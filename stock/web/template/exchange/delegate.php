@@ -184,7 +184,8 @@
         //提交委托
         $('#addDelegate').click(function() {
             var direction = $('#dlgt_direction').val(), sid = $('#dlgt_sid').val(), price = $('#price').val(), count = $('#count').val();
-            if (price <= 0) {
+            var limitStatus = $('#limitStatus').val();  //限价方式
+            if (limitStatus == 1 && price <= 0) {
                 NB.alert('价格不正确', 'danger'); return;
             }
             if (count <= 0) {
@@ -223,24 +224,23 @@
                 success: function(data) {
                     var html = '';
                     $.each(data.data, function(i, item) {
-                        var dlgtDate = moment.unix(item['time']);
+                        var dlgtDate = moment.unix(item['time']), showPrice = item['price'] == -1 ? '现价委托' : item['price'];
                         html += '<tr id="table_tr_' + item['did'] + '">' +
                             '<td>' +
                                 '<div class="row">' +
-                                    '<div class="col-sm-6"><strong>' + item['sname'] + '</strong><em style="margin-left: 10px; color: #D0D0D0;">' + item['sid'] + '</em></div>' +
+                                    '<div class="col-sm-6"><strong>' + item['sname'] + '</strong><span style="margin-left: 10px; color: #D0D0D0;">' + item['sid'] + '</span></div>' +
                                     '<div class="col-sm-6 text-right">' + 
                                         '<a class="cancel-delegate" data-tr="' + item['did'] + '" data-did="' + item['did'] + '">撤销</a>' +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="row">' +
-                                    '<div class="col-sm-4">' + item['price'] + '</div>' +
+                                    '<div class="col-sm-4">' + showPrice + '</div>' +
                                     '<div class="col-sm-4">' + item['count'] + '</div>' +
                                     '<div class="col-sm-4 text-right" style="color: #D0D0D0">' + dlgtDate.format('MM/DD HH:mm') + '</div>' +
                                 '</div>' +
                             '</td>';
                     });
-                    $('#dgt_table').html(html);
-                    $('#dgt_table').show();
+                    $('#dgt_table').html(html).show();
                 },
                 error: function(data) {
                     NB.alert('加载委托列表数据出错', 'danger');
