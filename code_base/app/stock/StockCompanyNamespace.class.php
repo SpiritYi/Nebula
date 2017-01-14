@@ -54,6 +54,21 @@ class StockCompanyNamespace {
         if ($arr[1] . $arr[2] == 'sh000001') {  //处理上证指数
             $arr[2] = $fieldArr[2] = '699001';
         }
+        //委买委卖
+        $delSell = array(
+            5 => ['p' => $fieldArr[27], 'v' => $fieldArr[28]],      //卖5
+            4 => ['p' => $fieldArr[25], 'v' => $fieldArr[26]],
+            3 => ['p' => $fieldArr[23], 'v' => $fieldArr[24]],
+            2 => ['p' => $fieldArr[21], 'v' => $fieldArr[22]],
+            1 => ['p' => $fieldArr[19], 'v' => $fieldArr[20]],
+        );
+        $delBuy = array(
+            1 => ['p' => $fieldArr[9], 'v' => $fieldArr[10]],       //买一
+            2 => ['p' => $fieldArr[11], 'v' => $fieldArr[12]],
+            3 => ['p' => $fieldArr[13], 'v' => $fieldArr[14]],
+            4 => ['p' => $fieldArr[15], 'v' => $fieldArr[16]],
+            5 => ['p' => $fieldArr[17], 'v' => $fieldArr[18]],
+        );
         $outrightStrArr = explode('|', $fieldArr[29]); //逐笔成交记录数组
         $recordArr = array();
         foreach ($outrightStrArr as $record) {
@@ -72,6 +87,9 @@ class StockCompanyNamespace {
         $detailData = array(
             'sid' => $fieldArr[2],
             'ysd_closing_price' => $fieldArr[4],    //昨收
+            'price_change_ratio' => $fieldArr[32],  //涨跌幅
+            'delegate_sell' => $delSell,
+            'delegate_buy' => $delBuy,
             'outright_list' => $recordArr,  //逐笔数组
         );
         return $detailData;
