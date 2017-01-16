@@ -29,8 +29,8 @@ class DealExchange extends CronBase {
 
     public function exchange() {
         while(true) {
-            if (!DBConfig::IS_DEV_ENV) {    //开发环境跳过
-                sleep(1);
+            sleep(1);
+            if (!DBConfig::IS_DEV_ENV) { //开发环境跳过
                 if (date('s') % 5 != 0) {   //每5秒启动一次
                     continue;
                 }
@@ -46,6 +46,9 @@ class DealExchange extends CronBase {
             }
             $dlglist = DelegateListCronModel::selectAvailableList();
             if (empty($dlglist)) {
+                if (DBConfig::IS_DEV_ENV) {     //开发环境没有委托列表退出
+                    break;
+                }
                 continue;
             }
             //收集公司信息
@@ -112,7 +115,8 @@ class DealExchange extends CronBase {
                     $exchangeRecord = array(
                         'uid' => $dlgItem['uid'],
                         'sid' => $dlgItem['sid'],
-                        'price' => $price,
+                        'delegate_price' => $dlgItem['price'],
+                        'strike_price' => $price,
                         'direction' => $dlgItem['direction'],
                         'commission' => 0,      //佣金
                         'tax' => 0,             //税款

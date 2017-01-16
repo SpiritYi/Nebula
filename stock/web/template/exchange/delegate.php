@@ -45,9 +45,11 @@
                     <div class="sc">
                         <?php if ($this->op == DelegatePage::OP_SELL) { ?>
                             <select class="selectpicker" data-width="100%" id="stock_slt_name">
-                                <?php foreach ($this->userStockList as $item) { ?>
-                                    <option value="<?php echo $item['sid']; ?>" data-available_count="<?php echo $item['available_count']; ?>"><?php echo $item['sname'] . ' ' . $item['sid']; ?></option>
-                                <?php } ?>
+                                <?php foreach ($this->userStockList as $item) {
+                                    if ($item['available_count'] > 0) { ?>
+                                        <option value="<?php echo $item['sid']; ?>" data-available_count="<?php echo $item['available_count']; ?>"><?php echo $item['sname'] . ' ' . $item['sid']; ?></option>
+                                    <?php }
+                                } ?>
                             </select>
                         <?php } else { ?>
                             <input type="text" class="form-control" id="stockname" data-sid="" data-provide="typeahead">
@@ -154,7 +156,7 @@
                 type: 'GET',
                 url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/stock/company/information/market/' + sid + '/',
                 success: function(data) {
-                    $('#price').val(data.data.price);
+//                    $('#price').val(data.data.price);
 
                     // var priceDom = $('#tip_price');
                     // priceDom.html(data.data.price);
@@ -205,6 +207,11 @@
                     loadDelegateList();     //刷新委托列表
                     $('#addDelegate').attr('disabled', false);
                     $('#count').val('');
+                    //调整可卖数量
+                    var selectOp = $('#stock_slt_name').find("option[value='" + data.data.sid + "']");
+                    selectOp.data('available_count', selectOp.data('available_count') - count);
+                    $('#stock_slt_name').change();
+
                     NB.alert(data.message, 'success');
                 },
                 error: function(data) {
