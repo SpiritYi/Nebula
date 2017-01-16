@@ -19,6 +19,11 @@ class HttpUtil {
     }
 
     public static function curlget($url, $header = array()) {
+//        $header[] = 'Connection:Keep-Alive';
+        $header[] = 'Content-Type:application/json';
+//        $header[] = 'Accept:text/html';
+        $header[] = 'Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
+        $header[] = 'User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -30,10 +35,10 @@ class HttpUtil {
         // curl_setopt($ch, CURLOPT_VERBOSE, 0);
         // curl_setopt($ch, CURLOPT_AUTOREFERER,true);
         // curl_setopt($ch, CURLOPT_FAILONERROR, 0);
-        curl_setopt($ch, CURLOPT_TIMEOUT,10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 
         $result = curl_exec($ch);
-        $info = curl_getinfo($ch);
+//        $info = curl_getinfo($ch);
         curl_close($ch);
 
         return $result;

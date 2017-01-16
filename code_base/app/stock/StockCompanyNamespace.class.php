@@ -45,7 +45,7 @@ class StockCompanyNamespace {
      *          - outright_list array   //逐笔记录数组
      */
     public static function parseDetailData($str) {
-        $reg = '/^v_(sh|zs)([\d]{6})="(.*)";$/';
+        $reg = '/^v_(sh|sz)([\d]{6})="(.*)";$/';
         $arr = array();
         if (!preg_match($reg, $str, $arr)) {
             return array();

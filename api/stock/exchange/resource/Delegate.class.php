@@ -120,7 +120,7 @@ class DelegateRes extends ResourceBase {
                     'usable_money' => $user['usable_money'] - $freezeMoney,
                 ]);
             }
-            $this->output(200, '', '委托成功');
+            $this->output(200, ['sid' => $sid], '委托成功');
         } else {
             $this->output(500, '', '保存数据失败');
         }
