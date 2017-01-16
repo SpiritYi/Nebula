@@ -95,6 +95,7 @@ class DealExchange extends CronBase {
                 //排序最优价格
                 $dlgItem['direction'] == ExchangeModel::DIRECTION_BUY ? ksort($availableV['match']) : krsort($availableV['match']);
 
+                $unfreezeMoney = 0;             //该笔交易涉及到的解冻金额
                 $dlgUpdate = array();
                 if ($availableV['count'] >= $dlgItem['count']) {     //全部成交
                     $dlgUpdate = array(
@@ -106,6 +107,12 @@ class DealExchange extends CronBase {
                         'count' => $dlgItem['count'] - $availableV['count'],
                         'update_t' => time(),
                     );
+                }
+                //买入涉及冻结金额处理
+                if ($dlgItem['direction'] == ExchangeModel::DIRECTION_BUY) {
+                    $delCount = $availableV['count'] > $dlgItem['count'] ? $dlgItem['count'] : $availableV['count'];
+                    $unfreezeMoney = $delCount * $dlgItem['freeze_money'] / $dlgItem['count'];
+                    $dlgUpdate['freeze_money'] = $dlgItem['freeze_money'] - $unfreezeMoney;
                 }
                 //更新委托数据
                 $flag = DelegateListModel::updateDelegate($dlgItem['id'], $dlgUpdate);
@@ -164,7 +171,7 @@ class DealExchange extends CronBase {
                 $updateProperty = array(
                     'uid' => $dlgItem['uid'],
                     'money' => $allMoney * $dlgItem['direction'] * -1 + $userProperty['money'],
-                    'usable_money' => $allMoney * $dlgItem['direction'] * -1 + $userProperty['usable_money'],
+                    'usable_money' => $allMoney * $dlgItem['direction'] * -1 + $userProperty['usable_money'] + $unfreezeMoney,      //归还解冻金额
                 );
                 $updateFlag = StockUserNamespace::setUserInfo($dlgItem['uid'], $updateProperty);
                 if (!$updateFlag) {
@@ -201,7 +208,7 @@ class DelegateListCronModel {
     //获取所有有效委托
     public static function selectAvailableList() {
         $handle = BaseStockModel::getDBHandle();
-        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'sid', 'count', 'price', 'direction', 'update_t'),
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'sid', 'count', 'price', 'freeze_money', 'direction', 'update_t'),
                 array(array('status', '=', 0)), array(), array('id' => 'ASC'));
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;

@@ -48,6 +48,11 @@ class DaySettle extends CronBase {
         if (!$resetFlag) {
             Logger::logInfo('reset available count failed', 'cron_day_settle_reset_error');
         }
+        //所有交易完成无可用股票清理
+        $cleanFlag = UserStockCronModel::cleanUnholdStock();
+        if (!$cleanFlag) {
+            Logger::logInfo('reset available count failed', 'cron_day_settle_clean_error');
+        }
     }
 
     //每日统计用户资产
@@ -126,6 +131,14 @@ class UserStockCronModel {
     public static function resetAvailableCount() {
         $handle = BaseStockModel::getDBHandle();
         $sqlString = "UPDATE " . self::$_TABLE . " SET available_count = count WHERE available_count != count";
+        $flag = DBMysqlNamespace::execute($handle, $sqlString);
+        return $flag;
+    }
+
+    //已经卖完的股票从持股列表清除
+    public static function cleanUnholdStock() {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildDeleteSql(self::$_TABLE, array(array('count', '=', 0), array('available_count', '=', 0)));
         $flag = DBMysqlNamespace::execute($handle, $sqlString);
         return $flag;
     }
