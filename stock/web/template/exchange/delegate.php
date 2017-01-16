@@ -148,9 +148,11 @@
         });
 
         $('#stock_slt_name').change(function() {
-            var sid = $(this).val();
+            var sid = $(this).val(), maxCount = $(this).find('option:selected').data('available_count');
             $('#dlgt_sid').val(sid);
-            $('#op_count').html($(this).find('option:selected').data('available_count'));
+            $('#op_count').html(maxCount);
+            $('#count').val(maxCount);
+
             //更新股票价格
             NB.apiAjax({
                 type: 'GET',
@@ -168,8 +170,7 @@
                     // }
                 }
             })
-        });
-        $('#stock_slt_name').change();
+        }).change();
 
         //价格方式
         $('#limitStatus').change(function() {
@@ -204,6 +205,7 @@
                 data: {"direction": direction, "sid": sid, "price": price, "count": count},
                 url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/stock/exchange/delegate/',
                 success: function(data) {
+                    /*
                     loadDelegateList();     //刷新委托列表
                     $('#addDelegate').attr('disabled', false);
                     $('#count').val('');
@@ -211,8 +213,10 @@
                     var selectOp = $('#stock_slt_name').find("option[value='" + data.data.sid + "']");
                     selectOp.data('available_count', selectOp.data('available_count') - count);
                     $('#stock_slt_name').change();
+                    */
 
                     NB.alert(data.message, 'success');
+                    setTimeout("self.location.reload()", 1000);
                 },
                 error: function(data) {
                     $('#addDelegate').attr('disabled', false);

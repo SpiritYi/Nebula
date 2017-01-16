@@ -106,6 +106,7 @@ class DelegateRes extends ResourceBase {
             'direction' => $direction,
             'status' => 0,
             'time' => time(),
+            'update_t' => time(),
         );
         $addFlag = DelegateListModel::addDelegate($dData);
         if ($addFlag) {
