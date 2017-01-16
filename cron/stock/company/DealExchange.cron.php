@@ -16,7 +16,7 @@ require_once CODE_BASE . '/app/stock/UserStockNamespace.class.php';
 
 class DealExchange extends CronBase {
     public function setCycleConfig() {
-        return '30 9 * *';  //9点半开启
+        return '* 9-15 * *';  //9点到15点每分钟开启
     }
 
     public function run() {
@@ -28,9 +28,13 @@ class DealExchange extends CronBase {
     }
 
     public function exchange() {
-        while(true) {
+        $curMin = date('i');
+        for ($s = 0; $s < 60; $s ++) {
             sleep(1);
-            if (!DBConfig::IS_DEV_ENV) { //开发环境跳过
+            if (date('i') != $curMin) {     //每次启动只负责当前分钟
+                return true;
+            }
+            if (!DBConfig::IS_DEV_ENV) {    //开发环境跳过
                 if (date('s') % 5 != 0) {   //每5秒启动一次
                     continue;
                 }
@@ -173,8 +177,8 @@ class DealExchange extends CronBase {
                     Logger::logInfo('更新持股记录失败。' . json_encode($dlgItem), 'cron_deal_exchange_holding_error');
                 }
             }
-            exit;
         }
+        return true;
     }
 
     //获取用户持股单位成本
