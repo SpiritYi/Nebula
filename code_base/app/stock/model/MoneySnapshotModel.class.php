@@ -24,4 +24,13 @@ class MoneySnapshotModel {
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }
+
+    //获取最近的快照列表
+    public static function getShotList($uid, $startT) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('uid', 'money', 'time'),
+            array(array('uid', '=', $uid), array('time', '>', $startT)), array(1000), array('time' => 'desc'));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
 }

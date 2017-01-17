@@ -44,11 +44,14 @@ class UserStockNamespace {
 
     /**
      * 更新用户持股
-     * @param $count int    //持股数量，> 0 买进，< 0 卖出
-     * @param $cost float   //花费， < 0 卖出
-     * @param $isAvailable  bool    //是否立即可用
+     * @param string $uid
+     * @param string $sid
+     * @param int $count    //持股数量，> 0 买进，< 0 卖出
+     * @param float $cost   //花费， < 0 卖出
+     * @param bool $isAvailable    //是否立即可用
+     * @return bool
      */
-    public static function setUserHolding($uid, $sid, $count, $cost = 0, $isAvailable = false) {
+    public static function setUserHolding($uid, $sid, $count, $cost = 0.0, $isAvailable = false) {
         $opFlag = false;
         //添加持股
         $userStock = UserStockModel::selectStockBySid($uid, $sid);

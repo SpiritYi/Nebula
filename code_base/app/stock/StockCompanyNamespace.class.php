@@ -7,6 +7,7 @@
  */
 
 require_once CODE_BASE . '/app/stock/model/StockCompanyModel.class.php';
+require_once CODE_BASE . '/app/stock/model/StockPointModel.class.php';
 require_once CODE_BASE . '/util/http/HttpUtil.class.php';
 
 class StockCompanyNamespace {
@@ -197,6 +198,18 @@ class StockCompanyNamespace {
         return !empty($count[0]['total']) ? intval($count[0]['total']) : 0;
     }
 
+    //获取公司收盘价列表, 目前主要用于上证指数
+    public static function getCompanyClosingPriceList($sid, $startT) {
+        if (empty($sid)) {
+            return array();
+        }
+        if ($startT <= 0) {
+            $startT = strtotime('-3 month');
+        }
+        $list = StockPointModel::selectList($sid, $startT);
+        return $list;
+    }
+
     //是否交易时间
     public static function isExchangeHour() {
         $isExchange = false;
@@ -204,7 +217,6 @@ class StockCompanyNamespace {
         if (!in_array(date('w'), [0, 6]) &&
             ((strtotime('09:25') < $t && $t < strtotime('11:35')) ||
             (strtotime('12:55') < $t && $t < strtotime('15:05')))) {
-            require_once CODE_BASE . '/app/stock/model/StockPointModel.class.php';
             $dayData = StockPointModel::selectDayPoint('699001', date('Ymd'));
             if (!empty($dayData)) {
                 $isExchange = true;

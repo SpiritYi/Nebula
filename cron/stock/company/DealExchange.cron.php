@@ -89,6 +89,10 @@ class DealExchange extends CronBase {
                             $availableV['match'][$record['price']] = $record['volume'] * 100;       //记录各价格段可成交量
                     }
                 }
+//                $availableV = array(
+//                    'count' => 1000,
+//                    'match' => ['12.88' => 1000]
+//                );
                 if ($availableV['count'] == 0) { //无法成交
                     continue;
                 }
@@ -126,6 +130,7 @@ class DealExchange extends CronBase {
                     $exchangeRecord = array(
                         'uid' => $dlgItem['uid'],
                         'sid' => $dlgItem['sid'],
+                        'del_id' => $dlgItem['id'],
                         'delegate_price' => $dlgItem['price'],
                         'strike_price' => $price,
                         'direction' => $dlgItem['direction'],

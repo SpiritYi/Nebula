@@ -4,6 +4,7 @@ exchange
     id      int     //自增id
     uid     int     //uid
     sid     string  //stock id
+    del_id  int     //委托记录id
     count   int     //交易数量
     price   decimal //成交价格
     direction tinyint //交易方向，1买，-1 卖
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS exchange(
     id INT AUTO_INCREMENT,
     uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
     sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    del_id INT NOT NULL DEFAULT 0 COMMENT '委托id',
     count INT NOT NULL DEFAULT 0 COMMENT '交易数量',
     delegate_price DECIMAL(10, 4) NOT NULL DEFAULT -1 COMMENT '委托价格',
     strike_price DECIMAL(10, 4) NOT NULL DEFAULT 0 COMMENT '执行价格',
@@ -33,3 +35,4 @@ CREATE TABLE IF NOT EXISTS exchange(
 ALTER TABLE exchange CHANGE price strike_price DECIMAL(10, 4) COMMENT '执行价格';
 ALTER TABLE exchange ADD COLUMN delegate_price DECIMAL(10, 4) NOT NULL DEFAULT -1 COMMENT '委托价格' AFTER count;
 ALTER TABLE exchange ADD COLUMN desc_notice VARCHAR(1024) NOT NULL DEFAULT '' COMMENT '备注说明';
+ALTER TABLE exchange ADD COLUMN del_id INT NOT NULL DEFAULT 0 COMMENT '委托id' AFTER sid;
