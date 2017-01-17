@@ -48,6 +48,7 @@
                                 <li><a href="/account/password">修改密码</a></li>
                             </ul>
                         </li>
+                        <li id="navbar_analysis"><a href="/user/analysis">数据分析</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="navbar_user"><a href="/stock/holdings"><?php echo $this->userInfo['nickname']; ?></a></li>
@@ -68,6 +69,7 @@
         </script>
         <?php $this->staExport('/script/lib/jquery-2.1.3.js'); ?>
         <?php $this->staExport('/script/lib/jquery.cookie-1.4.1.min.js'); ?>
+        <?php $this->staExport('/script/lib/highcharts.js'); ?>
 
         <!-- bootstrap select http://silviomoreto.github.io/bootstrap-select/ -->
         <?php $this->staExport('/script/lib/bootstrap-select.min.js'); ?>

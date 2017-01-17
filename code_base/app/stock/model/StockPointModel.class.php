@@ -27,4 +27,13 @@ class StockPointModel {
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }
+
+    //查询最近指数记录
+    public static function selectList($sid, $startTime) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('sid', 'date', 'closing_price', 'time'),
+                array(array('sid', '=', $sid), array('time', '>', $startTime)), array(1000), array('time' => 'desc'));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
 }
