@@ -8,6 +8,8 @@
 
 abstract class StockMaster extends PageBase {
 
+    public $userInfo;
+
     public function __construct() {
         //页面请求均需验证
         $this->userInfo = $this->stockAccessVerify();

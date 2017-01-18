@@ -38,11 +38,9 @@ class DealExchange extends CronBase {
                 if (date('s') % 5 != 0) {   //每5秒启动一次
                     continue;
                 }
-                if (date('s') == 0) {   //间隔每分钟刷新交易状态
-                    $openFlag = StockCompanyNamespace::isExchangeHour();
-                    if (!$openFlag) {   //非开市时间不交易
-                        continue;
-                    }
+                $openFlag = StockCompanyNamespace::isExchangeHour();
+                if (!$openFlag) {   //非开市时间不交易
+                    continue;
                 }
                 if (time() > strtotime('15:05')) {  //结束交易时间，退出脚本
                     return true;
@@ -78,7 +76,7 @@ class DealExchange extends CronBase {
 
                 foreach ($detailList[$dlgItem['sid']]['outright_list'] as $record) {
                     //比对委托时间
-                    if ($dlgItem['update_t'] >= $record['tstamp']) {
+                    if ($dlgItem['update_t'] >= $record['tstamp'] || date('Ymd', $record['tstamp']) != date('Ymd')) {
                         continue;
                     }
                     //买卖判断

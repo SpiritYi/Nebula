@@ -37,4 +37,14 @@ class ExchangeModel {
         $res = DBMysqlNamespace::query($handle, $sqlString);
         return $res;
     }
+
+    //获取最近的交易记录, 统计用
+    public static function getRecentList($uid, $startT) {
+        $handle = BaseStockModel::getDBHandle();
+        $sqlString = SqlBuilderNamespace::buildSelectSql(self::$_TABLE, array('id', 'uid', 'sid', 'count', 'del_id', 'delegate_price', 'strike_price',
+            'direction', 'commission', 'tax', 'earn', 'time', 'desc_notice'), array(array('uid', '=', $uid), array('time', '>', $startT)),
+            array(2000), array('time' => 'desc'));
+        $res = DBMysqlNamespace::query($handle, $sqlString);
+        return $res;
+    }
 }
