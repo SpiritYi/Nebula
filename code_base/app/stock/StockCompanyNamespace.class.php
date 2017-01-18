@@ -215,8 +215,8 @@ class StockCompanyNamespace {
         $isExchange = false;
         $t = time();
         if (!in_array(date('w'), [0, 6]) &&
-            ((strtotime('09:25') < $t && $t < strtotime('11:35')) ||
-            (strtotime('12:55') < $t && $t < strtotime('15:05')))) {
+            ((strtotime('09:30') <= $t && $t <= strtotime('11:30')) ||
+            (strtotime('13:00') <= $t && $t <= strtotime('15:01')))) {
             $dayData = StockPointModel::selectDayPoint('699001', date('Ymd'));
             if (!empty($dayData)) {
                 $isExchange = true;
