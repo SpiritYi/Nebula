@@ -8,7 +8,7 @@
         width: 100%;
         padding: 20px 50px;
         text-align: center;
-        font-size: 150%;
+        font-size: 140%;
         background-color: #F5F5F5;
     }
 </style>
@@ -24,13 +24,16 @@
 </div>
 <div class="container">
     <div class="row year-link">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
+            <a href="/company/earnings?y=2017">2017投资收益</a>
+        </div>
+        <div class="col-lg-3">
             <a href="/company/earnings?y=2016">2016投资收益</a>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <a href="/company/earnings?y=2015">2015投资收益</a>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <a href="/company/earnings?y=2014">2014投资收益</a>
         </div>
     </div>
