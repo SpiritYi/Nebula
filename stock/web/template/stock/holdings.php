@@ -128,7 +128,7 @@
 
                             //市值
                             var itemValue = item['price'] * tr.children('.count').html();
-                            tr.children('.market-value').html(itemValue);
+                            tr.children('.market-value').html(itemValue.toFixed(2));
                             valueCount += itemValue;
 
                             //盈亏
