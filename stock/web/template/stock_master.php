@@ -13,6 +13,9 @@
         <?php $this->loadHead(); ?>
         <title>Nebula Stock</title>
         <style type="text/css">
+            body, .container {
+                min-width: 1200px;
+            }
             .navbar-brand {
                 padding: 4px;
                 margin-right: 15px;
@@ -35,7 +38,7 @@
                         <img alt="Nebula" height="42px" src="<?php echo DomainConfig::STA_DOMAIN; ?>/image/logo/nebula_logo_stock_128.png" >
                     </a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li id="navbar_holdings"><a href="/stock/holdings">我的持仓</a></li>
                         <li id="navbar_losslimit"><a href="/exchange/losslimit">设置止损</a></li>

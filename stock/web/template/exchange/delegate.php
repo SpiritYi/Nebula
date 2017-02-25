@@ -37,7 +37,7 @@
     </ul>
 </div>
 <div class="container">
-    <div class="col-lg-4">
+    <div class="col-sm-4">
         <div class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3">公司</label>
@@ -94,9 +94,9 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-sm-4">
     </div>
-    <div class="col-lg-4 delegate-block">
+    <div class="col-sm-4 delegate-block">
         <p class="title"><?php echo $this->op == DelegatePage::OP_SELL ? '委卖列表' : '委买列表'; ?></p>
         <table class="table" id="dgt_table" style="display:">
             <!-- <tr id="table_tr_1">
