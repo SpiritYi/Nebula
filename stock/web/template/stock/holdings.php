@@ -2,6 +2,10 @@
     .sname {
         color: #A020F0;
     }
+    .hold_rate {
+        margin-top: 29px;
+        text-align: right;
+    }
 </style>
 <div class="container">
     <div>
@@ -36,7 +40,14 @@
         </table>
     </div>
     <div>
-        <h3>持股</h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>持股</h3>
+            </div>
+            <div class="col-sm-6">
+                <div class="hold_rate note">仓位: <span id="p_rate"></span>%</div>
+            </div>
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -66,12 +77,12 @@
                             <td class="sid"><?php echo $item['sid']; ?></td>
                             <td class="sname"><?php echo $item['sname']; ?></td>
                             <td class="count"><?php echo $item['count']; ?></td>
-                            <td class=""><?php echo $item['available_count']; ?></td>
-                            <td><?php echo $this->showPrice($item['per_cost'], 3); ?></td>
+                            <td class="note"><?php echo $item['available_count']; ?></td>
+                            <td class=""><?php echo $this->showPrice($item['per_cost'], 3); ?></td>
 
                             <td class="price hg-field"></td>
                             <td class="price-diff-rate hg-field"></td>
-                            <td class="market-value"></td>
+                            <td class="market-value note"></td>
 
                             <td class="earn-rate hg-field"></td>
                             <td class="earn hg-field"></td>
@@ -144,12 +155,17 @@
                             valueCount += parseInt(tr.children('.market-value').html());
                         }
                     });
-                    if (valueCount != $('#value_count').html()) {
-                        var colorClass = valueCount > $('#value_count').html() ? 'stock-up' : 'stock-under',
+                    var valueCountObj = $('#value_count');
+                    if (valueCount != valueCountObj.html()) {
+                        var colorClass = valueCount > valueCountObj.html() ? 'stock-up' : 'stock-under',
                             allProperty = valueCount + parseInt($('#money').html());
 
-                        $('#value_count').html(valueCount);
+                        valueCountObj.html(valueCount);
                         $('#property').html(allProperty);
+
+                        console.log(allProperty, valueCount);
+                        //刷新仓位比例
+                        $('#p_rate').html(parseInt(valueCount / allProperty * 100));
 
                         //刷新最近盈亏
                         $('.last-earn').each(function() {

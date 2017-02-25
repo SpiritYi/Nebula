@@ -4,7 +4,7 @@
     }
 </style>
 <div class="container">
-    <div class="col-lg-4">
+    <div class="col-sm-4">
         <div class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-4 control-label">持股公司</label>
