@@ -36,7 +36,7 @@ class StockCompanyNamespace {
             'time' => strtotime($fieldArr[30] . ' ' . $fieldArr[31]),   //最后更新时间
         );
         $info['price_diff'] = self::showPrice($info['price'] - $info['ysd_closing_price']);             //涨跌价差
-        $info['price_diff_rate'] = self::showPrice(round($info['price_diff'] / $info['ysd_closing_price'] * 100, 2));    //涨跌幅
+        $info['price_diff_rate'] = $info['ysd_closing_price'] > 0 ? self::showPrice(round($info['price_diff'] / $info['ysd_closing_price'] * 100, 2)) : 0.00;    //涨跌幅
         return $info;
     }
 

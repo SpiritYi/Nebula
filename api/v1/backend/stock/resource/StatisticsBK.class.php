@@ -62,7 +62,7 @@ class StatisticsBKRes extends ResourceBase {
                     [
                         'type' => DayStatisticsNamspace::PRICE_DOWN_C,
                         'name' => '跌3%~5%',
-                        'color' => '#0CF',
+                        'color' => '#3CF',
                     ],
                 );
                 break;
@@ -130,6 +130,7 @@ class StatisticsBKRes extends ResourceBase {
         $colorList = array();
         foreach ($config as $cItem) {
             $colorList[] = $cItem['color'];
+            ksort($lineArr[$cItem['type']]);                //重新按日期排序好
             $chartsList[] = array(
                 'name' => $cItem['name'],
                 'data' => array_values($lineArr[$cItem['type']]),

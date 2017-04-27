@@ -69,7 +69,7 @@
                             text: '营收百分比 (%)'
                         }
                     },
-                    colors: ['#A020F0', '#000'],
+                    colors: ['#A020F0', '#000', '#3CF'],
                     tooltip: {
                         valueSuffix: '%'
                     },
@@ -122,7 +122,7 @@
                     tooltip: {
                         valueSuffix: ' 份'
                     },
-                    colors: ['#A020F0', '#000'],
+                    colors: ['#A020F0', '#000', '#3CF'],
                     plotOptions: {
                         line: {
                             dataLabels: {
