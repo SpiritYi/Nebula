@@ -33,7 +33,7 @@ class CollectAllClosePoint extends CronBase {
         }
         $cmpCount = StockCompanyNamespace::getCompanyCount();
         if (empty($cmpCount)) {
-            $cmpCount = 3000;
+            $cmpCount = 4000;
         }
         $loopFlag = true;
         $startSid = '';
@@ -80,7 +80,7 @@ class CollectAllClosePoint extends CronBase {
 
     public function dayStatistice() {
         $dealDate = date('Ymd');
-//        $dealDate = '20161223';
+//        $dealDate = '20170426';
         if ($dealDate == date('Ymd')) {
             $openFlag = StockCompanyNamespace::isExchangeDay();
             if (!$openFlag) {   //当天不交易不处理
