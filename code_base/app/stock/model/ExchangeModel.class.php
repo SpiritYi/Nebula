@@ -11,6 +11,8 @@ require_once CODE_BASE . '/app/db/BaseStockModel.class.php';
 class ExchangeModel {
     const DIRECTION_BUY = 1;
     const DIRECTION_SELL = -1;
+    const DIRECTION_MARGIN_SHORT_BUY = 2;           //融券买进平仓
+    const DIRECTION_MARGIN_SHORT_SELL = -2;         //融券卖出
 
     private static $_TABLE = 'exchange';
 

@@ -1,0 +1,30 @@
+//用户信用账户持股表
+
+user_margin_stock
+    id      int     //自增id
+    uid     int     //uid
+    sid     string  //stock id
+    count   int     //持股数
+    available_count int     //可卖数量
+    strike_price decimal    //执行价格
+    cost    decimal //总花费
+    time    int     //首次购买
+    loss_limit decimal      //止损价格
+    limit_alert_time int    //止损价格提醒时间
+
+CREATE TABLE IF NOT EXISTS user_margin_stock(
+    id INT AUTO_INCREMENT,
+    uid INT NOT NULL DEFAULT 0 COMMENT 'uid',
+    sid VARCHAR(8) NOT NULL DEFAULT '' COMMENT 'stock id',
+    count INT NOT NULL DEFAULT 0 COMMENT '持股数量',
+    available_count INT NOT NULL DEFAULT 0 COMMENT '可卖数量',
+    strike_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '执行价格',
+    cost DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '总花费',
+    time INT NOT NULL DEFAULT 0 COMMENT '首次购买时间',
+    loss_limit DECIMAL(24, 4) NOT NULL DEFAULT 0 COMMENT '止损价格',
+    limit_alert_time int NOT NULL DEFAULT 0 COMMENT '止损触发提醒时间',
+    PRIMARY KEY (id),
+    KEY idx_uid (uid)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='用户信用账户持股表';
+
+ALTER TABLE user_margin_stock ADD COLUMN strike_price DECIMAL(24,4) NOT NULL DEFAULT 0 COMMENT '执行价格';

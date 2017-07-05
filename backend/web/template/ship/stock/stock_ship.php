@@ -7,6 +7,10 @@
         <input type="button" id="forex_asset_btn" class="btn btn-default" value="外汇总值" />
         <?php $this->render('/ship/stock/forex_asset.php'); ?>
     </div>
+    <div class="col-lg-2">
+        <input type="button" id="margin_stock_btn" class="btn btn-default" value="信用交易" />
+        <?php $this->render('/ship/stock/margin_stock.php'); ?>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -19,6 +23,10 @@
 
         $('#forex_asset_btn').click(function() {
             $('#asset_modal').modal({backdrop: 'static'});
+        });
+
+        $('#margin_stock_btn').click(function() {
+            $('#margin_modal').modal({backdrop: 'static'});
         });
     });
 </script>
