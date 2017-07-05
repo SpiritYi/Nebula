@@ -51,6 +51,7 @@
                                 <li><a href="/account/password">修改密码</a></li>
                             </ul>
                         </li>
+                        <li id="navbar_margin"><a href="/stock/margin">融资融券</a></li>
                         <li id="navbar_analysis"><a href="/user/analysis">数据分析</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
