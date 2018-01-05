@@ -1,4 +1,12 @@
 <style type="text/css">
+    .love-item {
+        padding: 20px 20px 10px 20px;
+        margin: 20px 0px;
+        background-color: #F5F5F5;
+    }
+    .love-item .big-word {
+        color: #FF33FF;
+    }
     .event-item {
         padding: 20px 20px 10px 20px;
         margin: 20px 0px;
@@ -10,17 +18,28 @@
     .big-word {
         font-size: 300%;
         color: #CCC;
-    }
-    .remain-day {
-        float: left;
         width: 80px;
+        margin-right: 10px;
     }
     .gap-text {
-        margin-right: 20px;
+        margin-right: 15px;
     }
 </style>
 <div class="container">
     <div class="row">
+        <div class="love-item">
+            <div class="top-text">
+                <span>相识 2015/10/20</span>
+            </div>
+            <div class="time-body">
+                <input type="hidden" class="start-ts" data-tag="" value="1445270400" />
+                <span class="big-word"><?php echo intval($this->loveTime['a']); ?></span><span class="gap-text">天</span>
+                <span class="big-word" style="margin-left: 35px;"><?php echo intval($this->loveTime['y']); ?></span><span class="gap-text">年</span>
+                <span class="big-word"><?php echo intval($this->loveTime['m']); ?></span><span class="gap-text">月</span>
+                <span class="big-word"><?php echo intval($this->loveTime['d']); ?></span><span class="gap-text">日</span>
+                
+            </div>
+        </div>
         <?php foreach($this->endTimeConfig as $i => $endTimeStr) {
             if (strtotime($endTimeStr) < time()) {
                 continue;
