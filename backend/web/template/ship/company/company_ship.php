@@ -13,6 +13,11 @@
         <input type="button" id="property_rate_modal_btn" class="btn btn-default" value="资产比例">
         <?php $this->render('/ship/company/property_rate_bk.php'); ?>
     </div>
+    
+    <div class="col-lg-2">
+        <input type="button" id="price_rate_modal_btn" class="btn btn-default" value="价格角度线">
+        <?php $this->render('/ship/company/price_rate_bk.php'); ?>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -29,6 +34,10 @@
 
         $('#property_rate_modal_btn').click(function() {
             $('#property_rate_modal').modal();
+        });
+        
+        $('#price_rate_modal_btn').click(function() {
+            $('#price_rate_modal').modal();
         });
     });
 </script>
