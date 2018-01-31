@@ -56,7 +56,6 @@
 
         $('#property_sum').keyup(function(e) {
             if (e.keyCode == 13) {
-                console.log('herer');
                 var sum = $(this).val();
                 var html = '';
                 for (var i = 1; i > 0.2; i -= 0.1) {
