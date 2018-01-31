@@ -49,7 +49,7 @@
                     //            loading: $('.submit-group img'),
                     type: 'GET',
                     data: {price: $('#price_str').val()},
-                    url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/backend/company/ToolBk/price',
+                    url: '<?php echo DomainConfig::API_DOMAIN; ?>' + '/v1/backend/company/toolbk/price',
                     success: function (data) {
                         var html = '';
                         $.each(data.data, function (k, item) {
